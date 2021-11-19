@@ -7,7 +7,21 @@ public class LogInUI
     public String inputUsrName()
     {
         Input input = new Input();
-        return input.acceptString(" LOG IN\nPlease enter your username:");
+        return input.acceptString("Please enter your username:");
+    }
+
+    //get email
+    public String inputEmail()
+    {
+        Input input = new Input();
+        return input.acceptString("Please enter your email:");
+    }
+
+    //get password
+    public String inputPassword()
+    {
+        Input input = new Input();
+        return input.acceptString("Please enter your password:");
     }
 
     //display welcome screen and return user input
