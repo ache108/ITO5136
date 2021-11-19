@@ -30,7 +30,7 @@ public class LogInCtrl
     {
         //display register screen, get user input
         //compares to all email and username from file
-        //if successful (no repeats), direct to js login controller
+        //if successful (no repeats), save info to file & direct to js login controller
         //if existing email or repeat username, loop (user chooses to try again or go back etc.)
         //if password doesn't fit requirement, loop
         LogInUI ui = new LogInUI();
@@ -42,7 +42,7 @@ public class LogInCtrl
     {
         //display register screen, get user input
         //compares to all email and username from file
-        //if successful (no repeats), direct to rc login controller
+        //if successful (no repeats), save info to file & direct to rc login controller
         //if existing email or repeat username, loop (user chooses to try again or go back etc.)
         //if password doesn't fit requirement, loop
         LogInUI ui = new LogInUI();
