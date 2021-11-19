@@ -1,3 +1,6 @@
+package Control;
+import Control.LogInCtrl;
+
 public class JSS
 {
     //all filenames as public constants
