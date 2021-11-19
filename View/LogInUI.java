@@ -1,3 +1,6 @@
+package View;
+import View.Input;
+
 public class LogInUI
 {
     //get username

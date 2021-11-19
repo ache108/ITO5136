@@ -1,3 +1,6 @@
+package Control;
+import View.LogInUI;
+
 public class LogInCtrl
 {
     private void jsLogIn()
