@@ -1,73 +1,74 @@
 package Control;
 import View.LogInUI;
+import View.RegisterUI;
 
 public class LogInCtrl
 {
-    private void jsLogIn()
+
+    private void logIn(int usrType)
     {
         //display log in screen, get user input
         //access job seeker usernames/passwords from file
         //if successful, direct to job seeker controller
         //if unsuccessful, loop (user chooses to try again or go back etc.)
-        LogInUI ui = new LogInUI();
-        System.out.println("JOB SEEKER LOG IN");
-        String username = ui.inputUsrName();
+        LogInUI ui = new View.LogInUI();
 
+        boolean verifiedUsr = true;
+        do {
+            String username = ui.inputUsrName();
+            String passwd = ui.inputUsrPwd();
+            verifiedUsr = rcUsrCheck(username, passwd);
+        } while (verifiedUsr);
+
+        if (usrType == 1)
+        {
+            // direct to Job seeker controller
+        }
+        else
+        {
+            // direct to recruiter controller
+        }
     }
 
-    private void rcLogIn()
+    private boolean rcUsrCheck(String iptName, String iptPwd)
     {
-        //display log in screen, get user input
-        //access recruiter usernames/passwords from file
-        //if successful, direct to recruiter controller
-        //if unsuccessful, loop (user chooses to try again or go back etc.)
-        LogInUI ui = new LogInUI();
-        System.out.println("RECRUITER LOG IN");
-        String username = ui.inputUsrName();
-    }
+        // check username and passwords here?
+        // do we store in file?
+        // return from another method to check...
+        String testName = "Test";
+        String testPwd = "Testy#123";
 
-    private void jsRegister()
-    {
-        //display register screen, get user input
-        //compares to all email and username from file
-        //if successful (no repeats), save info to file & direct to js login controller
-        //if existing email or repeat username, loop (user chooses to try again or go back etc.)
-        //if password doesn't fit requirement, loop
-        LogInUI ui = new LogInUI();
-        System.out.println("JOB SEEKER REGISTER");
-        String username = ui.inputUsrName();
-    }
-
-    private void rcRegister()
-    {
-        //display register screen, get user input
-        //compares to all email and username from file
-        //if successful (no repeats), save info to file & direct to rc login controller
-        //if existing email or repeat username, loop (user chooses to try again or go back etc.)
-        //if password doesn't fit requirement, loop
-        LogInUI ui = new LogInUI();
-        System.out.println("RECRUITER REGISTER");
-        String username = ui.inputUsrName();
+        if (testName.equals(iptName) && testPwd.equals(iptPwd))
+        {
+            // Print out welcome!
+            System.out.println("Welcome " + iptName);
+            return false;
+        }
+        else
+        {
+            System.out.println("Error logging in. Please check your username & password.");
+            return true;
+        }
     }
 
     //control flow of use case
     public void start()
     {
-        LogInUI ui = new LogInUI();
+        LogInUI ui = new View.LogInUI();
         int logInType = ui.displayWelcomeScreen();
         switch (logInType)
         {
             case 1:
-                jsLogIn();
+                logIn(logInType);
                 break;
             case 2:
-                rcLogIn();
+                logIn(logInType);
                 break;
             case 3:
-                jsRegister();
+                RegisterUI.userRegisterScreen(logInType);
                 break;
             case 4:
-                rcRegister();
+                RegisterUI.userRegisterScreen(logInType);
                 break;
             case 5:
                 System.out.println(logInType);
