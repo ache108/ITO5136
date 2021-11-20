@@ -10,6 +10,13 @@ public class LogInUI
         return input.acceptString(" LOG IN\nPlease enter your username:");
     }
 
+    //get username
+    public String inputUsrPwd()
+    {
+        Input input = new Input();
+        return input.acceptString(" LOG IN\nPlease enter your password:");
+    }
+
     //display welcome screen and return user input
     public int displayWelcomeScreen()
     {
