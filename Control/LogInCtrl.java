@@ -10,7 +10,7 @@ public class LogInCtrl
         //if successful, direct to job seeker controller
         //if unsuccessful, loop (user chooses to try again or go back etc.)
         LogInUI ui = new LogInUI();
-        System.out.println(" LOG IN");
+        System.out.println("JOB SEEKER LOG IN");
         String username = ui.inputUsrName();
 
     }
@@ -22,7 +22,7 @@ public class LogInCtrl
         //if successful, direct to recruiter controller
         //if unsuccessful, loop (user chooses to try again or go back etc.)
         LogInUI ui = new LogInUI();
-        System.out.println(" LOG IN");
+        System.out.println("RECRUITER LOG IN");
         String username = ui.inputUsrName();
     }
 
@@ -34,7 +34,7 @@ public class LogInCtrl
         //if existing email or repeat username, loop (user chooses to try again or go back etc.)
         //if password doesn't fit requirement, loop
         LogInUI ui = new LogInUI();
-        System.out.println(" REGISTER");
+        System.out.println("JOB SEEKER REGISTER");
         String username = ui.inputUsrName();
     }
 
@@ -46,7 +46,7 @@ public class LogInCtrl
         //if existing email or repeat username, loop (user chooses to try again or go back etc.)
         //if password doesn't fit requirement, loop
         LogInUI ui = new LogInUI();
-        System.out.println(" REGISTER");
+        System.out.println("RECRUITER REGISTER");
         String username = ui.inputUsrName();
     }
 
