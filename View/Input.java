@@ -1,8 +1,36 @@
 package View;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Input
 {
+    public boolean acceptBoolean(String prompt)
+            throws IndexOutOfBoundsException
+    {
+        boolean iptBoolean = false;
+        boolean validIpt = true;
+        do {
+            printPrompt(prompt);
+            char iptChar = keyboardInput().toLowerCase().charAt(0);
+            if (iptChar == 'y')
+            {
+                iptBoolean = true;
+                validIpt = false;
+            } else if (iptChar == 'n')
+            {
+                iptBoolean = false;
+                validIpt = false;
+            }
+            else
+            {
+                printPrompt("Please enter y or n!");
+            }
+        } while (validIpt);
+
+        return iptBoolean;
+    }
+
     public char acceptChar(String prompt)
         throws IndexOutOfBoundsException
     {
@@ -15,6 +43,27 @@ public class Input
     {
         printPrompt(prompt);
         return keyboardInput().charAt(index);
+    }
+
+    public Date acceptDate(String prompt)
+            throws IllegalArgumentException
+    {
+        boolean validIpt = true;
+        Date date = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        do {
+            try {
+                printPrompt(prompt);
+                String iptDate = keyboardInput();
+                date = dateFormat.parse(iptDate);
+                validIpt = false;
+
+            } catch (Exception e) {
+                printPrompt("Error! Please enter date in format dd-mm-yyyy");
+            }
+        } while (validIpt);
+        return date;
     }
 
     public double acceptDouble(String prompt)
