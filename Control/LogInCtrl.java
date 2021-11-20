@@ -1,9 +1,11 @@
-package Control;
-import View.LogInUI;
+//package Control;
+//import View.LogInUI;
 
 public class LogInCtrl
 {
-    private void jsLogIn()
+    //private LogInUI ui;
+
+    public void jsLogIn()
     {
         //display log in screen, get user input
         //access job seeker usernames/passwords from file
@@ -14,7 +16,7 @@ public class LogInCtrl
 
     }
 
-    private void rcLogIn()
+    public void rcLogIn()
     {
         //display log in screen, get user input
         //access recruiter usernames/passwords from file

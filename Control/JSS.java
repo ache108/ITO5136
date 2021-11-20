@@ -1,5 +1,5 @@
-package Control;
-import Control.LogInCtrl;
+//package Control;
+//import Control.LogInCtrl;
 
 public class JSS
 {
