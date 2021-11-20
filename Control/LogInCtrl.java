@@ -34,6 +34,7 @@ public class LogInCtrl
     {
         // check username and passwords here?
         // do we store in file?
+        // return from another method to check...
         String testName = "Test";
         String testPwd = "Testy#123";
 

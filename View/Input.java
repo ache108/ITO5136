@@ -13,6 +13,7 @@ public class Input
         do {
             printPrompt(prompt);
             char iptChar = keyboardInput().toLowerCase().charAt(0);
+            // separate method here to reuse?
             if (iptChar == 'y')
             {
                 iptBoolean = true;
