@@ -1,8 +1,8 @@
-package View;
-import View.Input;
+//package View;
+//import View.Input;
 import java.util.Date;
 
-public class RegisterUI
+public class adwadwadasaRegisterUI
 {
     // do we want to get users to confirm all input that they enter?
 
