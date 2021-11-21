@@ -31,6 +31,15 @@ public class FileIO
         this.fileName = fileName;
     }
 
+    public void appendFile(String output)
+            throws IOException
+    {
+        System.out.println("y");
+        FileWriter writer = new FileWriter(fileName, true);
+        writer.append("\n" + output);
+        writer.close();
+    }
+
     /**
     * Accessor method to get the file name
     *

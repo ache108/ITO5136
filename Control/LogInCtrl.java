@@ -94,6 +94,68 @@ public class LogInCtrl
         }
     }
 
+    private void register(int usrType)
+    {
+        LogInUI ui = new LogInUI();
+
+        String filename = "";
+        if(usrType == 3)
+            filename = JSS.JSLOGIN;
+        if(usrType == 4)
+            filename = JSS.RCLOGIN;
+
+        String[][] usernames = {};
+        try
+        {
+            usernames = getLoginCreds(filename);
+            String iptName = "";
+            boolean validName = true;
+            do
+            {
+                validName = true;
+                iptName = ui.inputUsrName();
+
+                if(iptName.contains(",") || iptName.contains(";"))
+                {
+                    ui.displayMsg("Username cannot contain ',' or ';'");
+                    validName = false;
+                    continue;
+                }
+
+                for(int i = 0; i < usernames.length; i++)
+                {
+                    if(iptName.equals(usernames[i][0]))
+                    {
+                        int choice = ui.displayChoice("Username already exists.\nPress 1 to try another\nPress 0 to go back", 0, 1);
+                        if(choice == 0)
+                        {
+                            start();
+                            return;
+                        }
+                        if(choice == 1)
+                        {
+                            validName = false;
+                            break;
+                        }
+                    }
+                }
+            }while(!validName);
+
+            String iptPwd = ui.inputUsrPwd();
+            updateFile(filename, iptName, iptPwd);
+
+            if(usrType == 3)
+                JobSeekerUI.jobSeekerRegisterScreen();
+            if(usrType == 4)
+                RecruiterUI.recruiterRegisterScreen();
+        }
+        catch(Exception e)
+        {
+            ui.displayMsg("Error: there was a problem accessing the file");
+            start();
+        }
+    }
+
     //control flow of use case
     public void start()
     {
@@ -106,14 +168,19 @@ public class LogInCtrl
                 logIn(logInType);
                 break;
             case 3:
-                JobSeekerUI.jobSeekerRegisterScreen();
-                break;
             case 4:
-                RecruiterUI.recruiterRegisterScreen();
+                register(logInType);
                 break;
             case 5:
                 ui.displayMsg("Exiting Program");
                 break;
         }
+    }
+
+    private void updateFile(String filename, String usrname, String pwd)
+            throws IOException
+    {
+        FileIO file = new FileIO(filename);
+        file.appendFile(usrname + "," + pwd);
     }
 }

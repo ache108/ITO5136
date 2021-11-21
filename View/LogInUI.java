@@ -10,25 +10,17 @@ public class LogInUI
         return input.acceptString("Please enter your username:");
     }
 
-    //get email
-    public String inputEmail()
-    {
-        Input input = new Input();
-        return input.acceptString("Please enter your email:");
-    }
-
-    //get password
-    public String inputPassword()
-    {
-        Input input = new Input();
-        return input.acceptString("Please enter your password:");
-    }
-
     //get username
     public String inputUsrPwd()
     {
         Input input = new Input();
         return input.acceptString("Please enter your password:");
+    }
+
+    public int displayChoice(String msg, int min, int max)
+    {
+        Input input = new Input();
+        return input.acceptInt(msg, min, max);
     }
 
     public void displayMsg(String msg)
