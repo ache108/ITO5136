@@ -28,7 +28,12 @@ public class LogInUI
     public String inputUsrPwd()
     {
         Input input = new Input();
-        return input.acceptString(" LOG IN\nPlease enter your password:");
+        return input.acceptString("Please enter your password:");
+    }
+
+    public void displayMsg(String msg)
+    {
+        System.out.println(msg);
     }
 
     //display welcome screen and return user input

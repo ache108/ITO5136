@@ -1,10 +1,67 @@
 package Control;
+import Control.JSS;
+import Control.FileIO;
 import View.LogInUI;
 import View.JobSeekerUI;
 import View.RecruiterUI;
+import java.io.*;
 
 public class LogInCtrl
 {
+
+    private boolean checkUsrCred(int usrType, String iptName, String iptPwd)
+    {
+        LogInUI ui = new LogInUI();
+
+        String filename = "";
+        if(usrType == 1)
+            filename = JSS.JSLOGIN;
+        if(usrType == 2)
+            filename = JSS.RCLOGIN;
+
+        try
+        {
+            String[][] loginCreds = getLoginCreds(filename);
+            for(int i = 0; i < loginCreds.length; i++)
+            {
+                if(iptName.equals(loginCreds[i][0]))
+                    if(iptPwd.equals(loginCreds[i][1]))
+                        return true;
+                    else
+                    {
+                        ui.displayMsg("Incorrect password");
+                        return false;
+                    }
+            }
+            ui.displayMsg("User not found");
+            return false;
+        }
+        catch(FileNotFoundException e)
+        {
+            ui.displayMsg("Error: file not found");
+            return false;
+        }
+        catch(IOException i)
+        {
+            ui.displayMsg("Error: there was a problem reading the file");
+            return false;
+        }
+    }
+
+    private String[][] getLoginCreds(String filename)
+            throws IOException, FileNotFoundException
+    {
+        FileIO file = new FileIO(filename);
+
+        String[] lines = file.readFile(";").split(";");
+        String[][] output = new String[lines.length][2];
+        for(int i = 0; i < lines.length; i++)
+        {
+            output[i] = lines[i].split(",");
+        }
+
+        return output;
+    }
 
     private void logIn(int usrType)
     {
@@ -14,41 +71,26 @@ public class LogInCtrl
         //if unsuccessful, loop (user chooses to try again or go back etc.)
         LogInUI ui = new View.LogInUI();
 
-        boolean verifiedUsr = true;
-        do {
-            String username = ui.inputUsrName();
-            String passwd = ui.inputUsrPwd();
-            verifiedUsr = rcUsrCheck(username, passwd);
-        } while (verifiedUsr);
+        String username = ui.inputUsrName();
+        String passwd = ui.inputUsrPwd();
+        boolean verifiedUsr = checkUsrCred(usrType, username, passwd);
 
-        if (usrType == 1)
+        if(verifiedUsr)
         {
-            // direct to Job seeker controller
+            ui.displayMsg("Logging in as " + username);
+
+            if(usrType == 1)
+            {
+                //call jobseekerctrl
+            }
+            if(usrType == 2)
+            {
+                //call recruiterctrl
+            }
         }
         else
         {
-            // direct to recruiter controller
-        }
-    }
-
-    private boolean rcUsrCheck(String iptName, String iptPwd)
-    {
-        // check username and passwords here?
-        // do we store in file?
-        // return from another method to check...
-        String testName = "Test";
-        String testPwd = "Testy#123";
-
-        if (testName.equals(iptName) && testPwd.equals(iptPwd))
-        {
-            // Print out welcome!
-            System.out.println("Welcome " + iptName);
-            return false;
-        }
-        else
-        {
-            System.out.println("Error logging in. Please check your username & password.");
-            return true;
+            start();
         }
     }
 
@@ -60,8 +102,6 @@ public class LogInCtrl
         switch (logInType)
         {
             case 1:
-                logIn(logInType);
-                break;
             case 2:
                 logIn(logInType);
                 break;
@@ -72,7 +112,7 @@ public class LogInCtrl
                 RecruiterUI.recruiterRegisterScreen();
                 break;
             case 5:
-                System.out.println(logInType);
+                ui.displayMsg("Exiting Program");
                 break;
         }
     }
