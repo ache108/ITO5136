@@ -7,14 +7,25 @@ public class LogInUI
     public String inputUsrName()
     {
         Input input = new Input();
-        return input.acceptString(" LOG IN\nPlease enter your username:");
+        return input.acceptString("Please enter your username:");
     }
 
     //get username
     public String inputUsrPwd()
     {
         Input input = new Input();
-        return input.acceptString(" LOG IN\nPlease enter your password:");
+        return input.acceptString("Please enter your password:");
+    }
+
+    public int displayChoice(String msg, int min, int max)
+    {
+        Input input = new Input();
+        return input.acceptInt(msg, min, max);
+    }
+
+    public void displayMsg(String msg)
+    {
+        System.out.println(msg);
     }
 
     //display welcome screen and return user input

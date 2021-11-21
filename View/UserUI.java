@@ -2,29 +2,12 @@ package View;
 import View.Input;
 import java.util.Date;
 
-public class RegisterUI
+public class UserUI
 {
     // do we want to get users to confirm all input that they enter?
 
-    public static void jobSeekerInputs()
-    {
-        Input input = new Input();
-        String msg = "Please enter ";
-        String wrkType = input.acceptString(msg + "the type of work you are looking for (Fulltime, Contract, Part time)");
-        String wrkResidency = input.acceptString(msg + "your Australian residency status (Visaholder, resident, citizen)");
-        // do loop for skills
-        Double wrkHrlyRate = input.acceptDouble(msg + "your desired hourly salary rate.");
-        // TO DO CV
-    }
-
-    public static void recruiterInputs()
-    {
-        Input input = new Input();
-        String usrCompany = input.acceptString("Please enter the Company you work for.");
-    }
-
     //display input for registration forms & save details into Txt File
-    public static void userRegisterScreen(int userOption)
+    public static void userRegisterScreen()
     {
         Input input = new Input();
         System.out.println("To register, we need to grab a few details off you");
@@ -41,18 +24,7 @@ public class RegisterUI
 
         // write inputs to file now or pass and save them all in a single turn?
         // TO DO: VERIFY EMAIL OR USER NAME IS UNIQUE!
-        // write method needs to create user id
+        // write method needs in file needs to create user id
 
-        switch(userOption)
-        {
-            case 3:
-                // job seeker fields
-                jobSeekerInputs();
-                break;
-            case 4:
-                // recuiter fields
-                recruiterInputs();
-                break;
-        }
     }
 }

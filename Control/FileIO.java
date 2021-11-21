@@ -1,3 +1,4 @@
+package Control;
 import java.io.*;
 import java.util.Scanner;
 
@@ -28,6 +29,15 @@ public class FileIO
     public FileIO(String fileName)
     {
         this.fileName = fileName;
+    }
+
+    public void appendFile(String output)
+            throws IOException
+    {
+        System.out.println("y");
+        FileWriter writer = new FileWriter(fileName, true);
+        writer.append("\n" + output);
+        writer.close();
     }
 
     /**

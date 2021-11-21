@@ -1,9 +1,67 @@
 package Control;
+import Control.JSS;
+import Control.FileIO;
 import View.LogInUI;
-import View.RegisterUI;
+import View.JobSeekerUI;
+import View.RecruiterUI;
+import java.io.*;
 
 public class LogInCtrl
 {
+
+    private boolean checkUsrCred(int usrType, String iptName, String iptPwd)
+    {
+        LogInUI ui = new LogInUI();
+
+        String filename = "";
+        if(usrType == 1)
+            filename = JSS.JSLOGIN;
+        if(usrType == 2)
+            filename = JSS.RCLOGIN;
+
+        try
+        {
+            String[][] loginCreds = getLoginCreds(filename);
+            for(int i = 0; i < loginCreds.length; i++)
+            {
+                if(iptName.equals(loginCreds[i][0]))
+                    if(iptPwd.equals(loginCreds[i][1]))
+                        return true;
+                    else
+                    {
+                        ui.displayMsg("Incorrect password");
+                        return false;
+                    }
+            }
+            ui.displayMsg("User not found");
+            return false;
+        }
+        catch(FileNotFoundException e)
+        {
+            ui.displayMsg("Error: file not found");
+            return false;
+        }
+        catch(IOException i)
+        {
+            ui.displayMsg("Error: there was a problem reading the file");
+            return false;
+        }
+    }
+
+    private String[][] getLoginCreds(String filename)
+            throws IOException, FileNotFoundException
+    {
+        FileIO file = new FileIO(filename);
+
+        String[] lines = file.readFile(";").split(";");
+        String[][] output = new String[lines.length][2];
+        for(int i = 0; i < lines.length; i++)
+        {
+            output[i] = lines[i].split(",");
+        }
+
+        return output;
+    }
 
     private void logIn(int usrType)
     {
@@ -13,40 +71,88 @@ public class LogInCtrl
         //if unsuccessful, loop (user chooses to try again or go back etc.)
         LogInUI ui = new View.LogInUI();
 
-        boolean verifiedUsr = true;
-        do {
-            String username = ui.inputUsrName();
-            String passwd = ui.inputUsrPwd();
-            verifiedUsr = rcUsrCheck(username, passwd);
-        } while (verifiedUsr);
+        String username = ui.inputUsrName();
+        String passwd = ui.inputUsrPwd();
+        boolean verifiedUsr = checkUsrCred(usrType, username, passwd);
 
-        if (usrType == 1)
+        if(verifiedUsr)
         {
-            // direct to Job seeker controller
+            ui.displayMsg("Logging in as " + username);
+
+            if(usrType == 1)
+            {
+                //call jobseekerctrl
+            }
+            if(usrType == 2)
+            {
+                //call recruiterctrl
+            }
         }
         else
         {
-            // direct to recruiter controller
+            start();
         }
     }
 
-    private boolean rcUsrCheck(String iptName, String iptPwd)
+    private void register(int usrType)
     {
-        // check username and passwords here?
-        // do we store in file?
-        String testName = "Test";
-        String testPwd = "Testy#123";
+        LogInUI ui = new LogInUI();
 
-        if (testName.equals(iptName) && testPwd.equals(iptPwd))
+        String filename = "";
+        if(usrType == 3)
+            filename = JSS.JSLOGIN;
+        if(usrType == 4)
+            filename = JSS.RCLOGIN;
+
+        String[][] usernames = {};
+        try
         {
-            // Print out welcome!
-            System.out.println("Welcome " + iptName);
-            return false;
+            usernames = getLoginCreds(filename);
+            String iptName = "";
+            boolean validName = true;
+            do
+            {
+                validName = true;
+                iptName = ui.inputUsrName();
+
+                if(iptName.contains(",") || iptName.contains(";"))
+                {
+                    ui.displayMsg("Username cannot contain ',' or ';'");
+                    validName = false;
+                    continue;
+                }
+
+                for(int i = 0; i < usernames.length; i++)
+                {
+                    if(iptName.equals(usernames[i][0]))
+                    {
+                        int choice = ui.displayChoice("Username already exists.\nPress 1 to try another\nPress 0 to go back", 0, 1);
+                        if(choice == 0)
+                        {
+                            start();
+                            return;
+                        }
+                        if(choice == 1)
+                        {
+                            validName = false;
+                            break;
+                        }
+                    }
+                }
+            }while(!validName);
+
+            String iptPwd = ui.inputUsrPwd();
+            updateFile(filename, iptName, iptPwd);
+
+            if(usrType == 3)
+                JobSeekerUI.jobSeekerRegisterScreen();
+            if(usrType == 4)
+                RecruiterUI.recruiterRegisterScreen();
         }
-        else
+        catch(Exception e)
         {
-            System.out.println("Error logging in. Please check your username & password.");
-            return true;
+            ui.displayMsg("Error: there was a problem accessing the file");
+            start();
         }
     }
 
@@ -58,20 +164,23 @@ public class LogInCtrl
         switch (logInType)
         {
             case 1:
-                logIn(logInType);
-                break;
             case 2:
                 logIn(logInType);
                 break;
             case 3:
-                RegisterUI.userRegisterScreen(logInType);
-                break;
             case 4:
-                RegisterUI.userRegisterScreen(logInType);
+                register(logInType);
                 break;
             case 5:
-                System.out.println(logInType);
+                ui.displayMsg("Exiting Program");
                 break;
         }
+    }
+
+    private void updateFile(String filename, String usrname, String pwd)
+            throws IOException
+    {
+        FileIO file = new FileIO(filename);
+        file.appendFile(usrname + "," + pwd);
     }
 }
