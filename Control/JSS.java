@@ -4,6 +4,8 @@ import Control.LogInCtrl;
 public class JSS
 {
     //all filenames as public constants
+    public static final String JSLOGIN = "Files/jsLoginCredentials.txt";
+    public static final String RCLOGIN = "Files/rcLoginCredentials.txt";
 
     public static void main(String[] args)
     {
