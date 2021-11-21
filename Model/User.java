@@ -1,12 +1,15 @@
+package Model;
+
 import java.util.Date;
 
 public class User
 {
-    public int userId;
     public String userName;
     public String userEmail;
     public String firstName;
     public String lastName;
+    public String city;
+    public String state;
     public Date dateOfBirth;
     public String passwd;
     public boolean publicProfile;
@@ -16,13 +19,17 @@ public class User
         // we don't want to have a blank user being created with no information?
     }
 
-    // userId comes from controller method and gets the last entry in file/db table
-    // User is created with basic attributes and other are set as the user completes the fields?
-    public User(int userId, String iptName, String iptEmail)
+    public User(String iptName, String iptEmail, String iptFirstName, String iptLastName, String iptCity, String iptState, String iptPasswd, Date iptDOB, boolean publicProfile)
     {
-        this.userId = userId;
         userName = iptName;
         userEmail = iptEmail;
+        firstName = iptFirstName;
+        lastName = iptLastName;
+                city = iptCity;
+                state = iptState;
+        passwd = iptPasswd;
+        dateOfBirth  = iptDOB;
+        this.publicProfile = publicProfile;
     }
     // Get attributes & all public so we can access from Job Seeker and Recruiter Classes
 
@@ -30,6 +37,8 @@ public class User
     {
         return this.dateOfBirth;
     }
+
+    public String getCity() {return this.city;}
 
     public String getFirstName()
     {
@@ -46,14 +55,11 @@ public class User
         return this.passwd;
     }
 
+    public String getState() {return this.state;}
+
     public String getUserEmail()
     {
         return this.userEmail;
-    }
-
-    public int getUserId()
-    {
-        return this.userId;
     }
 
     public String getUserName()
@@ -66,11 +72,13 @@ public class User
         return this.publicProfile;
     }
 
-    // set Methods. All public so they can be accessed from JobSeeker and Recruiter Classes
+    // Mutator Methods. All public so they can be accessed from JobSeeker and Recruiter Classes
     public void setDateOfBirth(Date iptDate)
     {
         dateOfBirth = iptDate;
     }
+
+    public void setCity(String iptCity) {city = iptCity;}
 
     public void setFirstName(String iptFirstName)
     {
@@ -87,15 +95,11 @@ public class User
         passwd = iptPass;
     }
 
+    public void setState(String iptState) {state = iptState;}
+
     public void setUserEmail(String iptEmail)
     {
         userEmail = iptEmail;
-    }
-
-    // unlikely to need this to reset user id & only use with caution
-    public void setUserId(int iptUserId)
-    {
-        userId = iptUserId;
     }
 
     public void setUserName(String iptUsrName)
