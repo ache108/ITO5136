@@ -1,7 +1,6 @@
 package View;
 import View.Input;
 import java.util.Date;
-import java.util.ArrayList;
 
 public class UserUI
 {

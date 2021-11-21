@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class JobSeekerUI extends View.UserUI
 {
-    public void jobSeekerInputs()
+    public static void jobSeekerInputs()
     {
         Input input = new Input();
         String msg = "Please enter ";
@@ -16,7 +16,7 @@ public class JobSeekerUI extends View.UserUI
         // Pass to controller to save?
     }
 
-    public ArrayList<String> jobSeekerSkillInput()
+    public static ArrayList<String> jobSeekerSkillInput()
     {
         // assumes at least one skill is added
         boolean addAnotherSkill = true;
@@ -45,7 +45,7 @@ public class JobSeekerUI extends View.UserUI
         return iptSkills;
     }
 
-    public void jobSeekerRegisterScreen()
+    public static void jobSeekerRegisterScreen()
     {
         View.UserUI.userRegisterScreen();
         jobSeekerInputs();
