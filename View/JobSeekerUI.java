@@ -1,6 +1,7 @@
 package View;
 import View.Input;
 import java.util.ArrayList;
+import java.io.*;
 
 public class JobSeekerUI extends View.UserUI
 {
@@ -13,7 +14,7 @@ public class JobSeekerUI extends View.UserUI
         ArrayList <String> iptSkills = jobSeekerSkillInput();
         Double wrkHrlyRate = input.acceptDouble(msg + "your desired hourly salary rate.");
         // TO DO CV
-        // Pass to controller to save?
+        // Pass to Job Seeker controller to save?
     }
 
     public static ArrayList<String> jobSeekerSkillInput()
@@ -46,6 +47,7 @@ public class JobSeekerUI extends View.UserUI
     }
 
     public static void jobSeekerRegisterScreen()
+            throws IOException
     {
         View.UserUI.userRegisterScreen();
         jobSeekerInputs();
