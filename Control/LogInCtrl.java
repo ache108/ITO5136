@@ -70,6 +70,8 @@ public class LogInCtrl
         //if successful, direct to job seeker controller
         //if unsuccessful, loop (user chooses to try again or go back etc.)
         LogInUI ui = new View.LogInUI();
+        JobSeekerCtrl jsc = new JobSeekerCtrl();
+        RecruiterCtrl rcc = new RecruiterCtrl();
 
         String username = ui.inputUsrName();
         String passwd = ui.inputUsrPwd();
@@ -81,11 +83,11 @@ public class LogInCtrl
 
             if(usrType == 1)
             {
-                //call jobseekerctrl
+                jsc.runJSHome();
             }
             if(usrType == 2)
             {
-                //call recruiterctrl
+                rcc.runRCHome();
             }
         }
         else

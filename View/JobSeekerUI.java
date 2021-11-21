@@ -52,4 +52,16 @@ public class JobSeekerUI extends View.UserUI
         View.UserUI.userRegisterScreen();
         jobSeekerInputs();
     }
+
+    public int displayJSHome()
+    {
+        Input input = new Input();
+        String msg = "      JOB SEEKER HOME PAGE\n"
+                + "Press 1 to search for jobs\n"
+                + "Press 2 to view your profile\n"
+                + "Press 3 to view your interview offers\n"
+                + "Press 4 to view applications\n"
+                + "Press 0 to log out";
+        return input.acceptInt(msg, 0, 4);
+    }
 }
