@@ -1,5 +1,5 @@
-//package View;
-//import View.Input;
+package View;
+import View.Input;
 
 public class LogInUI
 {

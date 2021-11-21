@@ -1,4 +1,4 @@
-//package View;
+package View;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Date;

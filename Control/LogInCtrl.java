@@ -1,6 +1,6 @@
-//package Control;
-//import View.LogInUI;
-//import View.RegisterUI;
+package Control;
+import View.LogInUI;
+import View.RegisterUI;
 
 public class LogInCtrl
 {
