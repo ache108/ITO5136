@@ -1,6 +1,7 @@
 package Control;
 import View.LogInUI;
-import View.RegisterUI;
+import View.JobSeekerUI;
+import View.RecruiterUI;
 
 public class LogInCtrl
 {
@@ -65,10 +66,10 @@ public class LogInCtrl
                 logIn(logInType);
                 break;
             case 3:
-                RegisterUI.userRegisterScreen(logInType);
+                JobSeekerUI.jobSeekerRegisterScreen();
                 break;
             case 4:
-                RegisterUI.userRegisterScreen(logInType);
+                RecruiterUI.recruiterRegisterScreen();
                 break;
             case 5:
                 System.out.println(logInType);
