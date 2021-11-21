@@ -1,6 +1,5 @@
 package Control;
 import View.LogInUI;
-import View.RegisterUI;
 
 public class LogInCtrl
 {
@@ -65,7 +64,7 @@ public class LogInCtrl
                 logIn(logInType);
                 break;
             case 3:
-                RegisterUI.userRegisterScreen(logInType);
+                JobSeekerUI.jobSeekerInputs(logInType);
                 break;
             case 4:
                 RegisterUI.userRegisterScreen(logInType);
