@@ -69,7 +69,7 @@ public class LogInCtrl
         //access job seeker usernames/passwords from file
         //if successful, direct to job seeker controller
         //if unsuccessful, loop (user chooses to try again or go back etc.)
-        LogInUI ui = new View.LogInUI();
+        LogInUI ui = new View3.LogInUI();
 
         String username = ui.inputUsrName();
         String passwd = ui.inputUsrPwd();
