@@ -1,5 +1,6 @@
 package View;
 import View.Input;
+import java.io.*;
 
 public class RecruiterUI extends View.UserUI
 {
@@ -10,6 +11,7 @@ public class RecruiterUI extends View.UserUI
     }
 
     public static void recruiterRegisterScreen()
+            throws IOException
     {
         View.UserUI.userRegisterScreen();
         recruiterInputs();
