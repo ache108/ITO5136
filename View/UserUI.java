@@ -1,5 +1,6 @@
 package View;
 import View.Input;
+import View.RecruiterUI;
 import java.util.Date;
 import java.io.*;
 
@@ -44,10 +45,11 @@ public class UserUI
         String usrCompEmail = input.acceptString(msg + "email.");
         String usrCompPhone = input.acceptString(msg + "phone number.");
         String usrCompDescr = input.acceptString(msg + "description.");
+        String rcID = RecruiterUI.generateRCID("Files/rcUserDetails.txt");
 
 
         // Send to User Controller to create new user
-        Control.CompanyCtrl.addNewRC(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
+        Control.CompanyCtrl.addNewRC(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
 
     }
 }

@@ -15,6 +15,18 @@ public class RecruiterUI extends View.UserUI
         String usrCompDescr = input.acceptString("Please enter a brief description of your company");
     }
 
+       public static String generateRCID(String filename)
+            throws IOException, FileNotFoundException
+    {
+        Control.FileIO file = new Control.FileIO(filename);
+
+        String[] lines = file.readFile("\n").split("\n");
+        int numJob = lines.length + 1;
+        String rcID = String.format("%08d", numJob);
+
+        return rcID;
+    }
+
     public static void recruiterRegisterScreen()
             throws IOException
     {
@@ -33,9 +45,10 @@ public class RecruiterUI extends View.UserUI
         String usrCompEmail = input.acceptString(msg + "the company's email");
         String usrCompPhone = input.acceptString(msg + "the company's phone number");
         String usrCompDescr = input.acceptString(msg + "a brief description about the company");
+        String rcID = generateRCID("Files/rcUserDetails.txt");
         displayCompanyDetails(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
         // Send to Job Listing Controller to create new job
-        Control.CompanyCtrl.addNewRC(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
+        Control.CompanyCtrl.addNewRC(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
 
     }
 

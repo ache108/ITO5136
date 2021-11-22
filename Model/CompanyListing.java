@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class CompanyListing {
 
+    public String rcID;
     public String usrCompany;
     public String usrCompAddress;
     public String usrCompEmail;
@@ -14,8 +15,9 @@ public class CompanyListing {
     {
         //Probably don't want a blank rc
     }
-    public CompanyListing(String usrCompany, String usrCompAddress, String usrCompEmail, String usrCompPhone, String usrCompDescr)
+    public CompanyListing(String rcID, String usrCompany, String usrCompAddress, String usrCompEmail, String usrCompPhone, String usrCompDescr)
     {
+        rcID = this.rcID;
         usrCompany = this.usrCompany;
         usrCompAddress = this.usrCompAddress;
         usrCompEmail = this.usrCompEmail;
@@ -25,6 +27,8 @@ public class CompanyListing {
     }
 
     // Get methods
+
+    public String getRCID() { return this.rcID; }
 
     public String getCompany() { return this.usrCompany; }
 
@@ -38,6 +42,8 @@ public class CompanyListing {
 
 
     //Mutator methods
+
+    public void setRCID(String rcID) { rcID = this.rcID; }
 
     public void setCompany(String usrCompany) { usrCompany = this.usrCompany; }
 
