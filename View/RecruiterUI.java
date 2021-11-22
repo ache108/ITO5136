@@ -8,7 +8,7 @@ public class RecruiterUI extends View.UserUI
     public static void recruiterInputs()
     {
         Input input = new Input();
-        String usrCompany = input.acceptString("Please enter the Company you work for.");
+        String usrCompany = input.acceptString("Please enter the company you work for.");
         String usrCompAddress = input.acceptString("Please enter the address of your company");
         String usrCompEmail = input.acceptString("Please enter the email for your company");
         String usrCompPhone = input.acceptString("Please enter the phone number for your company");
@@ -31,7 +31,8 @@ public class RecruiterUI extends View.UserUI
             throws IOException
     {
         View.UserUI.rcRegisterScreen();
-        recruiterInputs();
+        //recruiterInputs();
+        RecruiterUI.displayRCHome();
     }
 
     public void saveRCDetails()
@@ -49,7 +50,6 @@ public class RecruiterUI extends View.UserUI
         displayCompanyDetails(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
         // Send to Job Listing Controller to create new job
         Control.CompanyCtrl.addNewRC(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
-
     }
 
     public String[][] getCompanyCreds()
@@ -78,7 +78,7 @@ public class RecruiterUI extends View.UserUI
         System.out.println("Company Description: " + usrCompDescr);
     }
 
-    public int displayRCHome()
+    public static int displayRCHome()
     {
         Input input = new Input();
         String msg = "      RECRUITER HOME PAGE\n"

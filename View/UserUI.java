@@ -37,7 +37,7 @@ public class UserUI
     {
         Input input = new Input();
         System.out.println("To register, we need to grab a few details off you");
-        String msg = "Please enter your company's";
+        String msg = "Please enter your company's ";
         // All users need these fields
         // Verify no response has comma's or it will break the write & read to file..
         String usrCompany = input.acceptString(msg + "name.");
