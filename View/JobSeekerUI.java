@@ -7,7 +7,7 @@ public class JobSeekerUI extends View.UserUI
 {
     public static void jobSeekerInputs()
     {
-        Input input = new Input();
+        Input input = new View.Input();
         String msg = "Please enter ";
         String wrkType = input.acceptString(msg + "the type of work you are looking for (Full time, Contract, Part time)");
         String wrkResidency = input.acceptString(msg + "your Australian residency status (Visaholder, resident, citizen)");

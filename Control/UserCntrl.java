@@ -12,9 +12,9 @@ public class UserCntrl
         // new user is created
         Model.User newUser = new Model.User(nUsrName, nUsrEmail, nUsrFName, nUsrLName, nUsrCity, nUsrState, nUsrPwd, nUsrDOB, nUsrPublic );
 
-        // write inputs to file now or pass and save them all in a single turn?
+       // write user details for profile to input
         String userDetails = nUsrName + "," + nUsrEmail + "," + nUsrFName + "," + nUsrLName + "," + nUsrCity + "," + nUsrState + "," + nUsrDOB + "," + nUsrPublic;
-        writeNewUserToFile(userDetails, "./Files/jsUserDetails.txt");
+        writeNewUserToFile(userDetails, "./Files/allUserDetails.txt");
 
     }
 
