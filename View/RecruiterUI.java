@@ -3,6 +3,8 @@ import View.Input;
 import java.io.*;
 import java.util.Date;
 
+import static Model.CompanyListing.*;
+
 public class RecruiterUI extends View.UserUI
 {
     public static void recruiterInputs()
@@ -52,10 +54,10 @@ public class RecruiterUI extends View.UserUI
         Control.CompanyCtrl.addNewRC(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
     }
 
-    public String[][] getCompanyCreds()
+    public String[][] getCompanyCreds(String filename)
             throws IOException, FileNotFoundException
     {
-        String filename = "Files/rcUserDetails.txt";
+        //String filename = "Files/rcUserDetails.txt";
         Control.FileIO file = new Control.FileIO(filename);
 
         String[] lines = file.readFile(";").split(";");
@@ -66,6 +68,29 @@ public class RecruiterUI extends View.UserUI
         }
 
         return output;
+
+    }
+
+    public void displayCompany()
+    {
+        View.LogInUI ui = new View.LogInUI();
+        //String filename = "Files/rcUserDetails.txt";
+        String username = ui.inputUsrName();
+        String[][] detailCompany = {};
+        //detailCompany = getCompanyCreds("Files/rcUserDetails.txt");
+
+            for(int i = 0; i < detailCompany.length; i++)
+                {
+                    if(username.equals(detailCompany[i][0]))
+                    {
+                        String usrCompany = detailCompany[i][1];
+                        String usrCompAddress = detailCompany[i][2];
+                        String usrCompEmail = detailCompany[i][3];
+                        String usrCompPhone = detailCompany[i][4];
+                        String usrCompDescr = detailCompany[i][5];
+                        displayCompanyDetails(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
+                    }
+                }
 
     }
 

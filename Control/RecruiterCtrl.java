@@ -28,7 +28,8 @@ public class RecruiterCtrl {
                 //link to view job listings
             case 3:
                 //link to view company profile
-                rc.getCompanyCreds();
+                rc.displayCompany();
+                break;
             case 4:
                 //link to view interview offers
             case 0:
