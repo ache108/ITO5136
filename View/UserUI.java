@@ -30,4 +30,24 @@ public class UserUI
         Control.UserCntrl.addNewUser(usrName, usrEmail, usrFName, usrLName, usrCity, usrState, usrPwd, userDOB, userPublic );
 
     }
+
+    public static void rcRegisterScreen()
+            throws IOException
+    {
+        Input input = new Input();
+        System.out.println("To register, we need to grab a few details off you");
+        String msg = "Please enter your company's";
+        // All users need these fields
+        // Verify no response has comma's or it will break the write & read to file..
+        String usrCompany = input.acceptString(msg + "name.");
+        String usrCompAddress = input.acceptString(msg + "address.");
+        String usrCompEmail = input.acceptString(msg + "email.");
+        String usrCompPhone = input.acceptString(msg + "phone number.");
+        String usrCompDescr = input.acceptString(msg + "description.");
+
+
+        // Send to User Controller to create new user
+        Control.CompanyCtrl.addNewRC(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
+
+    }
 }

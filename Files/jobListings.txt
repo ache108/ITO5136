@@ -1,0 +1,2 @@
+00000001,Software Engineer,IT,Melbourne,Full Time,100000,Detail-oriented,We are looking to hire someone!,Mon Nov 22 00:00:00 AEDT 2021,false
+00000002,Manager,Management,Melbourne,Full Time,120000,Management skills,We are hiring a manager,Tue Nov 23 00:00:00 AEDT 2021,true
