@@ -21,7 +21,7 @@ public class RecruiterCtrl {
         {
             case 1:
                 //link to create job
-                jl.saveJobDetails();
+                jl.inputJobDetails();
                 break;
             case 2:
                 //link to view job listings

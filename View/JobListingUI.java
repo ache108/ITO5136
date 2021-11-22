@@ -5,7 +5,8 @@ import java.util.Date;
 
 public class JobListingUI {
 
-    public void saveJobDetails()
+    //Accepts input from recruiters about job details, then directs them to job listing control to add the job
+    public void inputJobDetails()
             throws IOException
     {
         Input input = new Input();
@@ -27,6 +28,7 @@ public class JobListingUI {
 
     }
 
+    //Asking if recruiter wants to advertise job
     public static boolean advertiseJob()
     {
         boolean charInputCheck = true;
@@ -39,11 +41,9 @@ public class JobListingUI {
             if (userResponse == 'y') {
                 charInputCheck = false;
                 isAdvertised = true;
-                //put job as public so that it can be called when js search jobs
             } else if (userResponse == 'n') {
                 charInputCheck = false;
                 isAdvertised = false;
-                //put job as private so that job can be saved without appearing on searches
             } else {
                 System.out.println("Please enter y or n!");
                 charInputCheck = true;
@@ -53,6 +53,7 @@ public class JobListingUI {
         return isAdvertised;
     }
 
+    //Displays the details of the job provided
     public void displayJobDetails(String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, String jobSkills, String jobDescription, Date appDeadline)
     {
         System.out.println("\nJob title: " + jobTitle);
