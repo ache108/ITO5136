@@ -87,7 +87,12 @@ public class LogInCtrl
             }
             if(usrType == 2)
             {
-                rcc.runRCHome();
+                //My application won't run unless I have a catch statement here. Not sure if this is the best way??
+                try {
+                    rcc.runRCHome();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         else

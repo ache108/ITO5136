@@ -5,11 +5,12 @@ import View.JobSeekerUI;
 import View.LogInUI;
 import View.RecruiterUI;
 
+import java.io.IOException;
+
 public class RecruiterCtrl {
 
     //Recruiter home page
-    public void runRCHome()
-    {
+    public void runRCHome() throws IOException {
         LogInUI ui = new View.LogInUI();
         LogInCtrl lic = new LogInCtrl();
         RecruiterUI rc = new View.RecruiterUI();
@@ -20,7 +21,7 @@ public class RecruiterCtrl {
         {
             case 1:
                 //link to create job
-                jl.obtainJobDetails();
+                jl.saveJobDetails();
                 break;
             case 2:
                 //link to view job listings
