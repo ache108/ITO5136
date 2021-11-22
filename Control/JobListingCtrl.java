@@ -18,6 +18,7 @@ public class JobListingCtrl {
 
     }
 
+    //Generate unique 8-digit ID to each job listing
     private static String generateJobID(String filename)
             throws IOException, FileNotFoundException
     {
@@ -28,6 +29,32 @@ public class JobListingCtrl {
         String jobID = String.format("%08d", numJob);
 
         return jobID;
+    }
+
+    //parse joblistings.csv into 2d array
+    public static String[][] arrayJobDetails(String filename)
+            throws IOException
+    {
+        FileIO file = new FileIO(filename);
+
+        String[] jobList = file.readFile("\n").split("\n");
+        int numJob = jobList.length;
+        int numOfDetails = 10;
+
+        String[][] jobArray = new String[numJob][numOfDetails];
+
+        String[] tempJob = new String[numOfDetails];
+
+        for (int i = 0; i < numJob; i++)
+        {
+            tempJob = jobList[i].split(",");
+            for (int j = 0; j < numOfDetails; j++)
+            {
+                jobArray[i][j] = tempJob[j];
+            }
+        }
+
+        return jobArray;
     }
 
     public static void writeNewJobToFile(String infoToWrite, String fileName)

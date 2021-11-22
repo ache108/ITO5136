@@ -1,5 +1,7 @@
 package View;
 
+import Control.FileIO;
+
 import java.io.IOException;
 import java.util.Date;
 
@@ -53,7 +55,7 @@ public class JobListingUI {
         return isAdvertised;
     }
 
-    //Displays the details of the job provided
+    //Displays the details of the job
     public void displayJobDetails(String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, String jobSkills, String jobDescription, Date appDeadline)
     {
         System.out.println("\nJob title: " + jobTitle);
@@ -65,4 +67,11 @@ public class JobListingUI {
         System.out.println("Description:\n" + jobDescription + "\n");
         System.out.println("Application deadline: " + appDeadline + "\n");
     }
+
+    //displays abbreviated list of jobs posted by the recruiter
+    /*private void displayJobList()
+    {
+
+    }*/
+
 }
