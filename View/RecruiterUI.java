@@ -2,11 +2,29 @@ package View;
 import View.Input;
 import java.io.*;
 import java.util.Date;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 import static Model.CompanyListing.*;
 
 public class RecruiterUI extends View.UserUI
 {
+    private ArrayList<Model.CompanyListing> cl;
+
+    public RecruiterUI()
+    {
+        cl = new ArrayList<>();
+    };
+
+    public void clDisplay()
+    {
+        for (int i = 0; i < cl.size(); i++)
+        {
+            System.out.println(cl.get(i).display());
+        }
+    }
+
+
     public static void recruiterInputs()
     {
         Input input = new Input();
@@ -73,25 +91,25 @@ public class RecruiterUI extends View.UserUI
 
     public void displayCompany()
     {
-        View.LogInUI ui = new View.LogInUI();
-        //String filename = "Files/rcUserDetails.txt";
-        String username = ui.inputUsrName();
-        String[][] detailCompany = {};
-        //detailCompany = getCompanyCreds("Files/rcUserDetails.txt");
-
-            for(int i = 0; i < detailCompany.length; i++)
+        try (FileReader reader = new FileReader("Files/rcUserDetails.txt"))
+        {
+            Scanner console = new Scanner(reader);
+            while(console.hasNextLine())
+            {
+                String[] lineContent = console.nextLine().split(",");
+                if (lineContent.length == 5)
                 {
-                    if(username.equals(detailCompany[i][0]))
-                    {
-                        String usrCompany = detailCompany[i][1];
-                        String usrCompAddress = detailCompany[i][2];
-                        String usrCompEmail = detailCompany[i][3];
-                        String usrCompPhone = detailCompany[i][4];
-                        String usrCompDescr = detailCompany[i][5];
-                        displayCompanyDetails(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
-                    }
+                    Model.CompanyListing cl2 = new Model.CompanyListing(lineContent[0], lineContent[1], lineContent[2], lineContent[3], lineContent[4], lineContent[5]);
+                    cl.add(cl2);
                 }
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error");
+        }
 
+        clDisplay();
     }
 
     public void displayCompanyDetails(String usrCompany, String usrCompAddress, String usrCompEmail, String usrCompPhone, String usrCompDescr)

@@ -26,6 +26,11 @@ public class CompanyListing {
 
     }
 
+    public String display()
+    {
+        return usrCompany + "," + usrCompAddress + "," + usrCompEmail + "," + usrCompPhone + "," + usrCompDescr;
+    }
+
     // Get methods
 
     public String getRCID() { return this.rcID; }
