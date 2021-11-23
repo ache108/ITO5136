@@ -1,6 +1,9 @@
 package View;
+import Model.JobListing;
 import View.Input;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -9,22 +12,6 @@ import Model.CompanyListing;
 
 public class RecruiterUI extends View.UserUI
 {
-    private ArrayList<Model.CompanyListing> cl;
-
-    public RecruiterUI()
-    {
-        cl = new ArrayList<>();
-    };
-
-    public void clDisplay()
-    {
-        for (int i = 0; i < cl.size(); i++)
-        {
-            System.out.println(cl.get(i).display());
-        }
-    }
-
-
     public static void recruiterInputs()
     {
         Input input = new Input();
@@ -35,7 +22,7 @@ public class RecruiterUI extends View.UserUI
         String usrCompDescr = input.acceptString("Please enter a brief description of your company");
     }
 
-       public static String generateRCID(String filename)
+       /*public static String generateRCID(String filename)
             throws IOException, FileNotFoundException
     {
         Control.FileIO file = new Control.FileIO(filename);
@@ -45,7 +32,7 @@ public class RecruiterUI extends View.UserUI
         String rcID = String.format("%08d", numJob);
 
         return rcID;
-    }
+    }*/
 
     public static void recruiterRegisterScreen()
             throws IOException
@@ -66,7 +53,7 @@ public class RecruiterUI extends View.UserUI
         String usrCompEmail = input.acceptString(msg + "the company's email");
         String usrCompPhone = input.acceptString(msg + "the company's phone number");
         String usrCompDescr = input.acceptString(msg + "a brief description about the company");
-        String rcID = generateRCID("Files/rcUserDetails.txt");
+        String rcID = Control.LogInCtrl.getRcUsername();
         displayCompanyDetails(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
         // Send to Job Listing Controller to create new job
         Control.CompanyCtrl.addNewRC(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
@@ -90,27 +77,36 @@ public class RecruiterUI extends View.UserUI
     }
 
     //code work in progress
-    public void displayCompany()
+    public ArrayList<CompanyListing> displayCompany()
+            throws IOException, FileNotFoundException, ParseException
     {
-        try (FileReader reader = new FileReader("Files/rcUserDetails.txt"))
+        Control.FileIO file = new Control.FileIO("Files/rcUserDetails.txt");
+        Model.CompanyListing cl = new Model.CompanyListing();
+        ArrayList<Model.CompanyListing> list = new ArrayList<>();
+
+        String[] numJob = file.readFile("\n").split("\n");
+
+        for (int i = 0; i < numJob.length; i++)
         {
-            Scanner console = new Scanner(reader);
-            while(console.hasNextLine())
-            {
-                String[] lineContent = console.nextLine().split(",");
-                if (lineContent.length == 6)
+            String[] details = numJob[i].split(",");
+            //cl.rcID = details[0];
+            //cl.usrCompany = details[1];
+            //cl.usrCompAddress = details[2];
+            //cl.usrCompEmail = details[3];
+            //cl.usrCompPhone = details[4];
+            //cl.usrCompDescr = details[5];
+            //list.add(new CompanyListing(cl.rcID, cl.usrCompany, cl.usrCompAddress, cl.usrCompEmail, cl.usrCompPhone, cl.usrCompDescr));
+            if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
                 {
-                    Model.CompanyListing cl2 = new Model.CompanyListing(lineContent[0], lineContent[1], lineContent[2], lineContent[3], lineContent[4], lineContent[5]);
-                    cl.add(cl2);
-                }
+                System.out.println("\nCompany name: " + details[1]);
+                System.out.println("Company Address: " + details[2]);
+                System.out.println("Company Email: " + details[3]);
+                System.out.println("Company Phone Number: " + details[4]);
+                System.out.println("Company Description: " + details[5]);
             }
         }
-        catch (Exception e)
-        {
-            System.out.println("Error");
-        }
 
-        clDisplay();
+        return list;
     }
 
     public void displayCompanyDetails(String usrCompany, String usrCompAddress, String usrCompEmail, String usrCompPhone, String usrCompDescr)

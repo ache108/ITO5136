@@ -45,7 +45,7 @@ public class UserUI
         String usrCompEmail = input.acceptString(msg + "email.");
         String usrCompPhone = input.acceptString(msg + "phone number.");
         String usrCompDescr = input.acceptString(msg + "description.");
-        String rcID = RecruiterUI.generateRCID("Files/rcUserDetails.txt");
+        String rcID = Control.LogInCtrl.getRcUsername();
 
 
         // Send to User Controller to create new user

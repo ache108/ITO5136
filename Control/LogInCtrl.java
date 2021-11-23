@@ -7,8 +7,21 @@ import View.RecruiterUI;
 import java.io.*;
 import java.text.ParseException;
 
+import static View.RecruiterUI.*;
+
 public class LogInCtrl
 {
+    private static String rcUsername;
+
+    public static String getRcUsername()
+    {
+        return rcUsername;
+    }
+
+    public void setRcUsername(String rcUsername)
+    {
+        rcUsername = this.rcUsername;
+    }
 
     private boolean checkUsrCred(int usrType, String iptName, String iptPwd)
     {
@@ -75,6 +88,8 @@ public class LogInCtrl
         RecruiterCtrl rcc = new RecruiterCtrl();
 
         String username = ui.inputUsrName();
+        setRcUsername(username);
+        rcUsername = username;
         String passwd = ui.inputUsrPwd();
         boolean verifiedUsr = checkUsrCred(usrType, username, passwd);
 

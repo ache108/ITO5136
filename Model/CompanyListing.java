@@ -17,12 +17,12 @@ public class CompanyListing {
     }
     public CompanyListing(String rcID, String usrCompany, String usrCompAddress, String usrCompEmail, String usrCompPhone, String usrCompDescr)
     {
-        rcID = this.rcID;
-        usrCompany = this.usrCompany;
-        usrCompAddress = this.usrCompAddress;
-        usrCompEmail = this.usrCompEmail;
-        usrCompPhone = this.usrCompPhone;
-        usrCompDescr = this.usrCompDescr;
+        this.rcID = rcID;
+        this.usrCompany = usrCompany;
+        this.usrCompAddress = usrCompAddress;
+        this.usrCompEmail = usrCompEmail;
+        this.usrCompPhone = usrCompPhone;
+        this.usrCompDescr = usrCompDescr;
 
     }
 

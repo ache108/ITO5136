@@ -1,4 +1,6 @@
 00000001,Software Engineer,IT,Melbourne,Full Time,100000,Detail-oriented,We are looking to hire someone!,Mon Nov 22 00:00:00 AEDT 2021,false
 00000002,Manager,Management,Melbourne,Full Time,120000,Management skills,We are hiring a manager,Tue Nov 23 00:00:00 AEDT 2021,true
 00000003,Receptionist,IT,Perth,Full time,90000,Organised,Hello we are looking for someone to join the team,Wed Nov 24 00:00:00 AEDT 2021,false
-00000004
+00000004,Head Chef,Food and Beverages,Brisbane,Full Time,100000,Work well under pressure,We are looking to hire a head chef to work with us. ,Thu Nov 25 00:00:00 AEDT 2021,true
+00000005,Software engineer,IT,Sydney,full time,80000,[Detail-oriented, Team spirit, Motivated],We are looking to hire someone!,Thu Nov 25 00:00:00 AEDT 2021,true
+00000006,Teacher,Education,Brisbane,Full time,60000,[Patient, Teaching experience, Proficiency in Maths],Looking for teachers!,Tue Nov 30 00:00:00 AEDT 2021,true
