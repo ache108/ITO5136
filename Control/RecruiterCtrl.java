@@ -16,7 +16,7 @@ public class RecruiterCtrl {
         LogInUI ui = new View.LogInUI();
         LogInCtrl lic = new LogInCtrl();
         RecruiterUI rc = new View.RecruiterUI();
-        JobListingUI jl = new View.JobListingUI();
+        JobListingUI jlu = new View.JobListingUI();
         JobListingCtrl jlc = new JobListingCtrl();
 
         int choiceRC= rc.displayRCHome();
@@ -24,11 +24,11 @@ public class RecruiterCtrl {
         {
             case 1:
                 //link to create job
-                jl.inputJobDetails();
+                jlu.inputJobDetails();
                 break;
             case 2:
                 //link to view job listings
-                jl.displayJobList();
+                jlu.displayJobList();
                 break;
             case 3:
                 //link to view company profile

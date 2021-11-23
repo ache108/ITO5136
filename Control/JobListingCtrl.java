@@ -1,6 +1,7 @@
 package Control;
 
 import Model.JobListing;
+import View.Input;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class JobListingCtrl {
 
     public ArrayList<Model.JobListing> jobList;
 
-    public static void addNewJob(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, String jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
+    public static void addNewJob(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
             throws IOException, FileNotFoundException
     {
         // new job is created
@@ -80,6 +81,7 @@ public class JobListingCtrl {
             //if (details[10] == rcID) {
 
             String[] details = numJob[i].split(",");
+            ArrayList<String> skillList = new ArrayList<String>();
 
             jl.jobId = details[0];
             jl.jobTitle = details[1];
@@ -87,10 +89,14 @@ public class JobListingCtrl {
             jl.jobLocation = details[3];
             jl.jobHours = details[4];
             jl.jobPay = details[5];
-            jl.jobSkills = details[6];
-            jl.jobDescription = details[7];
-            jl.appDeadline = dateFormat.parse(details[8]);
-            jl.jobAd = Boolean.parseBoolean(details[9]);
+            for (int j = 6; j < details.length - 3; j++)
+            {
+                skillList.add(details[j]);
+            }
+            jl.jobSkills = skillList;
+            jl.jobDescription = details[details.length - 3];
+            jl.appDeadline = dateFormat.parse(details[details.length - 2]);
+            jl.jobAd = Boolean.parseBoolean(details[details.length - 1]);
             //}
 
             jobList.add(new JobListing(jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd));
@@ -104,12 +110,28 @@ public class JobListingCtrl {
     public void printJobList(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
+        System.out.println("--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ": ");
             System.out.println(jobList.get(i).getJobTitle());
             System.out.println("Application deadline: " + jobList.get(i).getAppDeadline());
-            System.out.println("Advertise: " + jobList.get(i).labelJobAd() + "\n");
+            System.out.println("Advertise: " + jobList.get(i).labelJobAd());
+            System.out.println("Job skills are: ");
+            for (int j = 0; j < jobList.get(i).getJobSkills().size(); j++)
+            {
+                String skill = jobList.get(i).getJobSkills().get(j);
+                if (skill.charAt(0) == '[') {
+                    skill = skill.substring(1);
+                } else if (skill.charAt(0) == ' ') {
+                    skill = skill.substring(1);
+                }
+                if (skill.charAt(skill.length() - 1) == ']') {
+                    skill = skill.substring(0, skill.length() - 1);
+                }
+                System.out.println(skill);
+            }
+            System.out.println("--------------------------------");
         }
 
     }

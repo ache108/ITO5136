@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class JobListingUI {
@@ -26,7 +27,7 @@ public class JobListingUI {
         jl.setJobLocation(input.acceptString(msg + "the location of the job *"));
         jl.setJobHours(input.acceptString(msg + "the job type (Full time, Contract, Part time) *"));
         jl.setJobPay(input.acceptString(msg + "the compensation per annum"));
-        jl.setJobSkills(input.acceptString(msg + "the skills required for the job")); //MIGHT NEED TO REDO THIS TO ALLOW FOR ADDING MULTIPLE KEYWORDS
+        jl.setJobSkills(jobListingSkillInput()); //MIGHT NEED TO REDO THIS TO ALLOW FOR ADDING MULTIPLE KEYWORDS
         jl.setJobDescription(input.acceptString(msg + "the job description *"));
         jl.setAppDeadline(input.acceptDate(msg + "the application deadline *"));
         jl.displayJobDetails();
@@ -72,6 +73,35 @@ public class JobListingUI {
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
         jlc.printJobList(jlc.parseFromCSV());
 
+    }
+
+    public ArrayList<String> jobListingSkillInput()
+    {
+        // assumes at least one skill is added
+        boolean addAnotherSkill = true;
+        boolean charInputCheck = true;
+        ArrayList <String> iptSkills = new ArrayList<String>();
+        Input input = new Input();
+        do {
+            String iptSkill = input.acceptString("Please enter a skill that this job requires.");
+            iptSkills.add(iptSkill);
+            // add another skill?
+            char userRepsonse = input.acceptChar("To add another skill please enter y. \nTo complete the list please enter n");
+            do {
+                if (userRepsonse == 'y') {
+                    addAnotherSkill = true;
+                    charInputCheck = false;
+                } else if (userRepsonse == 'n') {
+                    addAnotherSkill = false;
+                    charInputCheck = false;
+                } else {
+                    System.out.println("Please enter y or n!");
+                    charInputCheck = true;
+                }
+            } while (charInputCheck);
+        } while (addAnotherSkill);
+
+        return iptSkills;
     }
 
 }

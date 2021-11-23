@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class JobListing {
@@ -10,7 +11,7 @@ public class JobListing {
     public String jobLocation;
     public String jobHours;
     public String jobPay;
-    public String jobSkills;
+    public ArrayList<String> jobSkills;
     public String jobDescription;
     public Date appDeadline;
     public boolean jobAd;
@@ -20,7 +21,7 @@ public class JobListing {
         //Probably don't want a blank job
     }
 
-    public JobListing(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, String jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
+    public JobListing(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
     {
         this.jobId = jobId;
         this.jobTitle = jobTitle;
@@ -48,7 +49,7 @@ public class JobListing {
 
     public String getJobPay() { return this.jobPay; }
 
-    public String getJobSkills() { return this.jobSkills; }
+    public ArrayList<String> getJobSkills() { return this.jobSkills; }
 
     public String getJobDescription() { return this.jobDescription; }
 
@@ -70,7 +71,7 @@ public class JobListing {
 
     public void setJobPay(String jobPay) { this.jobPay = jobPay; }
 
-    public void setJobSkills(String jobSkills) { this.jobSkills = jobSkills; }
+    public void setJobSkills(ArrayList<String> jobSkills) { this.jobSkills = jobSkills; }
 
     public void setJobDescription(String jobDescription) { this.jobDescription = jobDescription; }
 
@@ -86,7 +87,15 @@ public class JobListing {
         System.out.println("Location: " + jobLocation);
         System.out.println("Hours: " + jobHours);
         System.out.println("Compensation: " + jobPay);
-        System.out.println("Skills required: " + jobSkills);
+        System.out.println("Skills required: ");
+        for (int i = 0; i < jobSkills.size(); i++)
+        {
+            if (i < jobSkills.size() - 1) {
+                System.out.print(jobSkills.get(i) + ", ");
+            } else {
+                System.out.println(jobSkills.get(i) + ".");
+            }
+        }
         System.out.println("Description:\n" + jobDescription + "\n");
         System.out.println("Application deadline: " + appDeadline + "\n");
     }
