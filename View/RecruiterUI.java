@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import static Model.CompanyListing.*;
+import Model.CompanyListing;
 
 public class RecruiterUI extends View.UserUI
 {
@@ -89,6 +89,7 @@ public class RecruiterUI extends View.UserUI
 
     }
 
+    //code work in progress
     public void displayCompany()
     {
         try (FileReader reader = new FileReader("Files/rcUserDetails.txt"))
@@ -97,7 +98,7 @@ public class RecruiterUI extends View.UserUI
             while(console.hasNextLine())
             {
                 String[] lineContent = console.nextLine().split(",");
-                if (lineContent.length == 5)
+                if (lineContent.length == 6)
                 {
                     Model.CompanyListing cl2 = new Model.CompanyListing(lineContent[0], lineContent[1], lineContent[2], lineContent[3], lineContent[4], lineContent[5]);
                     cl.add(cl2);
