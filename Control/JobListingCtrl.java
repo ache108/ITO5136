@@ -31,11 +31,11 @@ public class JobListingCtrl {
         return jobID;
     }
 
-    //parse joblistings.csv into 2d array
-    public static String[][] arrayJobDetails(String filename)
+    //parse recruiter's jobs in joblistings.csv into 2d array
+    public String[][] parseJobDetails(/*int rcID*/)
             throws IOException
     {
-        FileIO file = new FileIO(filename);
+        FileIO file = new FileIO("Files/jobListings.txt");
 
         String[] jobList = file.readFile("\n").split("\n");
         int numJob = jobList.length;

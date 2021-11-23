@@ -54,22 +54,47 @@ public class JobListing {
 
     //Mutator methods
 
-    public void setJobTitle(String jobTitle) { jobTitle = this.jobTitle; }
+    public void setJobTitle(String jobTitle) { this.jobTitle = jobTitle; }
 
-    public void setJobCategory(String jobCategory) { jobCategory = this.jobCategory; }
+    public void setJobCategory(String jobCategory) { this.jobCategory = jobCategory; }
 
-    public void setJobLocation(String jobLocation) { jobLocation = this.jobLocation; }
+    public void setJobLocation(String jobLocation) { this.jobLocation = jobLocation; }
 
-    public void setJobHours(String jobHours) { jobHours = this.jobHours; }
+    public void setJobHours(String jobHours) { this.jobHours = jobHours; }
 
-    public void setJobPay(String jobPay) { jobPay = this.jobPay; }
+    public void setJobPay(String jobPay) { this.jobPay = jobPay; }
 
-    public void setJobSkills(String jobSkills) { jobSkills = this.jobSkills; }
+    public void setJobSkills(String jobSkills) { this.jobSkills = jobSkills; }
 
-    public void setJobDescription(String jobDescription) { jobDescription = this.jobDescription; }
+    public void setJobDescription(String jobDescription) { this.jobDescription = jobDescription; }
 
-    public void setAppDeadline(Date appDeadline) { appDeadline = this.appDeadline; }
+    public void setAppDeadline(Date appDeadline) { this.appDeadline = appDeadline; }
 
-    public void setJobAd(boolean jobAd) { jobAd = this.jobAd; }
+    public void setJobAd(boolean jobAd) { this.jobAd = jobAd; }
+
+    //Displays the details of the job
+    public void displayJobDetails()
+    {
+        System.out.println("\nJob title: " + jobTitle);
+        System.out.println("Job category: " + jobCategory);
+        System.out.println("Location: " + jobLocation);
+        System.out.println("Hours: " + jobHours);
+        System.out.println("Compensation: " + jobPay);
+        System.out.println("Skills required: " + jobSkills);
+        System.out.println("Description:\n" + jobDescription + "\n");
+        System.out.println("Application deadline: " + appDeadline + "\n");
+    }
+
+    public void displayJobAd()
+    {
+        String adStatus = "";
+        if (this.jobAd == true) {
+            adStatus = "Public\nThis means the job listing will be saved, and it will appear on job seekers' search results.";
+        } else {
+            adStatus = "Private\nThis means the job listing will be saved, but it will NOT appear on job seekers' search results.";
+        }
+
+        System.out.println("Job is: " + adStatus);
+    }
 
 }

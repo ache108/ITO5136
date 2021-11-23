@@ -11,22 +11,24 @@ public class JobListingUI {
     public void inputJobDetails()
             throws IOException
     {
+        Model.JobListing jl = new Model.JobListing();
         Input input = new Input();
         System.out.println("\nPlease provide the following details.\n(* indicates a mandatory field)");
         String msg = "\nPlease enter ";
-        String jobTitle = input.acceptString(msg + "the job title *");
-        String jobCategory = input.acceptString(msg + "the job category *");
-        String jobLocation = input.acceptString(msg + "the location of the job *");
-        String jobHours = input.acceptString(msg + "the job type (Full time, Contract, Part time) *");
-        String jobPay = input.acceptString(msg + "the compensation per annum");
-        String jobSkills = input.acceptString(msg + "the skills required for the job"); //MIGHT NEED TO REDO THIS TO ALLOW FOR ADDING MULTIPLE KEYWORDS
-        String jobDescription = input.acceptString(msg + "the job description *");
-        Date appDeadline = input.acceptDate(msg + "the application deadline *");
-        displayJobDetails(jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline);
-        boolean jobAd = advertiseJob();
+        jl.setJobTitle(input.acceptString(msg + "the job title *"));
+        jl.setJobCategory(input.acceptString(msg + "the job category *"));
+        jl.setJobLocation(input.acceptString(msg + "the location of the job *"));
+        jl.setJobHours(input.acceptString(msg + "the job type (Full time, Contract, Part time) *"));
+        jl.setJobPay(input.acceptString(msg + "the compensation per annum"));
+        jl.setJobSkills(input.acceptString(msg + "the skills required for the job")); //MIGHT NEED TO REDO THIS TO ALLOW FOR ADDING MULTIPLE KEYWORDS
+        jl.setJobDescription(input.acceptString(msg + "the job description *"));
+        jl.setAppDeadline(input.acceptDate(msg + "the application deadline *"));
+        jl.displayJobDetails();
+        jl.setJobAd(advertiseJob());
+        jl.displayJobAd();
 
         // Send to Job Listing Controller to create new job
-        Control.JobListingCtrl.addNewJob(jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd);
+        Control.JobListingCtrl.addNewJob(jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
 
     }
 
@@ -55,22 +57,11 @@ public class JobListingUI {
         return isAdvertised;
     }
 
-    //Displays the details of the job
-    public void displayJobDetails(String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, String jobSkills, String jobDescription, Date appDeadline)
+    /*//displays abbreviated list of jobs posted by the recruiter
+    private void displayJobList()
     {
-        System.out.println("\nJob title: " + jobTitle);
-        System.out.println("Job category: " + jobCategory);
-        System.out.println("Location: " + jobLocation);
-        System.out.println("Hours: " + jobHours);
-        System.out.println("Compensation: " + jobPay);
-        System.out.println("Skills required: " + jobSkills);
-        System.out.println("Description:\n" + jobDescription + "\n");
-        System.out.println("Application deadline: " + appDeadline + "\n");
-    }
-
-    //displays abbreviated list of jobs posted by the recruiter
-    /*private void displayJobList()
-    {
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
+        jlc.parseJobDetails();
 
     }*/
 
