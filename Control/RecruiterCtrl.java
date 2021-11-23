@@ -28,7 +28,7 @@ public class RecruiterCtrl {
                 break;
             case 2:
                 //link to view job listings
-                jlc.printJobList(jlc.parseFromCSV());
+                jl.displayJobList();
                 break;
             case 3:
                 //link to view company profile

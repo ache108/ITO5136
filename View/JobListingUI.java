@@ -70,7 +70,7 @@ public class JobListingUI {
     {
         Model.JobListing jl = new JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
-        jlc.printJobList(jlc.jobList);
+        jlc.printJobList(jlc.parseFromCSV());
 
     }
 
