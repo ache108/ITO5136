@@ -1,5 +1,6 @@
 package Model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -82,6 +83,7 @@ public class JobListing {
     //Displays the details of the job
     public void displayJobDetails()
     {
+        SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
         System.out.println("\nJob title: " + jobTitle);
         System.out.println("Job category: " + jobCategory);
         System.out.println("Location: " + jobLocation);
@@ -97,7 +99,7 @@ public class JobListing {
             }
         }
         System.out.println("Description:\n" + jobDescription + "\n");
-        System.out.println("Application deadline: " + appDeadline + "\n");
+        System.out.println("Application deadline: " + dateShortFormat.format(appDeadline) + "\n");
     }
 
     public String labelJobAd()

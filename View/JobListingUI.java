@@ -27,7 +27,7 @@ public class JobListingUI {
         jl.setJobLocation(input.acceptString(msg + "the location of the job *"));
         jl.setJobHours(input.acceptString(msg + "the job type (Full time, Contract, Part time) *"));
         jl.setJobPay(input.acceptString(msg + "the compensation per annum"));
-        jl.setJobSkills(jobListingSkillInput()); //MIGHT NEED TO REDO THIS TO ALLOW FOR ADDING MULTIPLE KEYWORDS
+        jl.setJobSkills(jobListingSkillInput());
         jl.setJobDescription(input.acceptString(msg + "the job description *"));
         jl.setAppDeadline(input.acceptDate(msg + "the application deadline *"));
         jl.displayJobDetails();

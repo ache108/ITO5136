@@ -39,8 +39,10 @@ public class JobListingCtrl {
         return jobID;
     }
 
+    /*
     //parse recruiter's jobs in joblistings.csv into 2d array
-    public String[][] parseJobDetails(/*int rcID*/)
+
+    public String[][] parseJobDetails(int rcID)
             throws IOException
     {
         FileIO file = new FileIO("Files/jobListings.txt");
@@ -63,7 +65,7 @@ public class JobListingCtrl {
         }
 
         return jobArray;
-    }
+    }*/
 
     //Convert CSV to Array List of JL objects and return this Array List.
     //When rcID or rcUsername is identified, will filter out the objects called based on the specific rc.
@@ -110,12 +112,13 @@ public class JobListingCtrl {
     public void printJobList(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
+        SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
         System.out.println("--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ": ");
             System.out.println(jobList.get(i).getJobTitle());
-            System.out.println("Application deadline: " + jobList.get(i).getAppDeadline());
+            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Advertise: " + jobList.get(i).labelJobAd());
             System.out.println("Job skills are: ");
             for (int j = 0; j < jobList.get(i).getJobSkills().size(); j++)
@@ -129,7 +132,7 @@ public class JobListingCtrl {
                 if (skill.charAt(skill.length() - 1) == ']') {
                     skill = skill.substring(0, skill.length() - 1);
                 }
-                System.out.println(skill);
+                System.out.println("- " + skill);
             }
             System.out.println("--------------------------------");
         }
