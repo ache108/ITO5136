@@ -1,8 +1,13 @@
 package View;
 
 import Control.FileIO;
+import Control.JobListingCtrl;
+import Model.JobListing;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 
 public class JobListingUI {
@@ -12,6 +17,7 @@ public class JobListingUI {
             throws IOException
     {
         Model.JobListing jl = new Model.JobListing();
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
         Input input = new Input();
         System.out.println("\nPlease provide the following details.\n(* indicates a mandatory field)");
         String msg = "\nPlease enter ";
@@ -25,10 +31,11 @@ public class JobListingUI {
         jl.setAppDeadline(input.acceptDate(msg + "the application deadline *"));
         jl.displayJobDetails();
         jl.setJobAd(advertiseJob());
-        jl.displayJobAd();
+        System.out.println(jl.labelJobAd());
+        jl.setJobId(JobListingCtrl.generateJobID("Files/jobListings.txt"));
 
         // Send to Job Listing Controller to create new job
-        Control.JobListingCtrl.addNewJob(jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
+        Control.JobListingCtrl.addNewJob(jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
 
     }
 
@@ -57,12 +64,14 @@ public class JobListingUI {
         return isAdvertised;
     }
 
-    /*//displays abbreviated list of jobs posted by the recruiter
-    private void displayJobList()
+    //displays abbreviated list of jobs posted by the recruiter
+    public void displayJobList()
+            throws IOException, FileNotFoundException, ParseException
     {
+        Model.JobListing jl = new JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
-        jlc.parseJobDetails();
+        jlc.printJobList(jlc.jobList);
 
-    }*/
+    }
 
 }

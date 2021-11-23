@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class JobListing {
 
+    public String jobId;
     public String jobTitle;
     public String jobCategory;
     public String jobLocation;
@@ -19,20 +20,23 @@ public class JobListing {
         //Probably don't want a blank job
     }
 
-    public JobListing(String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, String jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
+    public JobListing(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, String jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
     {
-        jobTitle = this.jobTitle;
-        jobCategory = this.jobCategory;
-        jobLocation = this.jobLocation;
-        jobHours = this.jobHours;
-        jobPay = this.jobPay;
-        jobSkills = this.jobSkills;
-        jobDescription = this.jobDescription;
-        appDeadline = this.appDeadline;
-        jobAd = this.jobAd;
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.jobCategory = jobCategory;
+        this.jobLocation = jobLocation;
+        this.jobHours = jobHours;
+        this.jobPay = jobPay;
+        this.jobSkills = jobSkills;
+        this.jobDescription = jobDescription;
+        this.appDeadline = appDeadline;
+        this.jobAd = jobAd;
     }
 
     // Get methods
+
+    public String getJobId() { return this.jobId; }
 
     public String getJobTitle() { return this.jobTitle; }
 
@@ -53,6 +57,8 @@ public class JobListing {
     public boolean getJobAd() { return this.jobAd; }
 
     //Mutator methods
+
+    public void setJobId(String jobId) { this.jobId = jobId; }
 
     public void setJobTitle(String jobTitle) { this.jobTitle = jobTitle; }
 
@@ -85,16 +91,16 @@ public class JobListing {
         System.out.println("Application deadline: " + appDeadline + "\n");
     }
 
-    public void displayJobAd()
+    public String labelJobAd()
     {
         String adStatus = "";
         if (this.jobAd == true) {
-            adStatus = "Public\nThis means the job listing will be saved, and it will appear on job seekers' search results.";
+            adStatus = "Public";
         } else {
-            adStatus = "Private\nThis means the job listing will be saved, but it will NOT appear on job seekers' search results.";
+            adStatus = "Private";
         }
 
-        System.out.println("Job is: " + adStatus);
+        return adStatus;
     }
 
 }

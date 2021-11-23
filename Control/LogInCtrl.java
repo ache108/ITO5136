@@ -5,6 +5,7 @@ import View.LogInUI;
 import View.JobSeekerUI;
 import View.RecruiterUI;
 import java.io.*;
+import java.text.ParseException;
 
 public class LogInCtrl
 {
@@ -90,7 +91,7 @@ public class LogInCtrl
                 //My application won't run unless I have a catch statement here. Not sure if this is the best way??
                 try {
                     rcc.runRCHome();
-                } catch (IOException e) {
+                } catch (IOException | ParseException e) {
                     e.printStackTrace();
                 }
             }

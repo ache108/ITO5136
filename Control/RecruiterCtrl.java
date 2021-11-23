@@ -7,15 +7,17 @@ import View.RecruiterUI;
 import Control.LogInCtrl;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 public class RecruiterCtrl {
 
     //Recruiter home page
-    public void runRCHome() throws IOException {
+    public void runRCHome() throws IOException, ParseException {
         LogInUI ui = new View.LogInUI();
         LogInCtrl lic = new LogInCtrl();
         RecruiterUI rc = new View.RecruiterUI();
         JobListingUI jl = new View.JobListingUI();
+        JobListingCtrl jlc = new JobListingCtrl();
 
         int choiceRC= rc.displayRCHome();
         switch (choiceRC)
@@ -26,6 +28,8 @@ public class RecruiterCtrl {
                 break;
             case 2:
                 //link to view job listings
+                jlc.printJobList(jlc.parseFromCSV());
+                break;
             case 3:
                 //link to view company profile
                 rc.displayCompany();
