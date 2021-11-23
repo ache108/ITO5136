@@ -1,6 +1,7 @@
 package Control;
 import java.util.Date;
 import java.io.*;
+import Control.FileIO;
 
 public class UserCntrl
 {
@@ -14,7 +15,7 @@ public class UserCntrl
 
        // write user details for profile to input
         String userDetails = nUsrName + "," + nUsrEmail + "," + nUsrFName + "," + nUsrLName + "," + nUsrCity + "," + nUsrState + "," + nUsrDOB + "," + nUsrPublic;
-        writeNewUserToFile(userDetails, "./Files/allUserDetails.txt");
+        writeNewUserToFile(userDetails, Control.JSS.JSDETAILS);
 
     }
 

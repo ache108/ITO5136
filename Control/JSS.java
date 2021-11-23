@@ -6,6 +6,10 @@ public class JSS
     //all filenames as public constants
     public static final String JSLOGIN = "Files/jsLoginCredentials.txt";
     public static final String RCLOGIN = "Files/rcLoginCredentials.txt";
+    public static final String JSDETAILS = "Files/jsUserDetails.txt";
+    public static final String RCDETAILS = "Files/rcUserDetails.txt";
+    public static final String JSJOBLIST = "Files/jobListings.txt";
+
 
     public static void main(String[] args)
     {

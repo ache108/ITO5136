@@ -3,6 +3,7 @@ package Control;
 import View.JobListingUI;
 import View.JobSeekerUI;
 import View.LogInUI;
+import Control.LogInCtrl;
 
 public class JobSeekerCtrl {
 
@@ -18,7 +19,6 @@ public class JobSeekerCtrl {
         {
             case 1:
                 //link to search for job
-
             case 2:
                 //link to view profile
             case 3:

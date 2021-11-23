@@ -2,6 +2,7 @@ package Control;
 
 import Model.JobListing;
 import View.Input;
+import Control.FileIO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -72,7 +73,7 @@ public class JobListingCtrl {
     public ArrayList<JobListing> parseFromCSV(/*int rcID*/)
             throws IOException, FileNotFoundException, ParseException
     {
-        FileIO file = new FileIO("Files/jobListings.txt");
+        FileIO file = new FileIO(Control.JSS.JSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
         ArrayList<Model.JobListing> jobList = new ArrayList<Model.JobListing>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");

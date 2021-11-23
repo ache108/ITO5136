@@ -5,6 +5,7 @@ import View.JobSeekerUI;
 import View.LogInUI;
 import View.RecruiterUI;
 import Control.LogInCtrl;
+import Control.JobListingCtrl;
 
 import java.io.IOException;
 import java.text.ParseException;
