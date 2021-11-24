@@ -1,6 +1,8 @@
 package Control;
 import Control.JSS;
 import Control.FileIO;
+import Control.JobSeekerCtrl;
+import Control.RecruiterCtrl;
 import View.LogInUI;
 import View.JobSeekerUI;
 import View.RecruiterUI;
@@ -168,9 +170,9 @@ public class LogInCtrl
             updateFile(filename, iptName, iptPwd);
 
             if(usrType == 3)
-                JobSeekerUI.jobSeekerRegisterScreen();
+                JobSeekerUI.jobSeekerRegisterScreen(iptName);
             if(usrType == 4)
-                RecruiterUI.recruiterRegisterScreen();
+                RecruiterUI.recruiterRegisterScreen(iptName);
         }
         catch(Exception e)
         {

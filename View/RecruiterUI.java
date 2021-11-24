@@ -2,6 +2,7 @@ package View;
 import Model.JobListing;
 import View.Input;
 import java.io.*;
+import Control.RecruiterCtrl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,13 +14,17 @@ import Model.CompanyListing;
 public class RecruiterUI extends View.UserUI
 {
     public static void recruiterInputs()
+            throws IOException
     {
+        //View.UserUI.userRegisterScreen();
+
         Input input = new Input();
         String usrCompany = input.acceptString("Please enter the company you work for.");
         String usrCompAddress = input.acceptString("Please enter the address of your company");
         String usrCompEmail = input.acceptString("Please enter the email for your company");
         String usrCompPhone = input.acceptString("Please enter the phone number for your company");
         String usrCompDescr = input.acceptString("Please enter a brief description of your company");
+
     }
 
        /*public static String generateRCID(String filename)
@@ -34,10 +39,9 @@ public class RecruiterUI extends View.UserUI
         return rcID;
     }*/
 
-    public static void recruiterRegisterScreen()
+    public static void recruiterRegisterScreen(String iptName)
             throws IOException
     {
-        View.UserUI.rcRegisterScreen();
         //recruiterInputs();
         RecruiterUI.displayRCHome();
     }

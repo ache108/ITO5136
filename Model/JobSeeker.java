@@ -2,21 +2,28 @@ package Model;
 import java.util.ArrayList;
 
 public class JobSeeker extends User {
-    private double hourlyWageRate;
-    private String wrkType;
-    private String residencyType;
-    private ArrayList<String> skillsList;
+    public double hourlyWageRate;
+    public String wrkType;
+    public String residencyType;
+    public ArrayList<String> skillsList;
 
     public JobSeeker() {
         // we need attributes to actually create a jobSeeker Profile
     }
 
-    public JobSeeker(double iptRate, String iptWrkType, String iptResidency, ArrayList<String> iptSkills) {
-        // do I need to re-add all user variables here -  check with ravish
-        hourlyWageRate = iptRate;
-        wrkType = iptWrkType;
-        residencyType = iptResidency;
-        skillsList = iptSkills;
+    public JobSeeker(Model.User newUser, double iptRate, String iptWrkType, String iptResidency, ArrayList<String> iptSkills) {
+        this.userName = newUser.userName;
+        this.userEmail = newUser.userEmail;
+        this.firstName = newUser.firstName;
+        this.lastName = newUser.lastName;
+        this.city = newUser.city;
+        this.state = newUser.state;
+        this.dateOfBirth  = newUser.dateOfBirth;
+        this.publicProfile = newUser.publicProfile;
+        this.hourlyWageRate = iptRate;
+        this.wrkType = iptWrkType;
+        this.residencyType = iptResidency;
+        this.skillsList = iptSkills;
     }
 
     public void addSkillToList(String newSkill)

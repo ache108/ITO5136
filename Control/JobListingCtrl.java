@@ -13,7 +13,7 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
-import static Control.RecruiterCtrl.*;
+import Control.RecruiterCtrl.*;
 
 public class JobListingCtrl {
 

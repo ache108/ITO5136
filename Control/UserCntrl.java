@@ -6,17 +6,11 @@ import Control.FileIO;
 public class UserCntrl
 {
 
-    // pass in params to create new user & if jobSeeker or Recruiter
-    public static void addNewUser(String nUsrName, String nUsrEmail, String nUsrFName, String nUsrLName, String nUsrCity, String nUsrState, String nUsrPwd, Date nUsrDOB, boolean nUsrPublic )
-        throws IOException, FileNotFoundException
+    public static Model.User addNewUser(String nUsrName, String nUsrEmail, String nUsrFName, String nUsrLName, String nUsrCity, String nUsrState, Date nUsrDOB, boolean nUsrPublic )
     {
         // new user is created
-        Model.User newUser = new Model.User(nUsrName, nUsrEmail, nUsrFName, nUsrLName, nUsrCity, nUsrState, nUsrPwd, nUsrDOB, nUsrPublic );
-
-       // write user details for profile to input
-        String userDetails = nUsrName + "," + nUsrEmail + "," + nUsrFName + "," + nUsrLName + "," + nUsrCity + "," + nUsrState + "," + nUsrDOB + "," + nUsrPublic;
-        writeNewUserToFile(userDetails, Control.JSS.JSDETAILS);
-
+        Model.User newUser = new Model.User(nUsrName, nUsrEmail, nUsrFName, nUsrLName, nUsrCity, nUsrState, nUsrDOB, nUsrPublic );
+        return newUser;
     }
 
     public void resetPasswd()

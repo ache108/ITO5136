@@ -1,5 +1,7 @@
 package Control;
 
+import Model.JobSeeker;
+import Model.Recruiter;
 import View.JobListingUI;
 import View.JobSeekerUI;
 import View.LogInUI;
@@ -9,16 +11,26 @@ import Control.JobListingCtrl;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class RecruiterCtrl {
-
+    public static void createNewRecruiter()
+            throws IOException
+    {
+        // send to model to create
+        // Model newUser
+        ///Model.Recruiter rc = new Recruiter(newUser, );
+        // write Output
+        ///String wrRC = writeRCString(rc);
+        //Control.UserCntrl.writeNewUserToFile(wrRC, Control.JSS.RCDETAILS);
+    }
     //Recruiter home page
     public static void runRCHome() throws IOException, ParseException {
         LogInUI ui = new View.LogInUI();
         LogInCtrl lic = new LogInCtrl();
         RecruiterUI rc = new View.RecruiterUI();
         JobListingUI jlu = new View.JobListingUI();
-        JobListingCtrl jlc = new JobListingCtrl();
+        JobListingCtrl jlc = new Control.JobListingCtrl();
 
         int choiceRC= rc.displayRCHome();
         switch (choiceRC)
@@ -44,4 +56,9 @@ public class RecruiterCtrl {
         }
     }
 
+    public static String writeRCString()
+    {
+        String msg = "";
+        return msg;
+    }
 }

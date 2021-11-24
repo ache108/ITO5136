@@ -1,12 +1,26 @@
 package Control;
 
-import View.JobListingUI;
+import Model.JobSeeker;
+import Model.User;
 import View.JobSeekerUI;
 import View.LogInUI;
 import Control.LogInCtrl;
+import Control.UserCntrl;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class JobSeekerCtrl {
 
+    public static void createNewJobSeeker(Model.User newUser, double hrlyRate, String wrkType, String wrkResidency, ArrayList<String> iptSkills)
+            throws IOException
+    {
+        // send to model to create
+        Model.JobSeeker js = new JobSeeker(newUser, hrlyRate, wrkType, wrkResidency, iptSkills);
+        // write Output
+        String wrJS = writeJSString(js);
+        UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
+    }
     //Job Seeker home page
     public void runJSHome()
     {
@@ -32,4 +46,22 @@ public class JobSeekerCtrl {
         }
     }
 
+    public static String writeJSString(JobSeeker js)
+    {
+        String msg = "";
+        msg += " " + js.userName;
+        msg += " " + js.userEmail;
+        msg += " " + js.firstName;
+        msg += " " + js.lastName;
+        msg += " " + js.city;
+        msg += " " + js.state;
+        msg += " " + js.dateOfBirth;
+        msg += " " + js.publicProfile;
+        msg += " " + js.hourlyWageRate;
+        msg += " " + js.wrkType;
+        msg += " " + js.residencyType;
+        msg += js.skillsList;
+
+        return msg;
+    }
 }

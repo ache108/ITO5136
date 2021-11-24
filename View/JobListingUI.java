@@ -1,10 +1,9 @@
 package View;
-
 import Control.FileIO;
 import Control.JobListingCtrl;
 import Control.LogInCtrl;
 import Model.JobListing;
-
+import View.Input;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

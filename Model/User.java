@@ -19,7 +19,7 @@ public class User
         // we don't want to have a blank user being created with no information?
     }
 
-    public User(String iptName, String iptEmail, String iptFirstName, String iptLastName, String iptCity, String iptState, String iptPasswd, Date iptDOB, boolean publicProfile)
+    public User(String iptName, String iptEmail, String iptFirstName, String iptLastName, String iptCity, String iptState, Date iptDOB, boolean publicProfile)
     {
         userName = iptName;
         userEmail = iptEmail;
@@ -27,11 +27,9 @@ public class User
         lastName = iptLastName;
                 city = iptCity;
                 state = iptState;
-        passwd = iptPasswd;
         dateOfBirth  = iptDOB;
         this.publicProfile = publicProfile;
     }
-    // Get attributes & all public so we can access from Job Seeker and Recruiter Classes
 
     public Date getDateOfBirth()
     {
