@@ -16,11 +16,29 @@ public class JobListing {
     public String jobDescription;
     public Date appDeadline;
     public boolean jobAd;
+    public int matchingScore;
 
     public JobListing()
     {
         //Probably don't want a blank job
     }
+
+    /*
+    //FOR TESTING
+    public JobListing(String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription)
+    {
+
+        this.jobTitle = jobTitle;
+        this.jobCategory = jobCategory;
+        this.jobLocation = jobLocation;
+        this.jobHours = jobHours;
+        this.jobPay = jobPay;
+        this.jobSkills = jobSkills;
+        this.jobDescription = jobDescription;
+        jobAd = true;
+        this.matchingScore = 0;
+    }
+    */
 
     public JobListing(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
     {
@@ -34,6 +52,7 @@ public class JobListing {
         this.jobDescription = jobDescription;
         this.appDeadline = appDeadline;
         this.jobAd = jobAd;
+        this.matchingScore = 0;
     }
 
     // Get methods
@@ -58,6 +77,23 @@ public class JobListing {
 
     public boolean getJobAd() { return this.jobAd; }
 
+    public int getMatchingScore() { return this.matchingScore; }
+
+    public void incrementMatchingScore(int amount)
+    {
+        this.matchingScore += amount;
+    }
+
+    //for comparing matching scores when sorting
+    public boolean isGreaterThan(JobListing compJob)
+    {
+        int compScore = compJob.getMatchingScore();
+        if(this.matchingScore > compScore)
+            return true;
+        else
+            return false;
+    }
+
     //Mutator methods
 
     public void setJobId(String jobId) { this.jobId = jobId; }
@@ -79,6 +115,8 @@ public class JobListing {
     public void setAppDeadline(Date appDeadline) { this.appDeadline = appDeadline; }
 
     public void setJobAd(boolean jobAd) { this.jobAd = jobAd; }
+
+    public void setMatchingScore(int matchingScore) { this.matchingScore = matchingScore; }
 
     //Displays the details of the job
     public void displayJobDetails()
@@ -118,6 +156,7 @@ public class JobListing {
         }
         System.out.println("Description:\n" + jobDescription + "\n");
         System.out.println("Application deadline: " + dateShortFormat.format(appDeadline) + "\n");
+        System.out.println("Matching score: " + matchingScore);
     }
 
     public String labelJobAd()
