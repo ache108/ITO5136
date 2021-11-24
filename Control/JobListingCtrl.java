@@ -90,22 +90,22 @@ public class JobListingCtrl {
             String[] details = numJob[i].split(",");
             ArrayList<String> skillList = new ArrayList<String>();
             jl.setJobRC(details[0]);
-            jl.jobId = details[1];
-            jl.jobTitle = details[2];
-            jl.jobCategory = details[3];
-            jl.jobLocation = details[4];
-            jl.jobHours = details[5];
-            jl.jobPay = details[6];
+            jl.setJobId(details[1]);
+            jl.setJobTitle(details[2]);
+            jl.setJobCategory(details[3]);
+            jl.setJobLocation(details[4]);
+            jl.setJobHours(details[5]);
+            jl.setJobPay(details[6]);
             for (int j = 7; j < details.length - 3; j++)
             {
                 skillList.add(details[j]);
             }
-            jl.jobSkills = skillList;
-            jl.jobDescription = details[details.length - 3];
-            jl.appDeadline = dateFormat.parse(details[details.length - 2]);
-            jl.jobAd = Boolean.parseBoolean(details[details.length - 1]);
+            jl.setJobSkills(skillList);
+            jl.setJobDescription(details[details.length - 3]);
+            jl.setAppDeadline(dateFormat.parse(details[details.length - 2]));
+            jl.setJobAd(Boolean.parseBoolean(details[details.length - 1]));
 
-            jobList.add(new JobListing(jl.jobRC, jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd));
+            jobList.add(new JobListing(jl.getJobRC(), jl.getJobId(), jl.getJobTitle(), jl.getJobCategory(), jl.getJobLocation(), jl.getJobHours(), jl.getJobPay(), jl.getJobSkills(), jl.getJobDescription(), jl.getAppDeadline(), jl.getJobAd()));
 
         }
 
