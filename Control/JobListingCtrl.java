@@ -4,6 +4,7 @@ import Model.JobListing;
 import View.Input;
 import Control.FileIO;
 import View.JobListingUI;
+import View.RecruiterUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class JobListingCtrl {
 
         // write inputs to file now or pass and save them all in a single turn?
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
-        writeNewJobToFile(jobDetails, "Files/jobListings.txt");
+        writeNewJobToFile(jobDetails, JSS.JSSJOBLIST);
 
     }
 
@@ -97,7 +98,7 @@ public class JobListingCtrl {
     public String[][] parseJobDetails(int rcID)
             throws IOException
     {
-        FileIO file = new FileIO("Files/jobListings.txt");
+        FileIO file = new FileIO(JSS.JSSJOBLIST);
 
         String[] jobList = file.readFile("\n").split("\n");
         int numJob = jobList.length;
@@ -124,7 +125,7 @@ public class JobListingCtrl {
     public ArrayList<JobListing> parseFromCSV()
             throws IOException, FileNotFoundException, ParseException
     {
-        FileIO file = new FileIO(Control.JSS.JSJOBLIST);
+        FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
         jobList = new ArrayList<Model.JobListing>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
@@ -229,8 +230,7 @@ public class JobListingCtrl {
     }
 
     //Print out all the details for the chosen job listing, or to go back.
-    public void viewJobListing(ArrayList<JobListing> jobList, int jobNo)
-    {
+    public void viewJobListing(ArrayList<JobListing> jobList, int jobNo) throws IOException, ParseException {
         if (jobNo == 0) {
             try {
                 RecruiterCtrl.runRCHome();
@@ -242,6 +242,91 @@ public class JobListingCtrl {
             jobList.get(jobNo - 1).displayJobDetails();
             System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd());
             System.out.println("-----------------------------------------");
+        }
+        manageJobListing(jobList.get(jobNo - 1));
+    }
+
+    public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
+        JobListingUI jlu = new JobListingUI();
+        int choice = JobListingUI.manageJobOptions();
+        switch (choice)
+        {
+            case 1:
+                //edit listing
+                editJobListing(jl);
+            case 2:
+                //view applications
+            case 3:
+                //invite candidates
+            case 0:
+                //go back
+                jlu.displayJobList();
+        }
+    }
+
+    //Options when editing job listing
+    public void editJobListing(Model.JobListing jl) throws IOException, ParseException {
+        View.JobListingUI jlu = new View.JobListingUI();
+        View.Input input = new View.Input();
+        FileIO file = new FileIO(JSS.JSSJOBLIST);
+        String newString = "";
+        int detailNo = JobListingUI.editJobOptions();
+        switch (detailNo)
+        {
+            case 1:
+                //edit job title
+                System.out.println("Current job title: " + jl.getJobTitle());
+                newString = input.acceptString("Please enter new job title: ");
+                jl.setJobTitle(newString);
+                break;
+            case 2:
+                //edit job category
+                System.out.println("Current job title: " + jl.getJobCategory());
+                newString = input.acceptString("Please enter new job category: ");
+                jl.setJobCategory(newString);
+                break;
+            case 3:
+                //edit job location
+                System.out.println("Current job title: " + jl.getJobLocation());
+                newString = input.acceptString("Please enter new job location: ");
+                jl.setJobLocation(newString);
+                break;
+            case 4:
+                //edit job hours
+                System.out.println("Current job title: " + jl.getJobHours());
+                newString = input.acceptString("Please enter new job hours: ");
+                jl.setJobHours(newString);
+                break;
+            case 5:
+                //edit job pay
+                System.out.println("Current job title: " + jl.getJobPay());
+                newString = input.acceptString("Please enter new job compensation: ");
+                jl.setJobPay(newString);
+                break;
+            /*case 6:
+                //edit job skills
+                System.out.println("Current job title: " + jl.getJobSkills());
+                newString = input.acceptString("Please enter new job skills: ");
+                jl.setJobSkills(newString);//NEED TO WORK ON THIS*/
+            case 7:
+                //edit job description
+                System.out.println("Current job title: " + jl.getJobDescription());
+                newString = input.acceptString("Please enter new job description: ");
+                jl.setJobDescription(newString);
+                break;
+           /* case 8:
+                //edit application deadline
+                System.out.println("Current job title: " + jl.getAppDeadline());
+                newString = input.acceptString("Please enter new application deadline: ");
+                jl.setAppDeadline(newString);
+            case 9:
+                //edit advertisement status
+                System.out.println("Current job title: " + jl.getJobAd());
+                boolean isAdvertised = View.JobListingUI.advertiseJob();
+                jl.setJobAd(isAdvertised);*/
+            case 0:
+                //Go back
+                manageJobListing(jl);
         }
     }
 

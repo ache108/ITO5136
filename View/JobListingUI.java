@@ -112,4 +112,33 @@ public class JobListingUI {
         return jobChose;
     }
 
+    //Display the options RC has when editing job listing
+    public static int editJobOptions()
+    {
+        Input input = new Input();
+        String msg = "      EDIT JOB LISTING\n"
+                + "Press 1 to edit job title\n"
+                + "Press 2 to edit job category\n"
+                + "Press 3 to edit job location\n"
+                + "Press 4 to edit job hours\n"
+                + "Press 5 to edit job compensation\n"
+                + "Press 6 to edit job's required skills\n"
+                + "Press 7 to edit job description\n"
+                + "Press 8 to edit application deadline\n"
+                + "Press 9 to edit job advertisement status\n"
+                + "Press 0 to go back";
+        return input.acceptInt(msg, 0, 9);
+    }
+
+    //Display the options RC has when they view job listing
+    public static int manageJobOptions()
+    {
+        Input input = new Input();
+        String msg = "Press 1 to edit job listing\n"
+                + "Press 2 to view applications\n"
+                + "Press 3 to invite candidates\n"
+                + "Press 0 to go back";
+        return input.acceptInt(msg, 0, 3);
+    }
+
 }

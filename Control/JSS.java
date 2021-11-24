@@ -10,7 +10,7 @@ public class JSS
     public static final String RCLOGIN = "Files/rcLoginCredentials.txt";
     public static final String JSDETAILS = "Files/jsUserDetails.txt";
     public static final String RCDETAILS = "Files/rcUserDetails.txt";
-    public static final String JSJOBLIST = "Files/jobListings.txt";
+    public static final String JSSJOBLIST = "Files/jobListings.txt";
 
 
     public static void main(String[] args)
