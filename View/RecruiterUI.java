@@ -76,12 +76,11 @@ public class RecruiterUI extends View.UserUI
 
     }
 
-    //code work in progress
+    //display company details
     public ArrayList<CompanyListing> displayCompany()
             throws IOException, FileNotFoundException, ParseException
     {
         Control.FileIO file = new Control.FileIO("Files/rcUserDetails.txt");
-        Model.CompanyListing cl = new Model.CompanyListing();
         ArrayList<Model.CompanyListing> list = new ArrayList<>();
 
         String[] numJob = file.readFile("\n").split("\n");
@@ -89,15 +88,8 @@ public class RecruiterUI extends View.UserUI
         for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(",");
-            //cl.rcID = details[0];
-            //cl.usrCompany = details[1];
-            //cl.usrCompAddress = details[2];
-            //cl.usrCompEmail = details[3];
-            //cl.usrCompPhone = details[4];
-            //cl.usrCompDescr = details[5];
-            //list.add(new CompanyListing(cl.rcID, cl.usrCompany, cl.usrCompAddress, cl.usrCompEmail, cl.usrCompPhone, cl.usrCompDescr));
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
-                {
+            {
                 System.out.println("\nCompany name: " + details[1]);
                 System.out.println("Company Address: " + details[2]);
                 System.out.println("Company Email: " + details[3]);
@@ -105,7 +97,7 @@ public class RecruiterUI extends View.UserUI
                 System.out.println("Company Description: " + details[5]);
             }
         }
-
+        Control.RecruiterCtrl.runRCHome();
         return list;
     }
 

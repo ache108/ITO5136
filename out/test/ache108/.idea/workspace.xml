@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108" />
+    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Recruiter profile linked to user and display correctly">
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/Files/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/Files/jobListings.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/jobListings.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,7 +139,28 @@
       <option name="project" value="LOCAL" />
       <updated>1637557020251</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637633602062</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1637633602062</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637635259213</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1637635259213</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Recruiter profile linked to user and display correctly">
+      <created>1637665223786</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1637665223786</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,6 +178,18 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added initial control and view classes for log in use case" />
     <MESSAGE value="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108" />
+    <MESSAGE value="Recruiter profile linked to user and display correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recruiter profile linked to user and display correctly" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Control/JobListingCtrl.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

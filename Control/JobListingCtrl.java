@@ -163,9 +163,10 @@ public class JobListingCtrl {
     {
         for (int i = 0; i < jobList.size(); i++)
         {
-            if (!jobList.get(i).getJobRC().equals(username)) {
+            if (!jobList.get(i).getJobRC().equals(username))
+            {
                 jobList.remove(i);
-                filterRCJob(jobList, username);
+                filterRCJob(jobList,username);
             } else {
                 continue;
             }
@@ -177,7 +178,7 @@ public class JobListingCtrl {
     public void printJobList(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
-        filterRCJob(jobList, LogInCtrl.getRcUsername());
+        filterRCJob(jobList, Control.LogInCtrl.getRcUsername());
 
         //SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
         System.out.println("--------------------------------");
