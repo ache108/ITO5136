@@ -61,6 +61,8 @@ public class JobListingCtrl {
     {
         for(int i = 0; i < jobList.size(); i++)
         {
+            if(jobList.get(i).getJobAd() == false)
+                continue;
             if(jobList.get(i).getJobTitle().equals(reqs.getJobTitle()))
                 jobList.get(i).incrementMatchingScore(1);
             if(jobList.get(i).getJobCategory().equals(reqs.getJobCategory()))
