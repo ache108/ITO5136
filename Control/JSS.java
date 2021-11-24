@@ -1,5 +1,7 @@
 package Control;
 import Control.LogInCtrl;
+import Model.JobListing;
+import java.util.ArrayList;
 
 public class JSS
 {
@@ -25,6 +27,20 @@ public class JSS
 
         LogInCtrl lic = new LogInCtrl();
         lic.start();
+
+        /*FOR TESTING MATCHING SCORES AND SORT
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
+        JobListing reqs = new JobListing("Software Engineer", "Management", "Perth", "Full Time", "80000", new ArrayList<String>(), "We are looking to hire someone!");
+        for(JobListing jl: jlc.jobList)
+        {
+            System.out.println(jl.getJobId() + " " + jl.getMatchingScore());
+        }
+        jlc.matchJobs(reqs);
+        for(JobListing jl: jlc.jobList)
+        {
+            System.out.println(jl.getJobId() + " " + jl.getMatchingScore());
+        }
+        */
 
         //Any code to close program (close files etc.)
     }

@@ -8,8 +8,7 @@ import View.JobListingUI;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
@@ -19,6 +18,18 @@ public class JobListingCtrl {
 
     public ArrayList<Model.JobListing> jobList;
     SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
+
+    public JobListingCtrl()
+    {
+        try
+        {
+            this.jobList = parseFromCSV();
+        }
+        catch(Exception e)
+        {
+            this.jobList = new ArrayList<>();
+        }
+    }
 
     public static void addNewJob(String jobRC, String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
             throws IOException, FileNotFoundException
@@ -43,6 +54,41 @@ public class JobListingCtrl {
         String jobID = String.format("%08d", numJob);
 
         return jobID;
+    }
+
+    //Generate matching scores for all job listings and call method to sort them
+    public void matchJobs(JobListing reqs)
+    {
+        for(int i = 0; i < jobList.size(); i++)
+        {
+            if(jobList.get(i).getJobAd() == false)
+                continue;
+            if(jobList.get(i).getJobTitle().equals(reqs.getJobTitle()))
+                jobList.get(i).incrementMatchingScore(1);
+            if(jobList.get(i).getJobCategory().equals(reqs.getJobCategory()))
+                jobList.get(i).incrementMatchingScore(1);
+            if(jobList.get(i).getJobLocation().equals(reqs.getJobLocation()))
+                jobList.get(i).incrementMatchingScore(1);
+            if(jobList.get(i).getJobHours().equals(reqs.getJobHours()))
+                jobList.get(i).incrementMatchingScore(1);
+            if(jobList.get(i).getJobPay().equals(reqs.getJobPay()))
+                jobList.get(i).incrementMatchingScore(1);
+            if(jobList.get(i).getJobDescription().equals(reqs.getJobDescription()))
+                jobList.get(i).incrementMatchingScore(1);
+
+            ArrayList<String> jSkills = jobList.get(i).getJobSkills();
+            for(int j = 0; j < jSkills.size(); j++)
+            {
+                ArrayList<String> reqSkills = reqs.getJobSkills();
+                for(int k = 0; k < reqSkills.size(); k++)
+                {
+                    if(jSkills.get(j).equals(reqSkills.get(k)))
+                        jobList.get(i).incrementMatchingScore(1);
+                }
+            }
+        }
+
+        sortJobs();
     }
 
     /*
@@ -117,9 +163,10 @@ public class JobListingCtrl {
     {
         for (int i = 0; i < jobList.size(); i++)
         {
-            if (!jobList.get(i).getJobRC().equals(username)) {
+            if (!jobList.get(i).getJobRC().equals(username))
+            {
                 jobList.remove(i);
-                filterRCJob(jobList, username);
+                filterRCJob(jobList,username);
             } else {
                 continue;
             }
@@ -131,13 +178,14 @@ public class JobListingCtrl {
     public void printJobList(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
-        filterRCJob(jobList, LogInCtrl.getRcUsername());
+        filterRCJob(jobList, Control.LogInCtrl.getRcUsername());
 
         //SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
         System.out.println("--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ": ");
+            System.out.println("Matching Score: " + jobList.get(i).getMatchingScore());
             System.out.println(jobList.get(i).getJobTitle());
             System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Advertise: " + jobList.get(i).labelJobAd());
@@ -160,6 +208,24 @@ public class JobListingCtrl {
 
         viewJobListing(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
 
+    }
+
+    //sort jobs based on matching score (descending order)
+    public void sortJobs()
+    {
+        JobListing temp;
+        for(int i = 0; i < jobList.size() - 1; i++)
+        {
+            for(int j = jobList.size() - 1; j > i; j--)
+            {
+                if(jobList.get(j).isGreaterThan(jobList.get(j - 1)))
+                {
+                    temp = jobList.get(j);
+                    jobList.set(j, jobList.get(j-1));
+                    jobList.set(j-1, temp);
+                }
+            }
+        }
     }
 
     //Print out all the details for the chosen job listing, or to go back.

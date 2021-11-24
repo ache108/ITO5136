@@ -17,6 +17,7 @@ public class JobListing {
     public String jobDescription;
     public Date appDeadline;
     public boolean jobAd;
+    public int matchingScore;
 
     public JobListing()
     {
@@ -36,6 +37,7 @@ public class JobListing {
         this.jobDescription = jobDescription;
         this.appDeadline = appDeadline;
         this.jobAd = jobAd;
+        this.matchingScore = 0;
     }
 
     // Get methods
@@ -62,6 +64,23 @@ public class JobListing {
 
     public boolean getJobAd() { return this.jobAd; }
 
+    public int getMatchingScore() { return this.matchingScore; }
+
+    public void incrementMatchingScore(int amount)
+    {
+        this.matchingScore += amount;
+    }
+
+    //for comparing matching scores when sorting
+    public boolean isGreaterThan(JobListing compJob)
+    {
+        int compScore = compJob.getMatchingScore();
+        if(this.matchingScore > compScore)
+            return true;
+        else
+            return false;
+    }
+
     //Mutator methods
 
     public void setJobRC(String jobRC) { this.jobRC = jobRC; }
@@ -85,6 +104,8 @@ public class JobListing {
     public void setAppDeadline(Date appDeadline) { this.appDeadline = appDeadline; }
 
     public void setJobAd(boolean jobAd) { this.jobAd = jobAd; }
+
+    public void setMatchingScore(int matchingScore) { this.matchingScore = matchingScore; }
 
     //Displays the details of the job
     public void displayJobDetails()
@@ -124,6 +145,7 @@ public class JobListing {
         }
         System.out.println("Description:\n" + jobDescription + "\n");
         System.out.println("Application deadline: " + dateShortFormat.format(appDeadline) + "\n");
+        System.out.println("Matching score: " + matchingScore);
     }
 
     public String labelJobAd()

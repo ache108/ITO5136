@@ -73,7 +73,7 @@ public class JobListingUI {
     {
         Model.JobListing jl = new JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
-        jlc.printJobList(jlc.parseFromCSV());
+        jlc.printJobList(jlc.jobList);
     }
 
     public ArrayList<String> jobListingSkillInput()
