@@ -3,6 +3,7 @@ package Control;
 import Model.JobListing;
 import View.Input;
 import Control.FileIO;
+import View.JobListingUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,10 +11,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
+
+import static Control.RecruiterCtrl.*;
 
 public class JobListingCtrl {
 
     public ArrayList<Model.JobListing> jobList;
+    SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
     public static void addNewJob(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
             throws IOException, FileNotFoundException
@@ -22,7 +27,7 @@ public class JobListingCtrl {
         Model.JobListing newJob = new Model.JobListing(jobId, jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd );
 
         // write inputs to file now or pass and save them all in a single turn?
-        String jobDetails = jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
+        String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
         writeNewJobToFile(jobDetails, "Files/jobListings.txt");
 
     }
@@ -70,29 +75,28 @@ public class JobListingCtrl {
 
     //Convert CSV to Array List of JL objects and return this Array List.
     //When rcID or rcUsername is identified, will filter out the objects called based on the specific rc.
-    public ArrayList<JobListing> parseFromCSV(/*int rcID*/)
+    public ArrayList<JobListing> parseFromCSV()
             throws IOException, FileNotFoundException, ParseException
     {
         FileIO file = new FileIO(Control.JSS.JSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
-        ArrayList<Model.JobListing> jobList = new ArrayList<Model.JobListing>();
+        jobList = new ArrayList<Model.JobListing>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
 
         String[] numJob = file.readFile("\n").split("\n");
 
         for (int i = 0; i < numJob.length; i++) {
-            //if (details[10] == rcID) {
 
             String[] details = numJob[i].split(",");
             ArrayList<String> skillList = new ArrayList<String>();
 
-            jl.jobId = details[0];
-            jl.jobTitle = details[1];
-            jl.jobCategory = details[2];
-            jl.jobLocation = details[3];
-            jl.jobHours = details[4];
-            jl.jobPay = details[5];
-            for (int j = 6; j < details.length - 3; j++)
+            jl.jobId = details[1];
+            jl.jobTitle = details[2];
+            jl.jobCategory = details[3];
+            jl.jobLocation = details[4];
+            jl.jobHours = details[5];
+            jl.jobPay = details[6];
+            for (int j = 7; j < details.length - 3; j++)
             {
                 skillList.add(details[j]);
             }
@@ -100,7 +104,6 @@ public class JobListingCtrl {
             jl.jobDescription = details[details.length - 3];
             jl.appDeadline = dateFormat.parse(details[details.length - 2]);
             jl.jobAd = Boolean.parseBoolean(details[details.length - 1]);
-            //}
 
             jobList.add(new JobListing(jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd));
 
@@ -113,7 +116,7 @@ public class JobListingCtrl {
     public void printJobList(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
-        SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        //SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
         System.out.println("--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
@@ -138,6 +141,25 @@ public class JobListingCtrl {
             System.out.println("--------------------------------");
         }
 
+        viewJobListing(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
+
+    }
+
+    //Print out all the details for the chosen job listing, or to go back.
+    public void viewJobListing(ArrayList<JobListing> jobList, int jobNo)
+    {
+        if (jobNo == 0) {
+            try {
+                RecruiterCtrl.runRCHome();
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("-----------------------------------------");
+            jobList.get(jobNo - 1).displayJobDetails();
+            System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd());
+            System.out.println("-----------------------------------------");
+        }
     }
 
     public static void writeNewJobToFile(String infoToWrite, String fileName)

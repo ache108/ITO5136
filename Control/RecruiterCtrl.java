@@ -13,7 +13,7 @@ import java.text.ParseException;
 public class RecruiterCtrl {
 
     //Recruiter home page
-    public void runRCHome() throws IOException, ParseException {
+    public static void runRCHome() throws IOException, ParseException {
         LogInUI ui = new View.LogInUI();
         LogInCtrl lic = new LogInCtrl();
         RecruiterUI rc = new View.RecruiterUI();

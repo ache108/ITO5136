@@ -72,7 +72,6 @@ public class JobListingUI {
         Model.JobListing jl = new JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
         jlc.printJobList(jlc.parseFromCSV());
-
     }
 
     public ArrayList<String> jobListingSkillInput()
@@ -102,6 +101,13 @@ public class JobListingUI {
         } while (addAnotherSkill);
 
         return iptSkills;
+    }
+
+    public static int chooseJobListing(int max)
+    {
+        Input input = new Input();
+        int jobChose = input.acceptInt("Please enter the job number to view the job listing.\nAlternatively, press 0 to go back.", 0, max);
+        return jobChose;
     }
 
 }

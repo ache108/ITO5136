@@ -92,11 +92,29 @@ public class JobListing {
         System.out.println("Skills required: ");
         for (int i = 0; i < jobSkills.size(); i++)
         {
+            String skill = jobSkills.get(i);
             if (i < jobSkills.size() - 1) {
-                System.out.print(jobSkills.get(i) + ", ");
+                if (skill.charAt(0) == '[') {
+                    skill = skill.substring(1);
+                } else if (skill.charAt(0) == ' ') {
+                    skill = skill.substring(1);
+                }
+                if (skill.charAt(skill.length() - 1) == ']') {
+                    skill = skill.substring(0, skill.length() - 1);
+                }
+                System.out.print(skill + ", ");
             } else {
-                System.out.println(jobSkills.get(i) + ".");
+                if (skill.charAt(0) == '[') {
+                    skill = skill.substring(1);
+                } else if (skill.charAt(0) == ' ') {
+                    skill = skill.substring(1);
+                }
+                if (skill.charAt(skill.length() - 1) == ']') {
+                    skill = skill.substring(0, jobSkills.get(i).length() - 2);
+                }
+                System.out.println(skill + ".");
             }
+
         }
         System.out.println("Description:\n" + jobDescription + "\n");
         System.out.println("Application deadline: " + dateShortFormat.format(appDeadline) + "\n");
