@@ -2,6 +2,7 @@ package View;
 
 import Control.FileIO;
 import Control.JobListingCtrl;
+import Control.LogInCtrl;
 import Model.JobListing;
 
 import java.io.File;
@@ -34,9 +35,10 @@ public class JobListingUI {
         jl.setJobAd(advertiseJob());
         System.out.println(jl.labelJobAd());
         jl.setJobId(JobListingCtrl.generateJobID("Files/jobListings.txt"));
+        jl.setJobRC(LogInCtrl.getRcUsername());
 
         // Send to Job Listing Controller to create new job
-        Control.JobListingCtrl.addNewJob(jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
+        Control.JobListingCtrl.addNewJob(jl.jobRC, jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
 
     }
 

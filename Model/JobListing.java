@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class JobListing {
 
+    public String jobRC;
     public String jobId;
     public String jobTitle;
     public String jobCategory;
@@ -20,28 +21,12 @@ public class JobListing {
 
     public JobListing()
     {
-        //Probably don't want a blank job
+        jobRC = "";
     }
 
-    /*
-    //FOR TESTING
-    public JobListing(String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription)
+    public JobListing(String jobRC, String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
     {
-
-        this.jobTitle = jobTitle;
-        this.jobCategory = jobCategory;
-        this.jobLocation = jobLocation;
-        this.jobHours = jobHours;
-        this.jobPay = jobPay;
-        this.jobSkills = jobSkills;
-        this.jobDescription = jobDescription;
-        jobAd = true;
-        this.matchingScore = 0;
-    }
-    */
-
-    public JobListing(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
-    {
+        this.jobRC = jobRC;
         this.jobId = jobId;
         this.jobTitle = jobTitle;
         this.jobCategory = jobCategory;
@@ -56,6 +41,8 @@ public class JobListing {
     }
 
     // Get methods
+
+    public String getJobRC() { return this.jobRC; }
 
     public String getJobId() { return this.jobId; }
 
@@ -95,6 +82,8 @@ public class JobListing {
     }
 
     //Mutator methods
+
+    public void setJobRC(String jobRC) { this.jobRC = jobRC; }
 
     public void setJobId(String jobId) { this.jobId = jobId; }
 

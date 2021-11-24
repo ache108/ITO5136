@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import static Control.RecruiterCtrl.*;
 
@@ -30,16 +31,16 @@ public class JobListingCtrl {
         }
     }
 
-    public static void addNewJob(String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
+    public static void addNewJob(String jobRC, String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
             throws IOException, FileNotFoundException
     {
         // new job is created
-        Model.JobListing newJob = new Model.JobListing(jobId, jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd );
+        Model.JobListing newJob = new Model.JobListing(jobRC, jobId, jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd );
 
         // write inputs to file now or pass and save them all in a single turn?
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
         writeNewJobToFile(jobDetails, "Files/jobListings.txt");
-        //this.jobList.add(new JobListing(jobId, jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd));
+
     }
 
     //Generate unique 8-digit ID to each job listing
@@ -132,7 +133,7 @@ public class JobListingCtrl {
 
             String[] details = numJob[i].split(",");
             ArrayList<String> skillList = new ArrayList<String>();
-
+            jl.setJobRC(details[0]);
             jl.jobId = details[1];
             jl.jobTitle = details[2];
             jl.jobCategory = details[3];
@@ -148,10 +149,25 @@ public class JobListingCtrl {
             jl.appDeadline = dateFormat.parse(details[details.length - 2]);
             jl.jobAd = Boolean.parseBoolean(details[details.length - 1]);
 
-            jobList.add(new JobListing(jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd));
+            jobList.add(new JobListing(jl.jobRC, jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd));
 
         }
 
+        return jobList;
+    }
+
+    //Recursive method to filter out job listings that are not by the current logged in RC.
+    public ArrayList<Model.JobListing> filterRCJob(ArrayList<Model.JobListing> jobList, String username)
+    {
+        for (int i = 0; i < jobList.size(); i++)
+        {
+            if (!jobList.get(i).getJobRC().equals(username)) {
+                jobList.remove(i);
+                filterRCJob(jobList, username);
+            } else {
+                continue;
+            }
+        }
         return jobList;
     }
 
@@ -159,6 +175,8 @@ public class JobListingCtrl {
     public void printJobList(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
+        filterRCJob(jobList, LogInCtrl.getRcUsername());
+
         //SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
         System.out.println("--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
