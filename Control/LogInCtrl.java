@@ -128,7 +128,6 @@ public class LogInCtrl
             filename = JSS.JSLOGIN;
         if(usrType == 4)
             filename = JSS.RCLOGIN;
-
         String[][] usernames = {};
         try
         {
@@ -168,7 +167,8 @@ public class LogInCtrl
 
             String iptPwd = ui.inputUsrPwd();
             updateFile(filename, iptName, iptPwd);
-
+            setRcUsername(iptName);
+            rcUsername = iptName;
             if(usrType == 3)
                 JobSeekerUI.jobSeekerRegisterScreen(iptName);
             if(usrType == 4)

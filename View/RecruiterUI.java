@@ -13,40 +13,15 @@ import Model.CompanyListing;
 
 public class RecruiterUI extends View.UserUI
 {
-    public static void recruiterInputs()
-            throws IOException
-    {
-        //View.UserUI.userRegisterScreen();
-
-        Input input = new Input();
-        String usrCompany = input.acceptString("Please enter the company you work for.");
-        String usrCompAddress = input.acceptString("Please enter the address of your company");
-        String usrCompEmail = input.acceptString("Please enter the email for your company");
-        String usrCompPhone = input.acceptString("Please enter the phone number for your company");
-        String usrCompDescr = input.acceptString("Please enter a brief description of your company");
-
-    }
-
-       /*public static String generateRCID(String filename)
-            throws IOException, FileNotFoundException
-    {
-        Control.FileIO file = new Control.FileIO(filename);
-
-        String[] lines = file.readFile("\n").split("\n");
-        int numJob = lines.length + 1;
-        String rcID = String.format("%08d", numJob);
-
-        return rcID;
-    }*/
 
     public static void recruiterRegisterScreen(String iptName)
             throws IOException
     {
-        //recruiterInputs();
+        saveRCDetails();
         RecruiterUI.displayRCHome();
     }
 
-    public void saveRCDetails()
+    public static void saveRCDetails()
             throws IOException
     {
         Input input = new Input();
@@ -58,34 +33,15 @@ public class RecruiterUI extends View.UserUI
         String usrCompPhone = input.acceptString(msg + "the company's phone number");
         String usrCompDescr = input.acceptString(msg + "a brief description about the company");
         String rcID = Control.LogInCtrl.getRcUsername();
-        displayCompanyDetails(usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
-        // Send to Job Listing Controller to create new job
+        // Send to Controller to create new profile
         Control.CompanyCtrl.addNewRC(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
     }
 
-    public String[][] getCompanyCreds(String filename)
-            throws IOException, FileNotFoundException
-    {
-        //String filename = "Files/rcUserDetails.txt";
-        Control.FileIO file = new Control.FileIO(filename);
-
-        String[] lines = file.readFile(";").split(";");
-        String[][] output = new String[lines.length][5];
-        for(int i = 0; i < lines.length; i++)
-        {
-            output[i] = lines[i].split(",");
-        }
-
-        return output;
-
-    }
-
     //display company details
-    public ArrayList<CompanyListing> displayCompany()
+    public static void displayCompany()
             throws IOException, FileNotFoundException, ParseException
     {
         Control.FileIO file = new Control.FileIO("Files/rcUserDetails.txt");
-        ArrayList<Model.CompanyListing> list = new ArrayList<>();
 
         String[] numJob = file.readFile("\n").split("\n");
 
@@ -101,18 +57,22 @@ public class RecruiterUI extends View.UserUI
                 System.out.println("Company Description: " + details[5]);
             }
         }
-        Control.RecruiterCtrl.runRCHome();
-        return list;
+        Control.CompanyCtrl.editCompanyListing();
     }
 
-    public void displayCompanyDetails(String usrCompany, String usrCompAddress, String usrCompEmail, String usrCompPhone, String usrCompDescr)
+    public static int editCompanyOptions()
     {
-        System.out.println("\nCompany name: " + usrCompany);
-        System.out.println("Company Address: " + usrCompAddress);
-        System.out.println("Company Email: " + usrCompEmail);
-        System.out.println("Company Phone Number: " + usrCompPhone);
-        System.out.println("Company Description: " + usrCompDescr);
+        Input input = new Input();
+        String msg = "      EDIT JOB LISTING\n"
+                + "Press 1 to edit company profile name\n"
+                + "Press 2 to edit company profile address\n"
+                + "Press 3 to edit company profile email\n"
+                + "Press 4 to edit company profile phone number\n"
+                + "Press 5 to edit company profile description\n"
+                + "Press 0 to go back";
+        return input.acceptInt(msg, 0, 5);
     }
+
 
     public static int displayRCHome()
     {
