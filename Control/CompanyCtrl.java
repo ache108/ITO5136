@@ -18,7 +18,7 @@ public class CompanyCtrl {
 
     }
 
-    //code in progress
+
     public static void editCompanyListing() throws IOException, ParseException {
 
         View.Input input = new View.Input();
@@ -93,7 +93,7 @@ public class CompanyCtrl {
         for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(",");
-            if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
+            if (details[0].equals(Control.LogInCtrl.getRcUsername()))
             {
 
             }
