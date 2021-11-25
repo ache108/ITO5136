@@ -13,13 +13,12 @@ import static View.RecruiterUI.*;
 
 public class LogInCtrl
 {
+    //mutuator & get methods can't be set here on the controller? Does this violate MVC and increase coupling?
     private static String rcUsername;
-
     public static String getRcUsername()
     {
         return rcUsername;
     }
-
     public void setRcUsername(String rcUsername)
     {
         rcUsername = this.rcUsername;

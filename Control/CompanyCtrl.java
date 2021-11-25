@@ -14,7 +14,7 @@ public class CompanyCtrl {
 
         // write inputs to file now or pass and save them all in a single turn?
         String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress+ "," + usrCompEmail + "," + usrCompPhone+ "," + usrCompDescr;
-        writeNewRCToFile(rcDetails, "Files/rcUserDetails.txt");
+        writeNewRCToFile(rcDetails, Control.JSS.RCCOMPDETAILS);
 
     }
 
@@ -29,7 +29,7 @@ public class CompanyCtrl {
         String usrCompEmail = "";
         String usrCompPhone = "";
         String usrCompDescr = "";
-        Control.FileIO file = new Control.FileIO("Files/rcUserDetails.txt");
+        Control.FileIO file = new Control.FileIO(Control.JSS.RCCOMPDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
 
@@ -78,7 +78,7 @@ public class CompanyCtrl {
         String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress+ "," + usrCompEmail + "," + usrCompPhone+ "," + usrCompDescr;
         //remove old listing
         removeListing();
-        writeNewRCToFile(rcDetails, "Files/rcUserDetails.txt");
+        writeNewRCToFile(rcDetails, Control.JSS.RCCOMPDETAILS);
         View.RecruiterUI.displayCompany();
     }
 
@@ -86,7 +86,7 @@ public class CompanyCtrl {
     public static void removeListing()
             throws IOException, FileNotFoundException, ParseException
     {
-        Control.FileIO file = new Control.FileIO("Files/rcUserDetails.txt");
+        Control.FileIO file = new Control.FileIO(Control.JSS.RCCOMPDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
 

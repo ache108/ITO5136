@@ -1,32 +1,23 @@
 package Model;
 
 public class Recruiter extends User {
-    private String company;
 
     public Recruiter()
     {
         // No default recruiters
     }
 
-    public Recruiter(String rcCompany)
+    public Recruiter(Model.User newUser)
     {
-        // Do I need to add all other user attributes here too?
-        company = rcCompany;
+        this.userName = newUser.userName;
+        this.userEmail = newUser.userEmail;
+        this.firstName = newUser.firstName;
+        this.lastName = newUser.lastName;
+        this.city = newUser.city;
+        this.state = newUser.state;
+        this.dateOfBirth  = newUser.dateOfBirth;
+        this.publicProfile = newUser.publicProfile;
     }
-
-    // adding these as we normally need display methods but will need to update depending on what we want to show
-    public void displayCompany()
-    {
-        System.out.println("Works for " + this.company);
-    }
-
-    public String getCompany()
-    {
-        return this.company;
-    }
-
-    public void setCompany(String newCompany)
-    {
-        company = newCompany;
-    }
+    // all company variables on company model
+    // all mutator and set methods are on the user model
 }

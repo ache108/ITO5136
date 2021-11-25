@@ -17,12 +17,12 @@ public class JobSeekerCtrl {
     {
         // send to model to create
         Model.JobSeeker js = new JobSeeker(newUser, hrlyRate, wrkType, wrkResidency, iptSkills);
-        // write Output
+        // write Output to File
         String wrJS = writeJSString(js);
         UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
     }
     //Job Seeker home page
-    public void runJSHome()
+    public static void runJSHome()
     {
         LogInUI ui = new View.LogInUI();
         LogInCtrl lic = new LogInCtrl();
@@ -49,18 +49,18 @@ public class JobSeekerCtrl {
     public static String writeJSString(JobSeeker js)
     {
         String msg = "";
-        msg += " " + js.userName;
-        msg += " " + js.userEmail;
-        msg += " " + js.firstName;
-        msg += " " + js.lastName;
-        msg += " " + js.city;
-        msg += " " + js.state;
-        msg += " " + js.dateOfBirth;
-        msg += " " + js.publicProfile;
-        msg += " " + js.hourlyWageRate;
-        msg += " " + js.wrkType;
-        msg += " " + js.residencyType;
-        msg += js.skillsList;
+        msg += js.userName;
+        msg += ";" + js.userEmail;
+        msg += ";" + js.firstName;
+        msg += ";" + js.lastName;
+        msg += ";" + js.city;
+        msg += ";" + js.state;
+        msg += ";" + js.dateOfBirth;
+        msg += ";" + js.publicProfile;
+        msg += ";" + js.hourlyWageRate;
+        msg += ";" + js.wrkType;
+        msg += ";" + js.residencyType;
+        msg += ";" + js.skillsList + ";";
 
         return msg;
     }

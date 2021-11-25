@@ -1,4 +1,5 @@
 package View;
+import Control.JSS;
 import Model.JobListing;
 import View.Input;
 import java.io.*;
@@ -17,31 +18,66 @@ public class RecruiterUI extends View.UserUI
     public static void recruiterRegisterScreen(String iptName)
             throws IOException
     {
-        saveRCDetails();
+        recruiterInputs(iptName);
         RecruiterUI.displayRCHome();
     }
 
-    public static void saveRCDetails()
+    public static void recruiterInputs(String userName)
             throws IOException
     {
+        // get user inputs and personal details for the recruiter
+        Model.User newUser = View.UserUI.userRegisterScreen(userName);
+
+        // Get extra inputs from Recruiter
         Input input = new Input();
         System.out.println("\nPlease provide the following details");
         String msg = "\nPlease enter ";
-        String usrCompany = input.acceptString(msg + "the company's name");
-        String usrCompAddress = input.acceptString(msg + "the company's address");
-        String usrCompEmail = input.acceptString(msg + "the company's email");
-        String usrCompPhone = input.acceptString(msg + "the company's phone number");
-        String usrCompDescr = input.acceptString(msg + "a brief description about the company");
-        String rcID = Control.LogInCtrl.getRcUsername();
-        // Send to Controller to create new profile
-        Control.CompanyCtrl.addNewRC(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
+        boolean verifiedInput;
+        String usrCompany = "";
+        String usrCompAddress = "";
+        String usrCompEmail = "";
+        String usrCompPhone = "";
+        String usrCompDescr = "";
+
+        do {
+            usrCompany = input.acceptString(msg + "the company's name");
+            verifiedInput = userVerifyInputs(usrCompany);
+        } while (!verifiedInput);
+
+        do {
+            usrCompAddress = input.acceptString(msg + "the company's address");
+            verifiedInput = userVerifyInputs(usrCompAddress);
+        } while (!verifiedInput);
+
+        do {
+            usrCompEmail = input.acceptString(msg + "the company's email");
+            verifiedInput = userVerifyInputs(usrCompEmail);
+        } while (!verifiedInput);
+
+        // make this a number input?
+        do {
+            usrCompPhone = input.acceptString(msg + "the company's phone number");
+            verifiedInput = userVerifyInputs(usrCompPhone);
+        } while (!verifiedInput);
+
+        do {
+            usrCompDescr = input.acceptString(msg + "a brief description about the company");
+            verifiedInput = userVerifyInputs(usrCompDescr);
+        } while (!verifiedInput);
+
+
+        // Send to Controller to create new company profile
+        Control.CompanyCtrl.addNewRC(userName, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
+
+        // Send to Controller to create new Recruiter Profile
+        Control.RecruiterCtrl.createNewRecruiter(newUser);
     }
 
     //display company details
     public static void displayCompany()
             throws IOException, FileNotFoundException, ParseException
     {
-        Control.FileIO file = new Control.FileIO("Files/rcUserDetails.txt");
+        Control.FileIO file = new Control.FileIO(JSS.RCDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
 

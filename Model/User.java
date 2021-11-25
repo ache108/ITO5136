@@ -25,8 +25,8 @@ public class User
         userEmail = iptEmail;
         firstName = iptFirstName;
         lastName = iptLastName;
-                city = iptCity;
-                state = iptState;
+        city = iptCity;
+        state = iptState;
         dateOfBirth  = iptDOB;
         this.publicProfile = publicProfile;
     }

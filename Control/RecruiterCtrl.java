@@ -2,6 +2,7 @@ package Control;
 
 import Model.JobSeeker;
 import Model.Recruiter;
+import Model.User;
 import View.JobListingUI;
 import View.JobSeekerUI;
 import View.LogInUI;
@@ -14,15 +15,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class RecruiterCtrl {
-    public static void createNewRecruiter()
+    public static void createNewRecruiter(Model.User newUser)
             throws IOException
     {
-        // send to model to create
-        // Model newUser
-        ///Model.Recruiter rc = new Recruiter(newUser, );
+        // send to model to create new recruiter personal details
+        Model.Recruiter rc = new Recruiter(newUser);
         // write Output
-        ///String wrRC = writeRCString(rc);
-        //Control.UserCntrl.writeNewUserToFile(wrRC, Control.JSS.RCDETAILS);
+        String wrRC = writeRCString(rc);
+        Control.UserCntrl.writeNewUserToFile(wrRC, Control.JSS.RCDETAILS);
     }
     //Recruiter home page
     public static void runRCHome() throws IOException, ParseException {
@@ -56,9 +56,16 @@ public class RecruiterCtrl {
         }
     }
 
-    public static String writeRCString()
+    public static String writeRCString(Recruiter newRecruiter)
     {
         String msg = "";
+        msg += newRecruiter.userName;
+        msg += ";" + newRecruiter.userEmail;
+        msg += ";" + newRecruiter.firstName;
+        msg += ";" + newRecruiter.lastName;
+        msg += ";" + newRecruiter.city;
+        msg += ";" + newRecruiter.state;
+        msg += ";" + newRecruiter.dateOfBirth;
         return msg;
     }
 }

@@ -38,12 +38,12 @@ public class UserUI
         } while (!verifiedInput);
 
         do {
-            usrCity = input.acceptString(msg + "City where you want to browse for Jobs.");
+            usrCity = input.acceptString(msg + "City where you live.");
             verifiedInput = userVerifyInputs(usrCity);
         } while (!verifiedInput);
 
         do {
-            usrState = input.acceptString(msg + "State where you want to browse for Jobs.");
+            usrState = input.acceptString(msg + "State where you live.");
             verifiedInput = userVerifyInputs(usrState);
         } while (!verifiedInput);
 
@@ -53,7 +53,7 @@ public class UserUI
         Model.User newUser = Control.UserCntrl.addNewUser(iptName, usrEmail, usrFName, usrLName, usrCity, usrState, userDOB, userPublic);
         return newUser;
     }
-
+    // check that we can remove this as it now sits on the Recruiter Controller...
     public static void rcRegisterScreen()
             throws IOException
     {

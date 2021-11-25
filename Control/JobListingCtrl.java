@@ -40,7 +40,7 @@ public class JobListingCtrl {
 
         // write inputs to file now or pass and save them all in a single turn?
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
-        writeNewJobToFile(jobDetails, JSS.JSSJOBLIST);
+        writeNewJobToFile(jobDetails, Control.JSS.JSSJOBLIST);
 
     }
 
@@ -233,7 +233,7 @@ public class JobListingCtrl {
     public void viewJobListing(ArrayList<JobListing> jobList, int jobNo) throws IOException, ParseException {
         if (jobNo == 0) {
             try {
-                RecruiterCtrl.runRCHome();
+                Control.RecruiterCtrl.runRCHome();
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
@@ -268,7 +268,7 @@ public class JobListingCtrl {
     public void editJobListing(Model.JobListing jl) throws IOException, ParseException {
         View.JobListingUI jlu = new View.JobListingUI();
         View.Input input = new View.Input();
-        FileIO file = new FileIO(JSS.JSSJOBLIST);
+        FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         String newString = "";
         int detailNo = JobListingUI.editJobOptions();
         switch (detailNo)

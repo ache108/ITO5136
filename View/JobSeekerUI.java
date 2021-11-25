@@ -31,6 +31,7 @@ public class JobSeekerUI extends View.UserUI
 
         ArrayList <String> iptSkills = jobSeekerSkillInput();
         double wrkHrlyRate = input.acceptDouble(msg + "your desired hourly salary rate.");
+
         // TO DO CV
 
         // Send to Controller to create new user on Model
@@ -70,6 +71,7 @@ public class JobSeekerUI extends View.UserUI
             throws IOException
     {
         jobSeekerInputs(userName);
+        Control.JobSeekerCtrl.runJSHome();
     }
 
     public int displayJSHome()
