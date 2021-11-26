@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Recruiter profile code cleanup">
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JSS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JSS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JobListingCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JobListingCtrl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/RecruiterCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/RecruiterCtrl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/UserCntrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/UserCntrl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Files/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Files/jobListings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Model/JobListing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Model/JobListing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/View/JobListingUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/View/JobListingUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/jobListings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/Files/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/test/ache108/Files/jobListings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/test/ache108/jobListings.txt" afterDir="false" />
-    </list>
+    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Recruiter profile can edit, but still need to work out how to delete old line" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -175,7 +163,21 @@
       <option name="project" value="LOCAL" />
       <updated>1637746383062</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Recruiter profile can edit, but still need to work out how to delete old line">
+      <created>1637838198402</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1637838198402</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Recruiter profile can edit, but still need to work out how to delete old line">
+      <created>1637838593433</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1637838593433</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,7 +197,8 @@
     <MESSAGE value="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108" />
     <MESSAGE value="Recruiter profile linked to user and display correctly" />
     <MESSAGE value="Recruiter profile code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Recruiter profile code cleanup" />
+    <MESSAGE value="Recruiter profile can edit, but still need to work out how to delete old line" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recruiter profile can edit, but still need to work out how to delete old line" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
