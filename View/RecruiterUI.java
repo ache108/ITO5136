@@ -100,7 +100,7 @@ public class RecruiterUI extends View.UserUI
     public static int editCompanyOptions()
     {
         Input input = new Input();
-        String msg = "      EDIT COMPANY LISTING\n"
+        String msg = "      \nEDIT COMPANY LISTING\n"
                 + "Press 1 to edit company profile name\n"
                 + "Press 2 to edit company profile address\n"
                 + "Press 3 to edit company profile email\n"
@@ -114,7 +114,7 @@ public class RecruiterUI extends View.UserUI
     public static int displayRCHome()
     {
         Input input = new Input();
-        String msg = "      RECRUITER HOME PAGE\n"
+        String msg = "      \nRECRUITER HOME PAGE\n"
                 + "Press 1 to create job listing\n"
                 + "Press 2 to view job listing\n"
                 + "Press 3 to view company profile\n"

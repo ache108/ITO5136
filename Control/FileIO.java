@@ -34,7 +34,7 @@ public class FileIO
     public void appendFile(String output)
             throws IOException
     {
-        System.out.println("y");
+        //System.out.println("y");
         FileWriter writer = new FileWriter(fileName, true);
         writer.append("\n" + output);
         writer.close();

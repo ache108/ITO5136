@@ -33,12 +33,16 @@ public class JobSeekerCtrl {
         {
             case 1:
                 //link to search for job
+                break;
             case 2:
                 //link to view profile
+                break;
             case 3:
                 //link to view interview
+                break;
             case 4:
                 //link to view applications
+                break;
             case 0:
                 //logging out
                 ui.displayMsg("Logging out\n");

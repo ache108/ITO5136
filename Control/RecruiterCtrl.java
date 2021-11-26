@@ -49,6 +49,7 @@ public class RecruiterCtrl {
                 break;
             case 4:
                 //link to view interview offers
+                break;
             case 0:
                 //logging out
                 ui.displayMsg("Logging out\n");

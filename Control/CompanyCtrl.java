@@ -23,7 +23,6 @@ public class CompanyCtrl {
     public static void editCompanyListing() throws IOException, ParseException {
 
         View.Input input = new View.Input();
-        Model.CompanyListing cl = new Model.CompanyListing();
         String rcID = Control.LogInCtrl.getRcUsername();
         String usrCompany = "";
         String usrCompAddress = "";
