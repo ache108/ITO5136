@@ -5,6 +5,7 @@ import View.Input;
 import Control.FileIO;
 import View.JobListingUI;
 import View.RecruiterUI;
+import Control.MatchingCtrl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -60,21 +61,22 @@ public class JobListingCtrl {
     //Generate matching scores for all job listings and call method to sort them
     public void matchJobs(JobListing reqs)
     {
+        MatchingCtrl mc = new MatchingCtrl();
         for(int i = 0; i < jobList.size(); i++)
         {
             if(jobList.get(i).getJobAd() == false)
                 continue;
-            if(jobList.get(i).getJobTitle().equals(reqs.getJobTitle()))
+            if(mc.isMatch(jobList.get(i).getJobTitle(), reqs.getJobTitle()))
                 jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobCategory().equals(reqs.getJobCategory()))
+            if(mc.isMatch(jobList.get(i).getJobCategory(), reqs.getJobCategory()))
                 jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobLocation().equals(reqs.getJobLocation()))
+            if(mc.isMatch(jobList.get(i).getJobLocation(), reqs.getJobLocation()))
                 jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobHours().equals(reqs.getJobHours()))
+            if(mc.isMatch(jobList.get(i).getJobHours(), reqs.getJobHours()))
                 jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobPay().equals(reqs.getJobPay()))
+            if(mc.isMatch(jobList.get(i).getJobPay(), reqs.getJobPay()))
                 jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobDescription().equals(reqs.getJobDescription()))
+            if(mc.isMatch(jobList.get(i).getJobDescription(), reqs.getJobDescription()))
                 jobList.get(i).incrementMatchingScore(1);
 
             ArrayList<String> jSkills = jobList.get(i).getJobSkills();
@@ -83,7 +85,7 @@ public class JobListingCtrl {
                 ArrayList<String> reqSkills = reqs.getJobSkills();
                 for(int k = 0; k < reqSkills.size(); k++)
                 {
-                    if(jSkills.get(j).equals(reqSkills.get(k)))
+                    if(mc.isMatch(jSkills.get(j), reqSkills.get(k)))
                         jobList.get(i).incrementMatchingScore(1);
                 }
             }

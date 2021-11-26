@@ -2,6 +2,7 @@ package Control;
 import Control.LogInCtrl;
 import Model.JobListing;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class JSS
 {
@@ -29,9 +30,9 @@ public class JSS
         LogInCtrl lic = new LogInCtrl();
         lic.start();
 
-        /*FOR TESTING MATCHING SCORES AND SORT
+        /*//FOR TESTING MATCHING SCORES AND SORT
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
-        JobListing reqs = new JobListing("Software Engineer", "Management", "Perth", "Full Time", "80000", new ArrayList<String>(), "We are looking to hire someone!");
+        JobListing reqs = new JobListing("me", "0000001", "Software Engineer", "Management", "Perth", "Full Time", "80000", new ArrayList<String>(), "We are looking to hire someone!", new Date(), true);
         for(JobListing jl: jlc.jobList)
         {
             System.out.println(jl.getJobId() + " " + jl.getMatchingScore());

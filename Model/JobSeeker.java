@@ -6,6 +6,7 @@ public class JobSeeker extends User {
     public String wrkType;
     public String residencyType;
     public ArrayList<String> skillsList;
+    private int matchingScore;
 
     public JobSeeker() {
         // we need attributes to actually create a jobSeeker Profile
@@ -24,6 +25,7 @@ public class JobSeeker extends User {
         this.wrkType = iptWrkType;
         this.residencyType = iptResidency;
         this.skillsList = iptSkills;
+        this.matchingScore = 0;
     }
 
     public void addSkillToList(String newSkill)
@@ -65,9 +67,18 @@ public class JobSeeker extends User {
         return this.skillsList.get(index);
     }
 
+    public int getSkillListSize() { return this.skillsList.size(); }
+
     public String getWorkType()
     {
         return this.wrkType;
+    }
+
+    public int getMatchingScore() { return this.matchingScore; }
+
+    public void incrementMatchingScore(int amount)
+    {
+        this.matchingScore += amount;
     }
 
     public void removeSkillFromList(int index)
@@ -94,4 +105,6 @@ public class JobSeeker extends User {
     {
         wrkType = iptWrkType;
     }
+
+    public void setMatchingScore(int matchingScore) { this.matchingScore = matchingScore; }
 }
