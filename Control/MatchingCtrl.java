@@ -40,10 +40,10 @@ public class MatchingCtrl
         return sort(js);
     }
 
-    public ArrayList<JobSeeker> parseJobSeekers()
+    /*public ArrayList<JobSeeker> parseJobSeekers()
     {
         //UNFINISHED
-    }
+    }*/
 
     public ArrayList<JobSeeker> sort(ArrayList<JobSeeker> js)
     {

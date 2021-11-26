@@ -77,11 +77,11 @@ public class RecruiterUI extends View.UserUI
     public static void displayCompany()
             throws IOException, FileNotFoundException, ParseException
     {
-        Control.FileIO file = new Control.FileIO(JSS.RCDETAILS);
+        Control.FileIO file = new Control.FileIO(JSS.RCCOMPDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
 
-        for (int i = 0; i < numJob.length; i++)
+        for (int i = numJob.length - 1; i >= 0; i--)
         {
             String[] details = numJob[i].split(",");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
@@ -91,6 +91,7 @@ public class RecruiterUI extends View.UserUI
                 System.out.println("Company Email: " + details[3]);
                 System.out.println("Company Phone Number: " + details[4]);
                 System.out.println("Company Description: " + details[5]);
+                break;
             }
         }
         Control.CompanyCtrl.editCompanyListing();
