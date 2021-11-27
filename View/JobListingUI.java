@@ -37,7 +37,7 @@ public class JobListingUI {
         jl.setJobRC(LogInCtrl.getRcUsername());
 
         // Send to Job Listing Controller to create new job
-        Control.JobListingCtrl.addNewJob(jl.jobRC, jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
+        jlc.addNewJob(jl.jobRC, jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
 
     }
 
@@ -72,7 +72,7 @@ public class JobListingUI {
     {
         Model.JobListing jl = new JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
-        jlc.printJobList(jlc.jobList);
+        jlc.printJobList();
     }
 
     public ArrayList<String> jobListingSkillInput()

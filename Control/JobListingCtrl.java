@@ -18,7 +18,7 @@ import Control.RecruiterCtrl.*;
 
 public class JobListingCtrl {
 
-    public ArrayList<Model.JobListing> jobList;
+    private ArrayList<Model.JobListing> jobList;
     SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
     public JobListingCtrl()
@@ -37,7 +37,7 @@ public class JobListingCtrl {
             throws IOException, FileNotFoundException
     {
         // new job is created
-        Model.JobListing newJob = new Model.JobListing(jobRC, jobId, jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd );
+        //Model.JobListing newJob = new Model.JobListing(jobRC, jobId, jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd );
 
         // write inputs to file now or pass and save them all in a single turn?
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
@@ -123,7 +123,6 @@ public class JobListingCtrl {
     }*/
 
     //Convert CSV to Array List of JL objects and return this Array List.
-    //When rcID or rcUsername is identified, will filter out the objects called based on the specific rc.
     public ArrayList<JobListing> parseFromCSV()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -178,12 +177,11 @@ public class JobListingCtrl {
     }
 
     //Take ArrayList and print out abbreviated job list
-    public void printJobList(ArrayList<Model.JobListing> jobList)
+    public void printJobList()
             throws IOException, FileNotFoundException, ParseException
     {
         filterRCJob(jobList, Control.LogInCtrl.getRcUsername());
 
-        //SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
         System.out.println("--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
@@ -248,6 +246,8 @@ public class JobListingCtrl {
         manageJobListing(jobList.get(jobNo - 1));
     }
 
+    //Direct to each functionality related to job listing management
+
     public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
         JobListingUI jlu = new JobListingUI();
         int choice = JobListingUI.manageJobOptions();
@@ -271,6 +271,23 @@ public class JobListingCtrl {
         View.JobListingUI jlu = new View.JobListingUI();
         View.Input input = new View.Input();
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
+
+        /*String id = jl.getJobId();
+        String[] line = file.readFile("\n").split("\n");
+        for (int i = 0; i < line.length; i++)
+        {
+            String[] details = line[i].split(",");
+            System.out.println("Details length is " + details.length);
+            System.out.println("ID is " + details[1]);
+            if (details[1].equals(id))
+            {
+                file.replaceTextFile(line[i]);
+                System.out.println("Deleting!!!");
+            } else {
+                System.out.println("Skipping!!!!");
+            }
+        }*/
+
         String newString = "";
         int detailNo = JobListingUI.editJobOptions();
         switch (detailNo)
@@ -330,9 +347,35 @@ public class JobListingCtrl {
                 //Go back
                 manageJobListing(jl);
         }
+        String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jl.getJobId() + "," + jl.getJobTitle() + "," + jl.getJobCategory() + "," + jl.getJobLocation() + "," + jl.getJobHours() + "," + jl.getJobPay() + "," + jl.getJobSkills() + "," + jl.getJobDescription() + "," + jl.getAppDeadline() + "," + jl.getJobAd();
+        writeNewJobToFile(jobDetails, Control.JSS.JSSJOBLIST);
+        editJobListing(jl);
     }
 
     //NEED A METHOD TO OVERWRITE TEXT FILE AFTER EDIT
+
+    /*public static void deleteLine()
+    {
+                FileIO file = new FileIO(JSS.JSSJOBLIST);
+                while (file.readFile("\n") != null) {
+                    if ()
+                }
+                String fileContents = buffer.toString();
+                System.out.println("Contents of the file: " + fileContents);
+                //closing the Scanner object
+                sc.close();
+                String oldLine = "No preconditions and no impediments. Simply Easy Learning!";
+                String newLine = "Enjoy the free content";
+                //Replacing the old line with new line
+                fileContents = fileContents.replaceAll(oldLine, newLine);
+                //instantiating the FileWriter class
+                FileWriter writer = new FileWriter(filePath);
+                System.out.println("");
+                System.out.println("new data: " + fileContents);
+                writer.append(fileContents);
+                writer.flush();
+            }
+    }*/
 
     public static void writeNewJobToFile(String infoToWrite, String fileName)
             throws IOException

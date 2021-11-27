@@ -100,4 +100,26 @@ public class FileIO
         writer.write(output);
         writer.close();
     }
+
+    public void replaceTextFile(String target)
+            throws IOException, FileNotFoundException
+    {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("Temp.txt"));
+
+        String currentLine;
+        while((currentLine = br.readLine()) != null)
+        {
+            System.out.println("Are you doing anything?");
+            String trimmedLine = currentLine.trim();
+            if (trimmedLine.equals(target))
+            {
+                continue;
+            }
+            bw.write(currentLine + "\n");
+
+        }
+        bw.close();
+        br.close();
+    }
 }
