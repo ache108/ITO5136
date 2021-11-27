@@ -194,6 +194,7 @@ public class LogInCtrl
                 break;
             case 5:
                 ui.displayMsg("Exiting Program");
+                System.exit(0);
                 break;
         }
     }

@@ -289,22 +289,24 @@ public class JobSeekerUI extends View.UserUI
             String[] details = numJob[i].split(";");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
             {
-                String[] skill = details[numJob.length].split(",");
+                String[] skill = details[details.length - 1].split(",");
                 for (int j = 0; j < skill.length; j++)
+                {
                     System.out.println(j + 1 + ": " + skill[j]);
-                //System.out.println("Skills: " + details[11]);
+                }
                 break;
             }
         }
     }
 
+    //incomplete
     public static void editSkills()
             throws IOException, FileNotFoundException, ParseException
     {
         Input input = new Input();
         int detailNo = displayEditSkills();
         boolean verifiedInput = false;
-        //String add = "";
+        String add = "";
         String remove = "";
         do {
             switch (detailNo)
@@ -312,10 +314,9 @@ public class JobSeekerUI extends View.UserUI
                 case 1:
                     //add skill
                     do {
-                        //add = input.acceptString("Please enter a skill to add");
-                        //verifiedInput = View.UserUI.userVerifyInputs(add);
-                        jobSeekerSkillInput();
-                    } while (!verifiedInput);
+                        add = input.acceptString("Please enter the index to remove a skill");
+                        verifiedInput = View.UserUI.userVerifyInputs(add);
+                        } while (!verifiedInput);
                     break;
                 case 2:
                     //remove skill
@@ -344,7 +345,7 @@ public class JobSeekerUI extends View.UserUI
         Input input = new Input();
         String msg = "      JOB SEEKER HOME PAGE\n"
                 + "Press 1 to search for jobs\n"
-                + "Press 2 to view your profile\n"
+                + "Press 2 to view and edit your profile\n"
                 + "Press 3 to view your interview offers\n"
                 + "Press 4 to view applications\n"
                 + "Press 0 to log out";
