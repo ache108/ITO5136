@@ -8,6 +8,7 @@ import Control.LogInCtrl;
 import Control.UserCntrl;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class JobSeekerCtrl {
@@ -21,9 +22,9 @@ public class JobSeekerCtrl {
         String wrJS = writeJSString(js);
         UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
     }
+
     //Job Seeker home page
-    public static void runJSHome()
-    {
+    public static void runJSHome() throws IOException, ParseException {
         LogInUI ui = new View.LogInUI();
         LogInCtrl lic = new LogInCtrl();
         JobSeekerUI js = new View.JobSeekerUI();
@@ -36,6 +37,7 @@ public class JobSeekerCtrl {
                 break;
             case 2:
                 //link to view profile
+                js.displayJSDetails();
                 break;
             case 3:
                 //link to view interview
