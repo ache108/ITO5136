@@ -358,31 +358,6 @@ public class JobListingCtrl {
         editJobListing(jl);
     }
 
-    //NEED A METHOD TO OVERWRITE TEXT FILE AFTER EDIT
-
-    /*public static void deleteLine()
-    {
-                FileIO file = new FileIO(JSS.JSSJOBLIST);
-                while (file.readFile("\n") != null) {
-                    if ()
-                }
-                String fileContents = buffer.toString();
-                System.out.println("Contents of the file: " + fileContents);
-                //closing the Scanner object
-                sc.close();
-                String oldLine = "No preconditions and no impediments. Simply Easy Learning!";
-                String newLine = "Enjoy the free content";
-                //Replacing the old line with new line
-                fileContents = fileContents.replaceAll(oldLine, newLine);
-                //instantiating the FileWriter class
-                FileWriter writer = new FileWriter(filePath);
-                System.out.println("");
-                System.out.println("new data: " + fileContents);
-                writer.append(fileContents);
-                writer.flush();
-            }
-    }*/
-
     public static void writeNewJobToFile(String infoToWrite, String fileName)
             throws IOException
     {

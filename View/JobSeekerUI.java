@@ -1,7 +1,7 @@
 package View;
+import Control.*;
 import Model.JobSeeker;
 import View.Input;
-import Control.JobSeekerCtrl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -350,5 +350,36 @@ public class JobSeekerUI extends View.UserUI
                 + "Press 4 to view applications\n"
                 + "Press 0 to log out";
         return input.acceptInt(msg, 0, 4);
+    }
+
+    //Retrieve user input search criteria keywords and returns an array list.
+    public ArrayList<String> inputSearchKeywords()
+    {
+        System.out.println("      SEARCH FOR JOBS");
+        Input input = new Input();
+        ArrayList<String> searchKeywords = new ArrayList<String>();
+        boolean addKeyword = true;
+        boolean charInputCheck = true;
+        do {
+            String keyword = input.acceptString("Please enter keywords to search for jobs.\nKeywords can be job titles, locations, job types (hours), and compensation level.");
+            searchKeywords.add(keyword);
+            // add another keyword
+            char userResponse = input.acceptChar("To add another keyword please enter y. \nTo complete the list please enter n");
+            do {
+                if (userResponse == 'y') {
+                    addKeyword = true;
+                    charInputCheck = false;
+                } else if (userResponse == 'n') {
+                    addKeyword = false;
+                    charInputCheck = false;
+                } else {
+                    System.out.println("Please enter y or n!");
+                    charInputCheck = true;
+                }
+            } while (charInputCheck);
+        } while (addKeyword);
+
+        return searchKeywords;
+
     }
 }

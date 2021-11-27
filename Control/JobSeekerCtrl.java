@@ -2,6 +2,8 @@ package Control;
 
 import Model.JobSeeker;
 import Model.User;
+import View.Input;
+import View.JobListingUI;
 import View.JobSeekerUI;
 import View.LogInUI;
 import Control.LogInCtrl;
@@ -34,6 +36,7 @@ public class JobSeekerCtrl {
         {
             case 1:
                 //link to search for job
+                searchJob();
                 break;
             case 2:
                 //link to view profile
@@ -69,5 +72,24 @@ public class JobSeekerCtrl {
         msg += ";" + js.skillsList + ";";
 
         return msg;
+    }
+
+    //Method to call search keyword input and job category input, and return array list containing all the keywords.
+    //Unsure if array list is best way to work with the existing matching score?
+    //Might change the method to call another method to perform search and return results.
+    public static ArrayList<String> searchJob() throws IOException {
+        View.JobSeekerUI jsu = new JobSeekerUI();
+        View.JobListingUI jlu = new JobListingUI();
+        ArrayList<String> searchKeywords = new ArrayList<String>();
+        Input input = new Input();
+
+        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        String[] list = file.readFile("\n").split("\n");
+
+        searchKeywords = jsu.inputSearchKeywords();
+        jlu.displayJobCategories();
+        searchKeywords.add(jlu.returnJobCategory(input.acceptInt( "Please select the job category: ", 1, list.length)));
+
+        return searchKeywords;
     }
 }
