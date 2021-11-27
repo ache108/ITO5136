@@ -49,6 +49,7 @@ public class CompanyCtrl {
 
         int detailNo = View.RecruiterUI.editCompanyOptions();
         boolean verifiedInput = false;
+        boolean case0 = false;
         String msg = "\nPlease enter ";
         do {
             switch (detailNo)
@@ -90,6 +91,7 @@ public class CompanyCtrl {
                     break;
                 case 0:
                     //Go back
+                    case0 = true;
                     Control.RecruiterCtrl.runRCHome();
                     break;
                 default:
@@ -98,10 +100,13 @@ public class CompanyCtrl {
                     break;
 
             }
-            String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress+ "," + usrCompEmail + "," + usrCompPhone+ "," + usrCompDescr;
-            //add updated listing, old listing stays
-            writeNewRCToFile(rcDetails, Control.JSS.RCCOMPDETAILS);
-            View.RecruiterUI.displayCompany();
+            if (case0 = false)
+            {
+                String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress + "," + usrCompEmail + "," + usrCompPhone + "," + usrCompDescr;
+                //add updated listing, old listing stays
+                writeNewRCToFile(rcDetails, Control.JSS.RCCOMPDETAILS);
+                View.RecruiterUI.displayCompany();
+            }
         } while (!verifiedInput);
     }
 

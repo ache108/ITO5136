@@ -5,3 +5,4 @@ doug,Geg's,5 Love St,info@geg.com,88884444,Geg's
 luke,Luke's,9 End St,luke@lukes.com,90901212,Luke's
 and,And's and And,34 River St,andandand@gmail.com,90123456,And's foods
 testingRecruiter,TestConsulting,1986 Test Road,test@testcompany.com,p,testing company
+amy,Amy's Flowers,10 Flower Grove,amy@amyflower.com,90000000,Amy's love flowers

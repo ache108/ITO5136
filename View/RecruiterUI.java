@@ -117,7 +117,7 @@ public class RecruiterUI extends View.UserUI
         String msg = "      \nRECRUITER HOME PAGE\n"
                 + "Press 1 to create job listing\n"
                 + "Press 2 to view job listing\n"
-                + "Press 3 to view company profile\n"
+                + "Press 3 to view and edit company profile\n"
                 + "Press 4 to view interview offers\n"
                 + "Press 0 to log out";
         return input.acceptInt(msg, 0, 4);

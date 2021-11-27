@@ -1,3 +1,4 @@
 ljarrett,jarrett.lauren@gmail.com,Lauren,Jarrett,Brisbane,QLD,Mon Jul 10 00:00:00 AEST 1989,true
  testy test@test.com.au test test testing tested Sun Sep 10 00:00:00 AEST 1978 false 10000.0 contract resident[nothing, no more skills]
-test;test@test.com;T;L;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[smart, IT];
+test;test@test.com;T;L;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[smart, IT]
+test;test@test.com;T;Name;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[smart, IT]

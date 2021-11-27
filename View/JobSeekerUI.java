@@ -101,7 +101,7 @@ public class JobSeekerUI extends View.UserUI
                     break;
                 }
             }
-            //editJSOptions();
+            editJSOptions();
     }
 
     public static int editJSOptionsDisplay()
@@ -123,8 +123,9 @@ public class JobSeekerUI extends View.UserUI
         return input.acceptInt(msg, 0, 11);
     }
 
-    //incomplete
-    /*public static void editJSOptions()
+    //incomplete case 11
+    public static void editJSOptions()
+            throws IOException, FileNotFoundException, ParseException
     {
         View.Input input = new View.Input();
         String username = Control.LogInCtrl.getRcUsername();
@@ -134,13 +135,11 @@ public class JobSeekerUI extends View.UserUI
         String city = "";
         String state = "";
         String dob = "";
-        Boolean profilePublic = true;
-        double wage = 00.00;
+        String profilePublic = "";
+        String wage = "";
         String workType = "";
         String workRes = "";
-        ArrayList <String> skills;
-
-        int detailNo = editJSOptionsDisplay();
+        String skills = "";
 
         Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
 
@@ -151,22 +150,23 @@ public class JobSeekerUI extends View.UserUI
             String[] details = numJob[i].split(";");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
             {
-                System.out.println("\nEmail: " + details[1]);
-                System.out.println("First Name: " + details[2]);
-                System.out.println("Last Name: " + details[3]);
-                System.out.println("City: " + details[4]);
-                System.out.println("State: " + details[5]);
-                System.out.println("Date of Birth: " + details[6]);
-                System.out.println("Public Profile: " + details[7]);
-                System.out.println("Desired Hourly Wage: " + details[8]);
-                System.out.println("Work Type: " + details[9]);
-                System.out.println("Work Residency: " + details[10]);
-                System.out.println("Skills: " + details[11]);
+                email = details[1];
+                fName = details[2];
+                lName = details[3];
+                city = details[4];
+                state = details[5];
+                dob = details[6];
+                profilePublic = details[7];
+                wage = details[8];
+                workType = details[9];
+                workRes = details[10];
+                skills = details[11];
                 break;
             }
         }
-
+        int detailNo = editJSOptionsDisplay();
         boolean verifiedInput = false;
+        boolean case0 = false;
         String msg = "\nPlease enter ";
         do {
             switch (detailNo)
@@ -174,7 +174,7 @@ public class JobSeekerUI extends View.UserUI
                 case 1:
                     //edit email
                     do {
-                        email = input.acceptString(msg + "tour email");
+                        email = input.acceptString(msg + "your email");
                         verifiedInput = View.UserUI.userVerifyInputs(email);
                     } while (!verifiedInput);
                     break;
@@ -216,14 +216,14 @@ public class JobSeekerUI extends View.UserUI
                 case 7:
                     //edit public profile
                     do {
-                        profilePublic = input.acceptBoolean(msg + "whether to make your profile public or private");
+                        profilePublic = input.acceptString(msg + "whether to make your profile public or private");
                         verifiedInput = View.UserUI.userVerifyInputs(profilePublic);
                     } while (!verifiedInput);
                     break;
                 case 8:
                     //edit wage
                     do {
-                        wage = input.acceptDouble(msg + "your desired hourly wage");
+                        wage = input.acceptString(msg + "your desired hourly wage");
                         verifiedInput = View.UserUI.userVerifyInputs(wage);
                     } while (!verifiedInput);
                     break;
@@ -243,14 +243,12 @@ public class JobSeekerUI extends View.UserUI
                     break;
                 case 11:
                     //edit skills
-                    do {
-                        skills = input.acceptString(msg + "your skills");
-                        verifiedInput = View.UserUI.userVerifyInputs(skills);
-                    } while (!verifiedInput);
+                        case0 = true;
+                        editSkills();
                     break;
                 case 0:
                     //Go back
-
+                    Control.JobSeekerCtrl.runJSHome();
                     break;
                 default:
                     String home = input.acceptString("Going back");
@@ -258,14 +256,90 @@ public class JobSeekerUI extends View.UserUI
                     break;
 
             }
-            String wrJS = username + ";" + email + ";" + fName + ";" + lName + ";" + city ";" + state ";" + dob ";" + profilePublic ";" + wage ";" + workType ";" + workRes ";" + skills;
-            //add updated listing, old listing stays
-            Control.UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
-            View.RecruiterUI.displayCompany();
+            if (case0 = false)
+            {
+                String wrJS = username + ";" + email + ";" + fName + ";" + lName + ";" + city + ";" + state + ";" + dob + ";" + profilePublic + ";" + wage + ";" + workType + ";" + workRes + ";" + skills;
+                //add updated listing, old listing stays
+                Control.UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
+                displayJSDetails();
+            }
         } while (!verifiedInput);
-    }*/
+    }
 
-    public int displayJSHome()
+    public static int displayEditSkills()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        Input input = new Input();
+        String msg = "      EDIT SKILLS\n"
+                + "Press 1 to add a skill\n"
+                + "Press 2 to remove a skill\n"
+                + "Press 0 to go back";
+        return input.acceptInt(msg, 0, 2);
+    }
+
+    public static void displaySkills()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
+
+        String[] numJob = file.readFile("\n").split("\n");
+
+        for (int i = numJob.length - 1; i >= 0; i--)
+        {
+            String[] details = numJob[i].split(";");
+            if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
+            {
+                String[] skill = details[numJob.length].split(",");
+                for (int j = 0; j < skill.length; j++)
+                    System.out.println(j + 1 + ": " + skill[j]);
+                //System.out.println("Skills: " + details[11]);
+                break;
+            }
+        }
+    }
+
+    public static void editSkills()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        Input input = new Input();
+        int detailNo = displayEditSkills();
+        boolean verifiedInput = false;
+        //String add = "";
+        String remove = "";
+        do {
+            switch (detailNo)
+            {
+                case 1:
+                    //add skill
+                    do {
+                        //add = input.acceptString("Please enter a skill to add");
+                        //verifiedInput = View.UserUI.userVerifyInputs(add);
+                        jobSeekerSkillInput();
+                    } while (!verifiedInput);
+                    break;
+                case 2:
+                    //remove skill
+                    do {
+                        displaySkills();
+                        remove = input.acceptString("Please enter the index to remove a skill");
+                        verifiedInput = View.UserUI.userVerifyInputs(remove);
+                    } while (!verifiedInput);
+                    break;
+                case 0:
+                    //Go back
+                    editJSOptions();
+                    break;
+                default:
+                    String home = input.acceptString("Going back");
+                    View.UserUI.userVerifyInputs(home);
+                    break;
+
+            }
+
+        } while (!verifiedInput);
+    }
+
+    public static int displayJSHome()
     {
         Input input = new Input();
         String msg = "      JOB SEEKER HOME PAGE\n"

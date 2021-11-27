@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Recruiter profile can edit, but still need to work out how to delete old line" />
+    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JSS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JSS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/Files/rcCompanyDetails.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Files/rcCompanyDetails.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/rcCompanyDetails.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/rcCompanyDetails.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -177,7 +183,35 @@
       <option name="project" value="LOCAL" />
       <updated>1637838593433</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637917438260</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1637917438260</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637917454315</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1637917454315</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637920930289</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1637920930289</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637983396771</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1637983396771</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -198,14 +232,15 @@
     <MESSAGE value="Recruiter profile linked to user and display correctly" />
     <MESSAGE value="Recruiter profile code cleanup" />
     <MESSAGE value="Recruiter profile can edit, but still need to work out how to delete old line" />
-    <option name="LAST_COMMIT_MESSAGE" value="Recruiter profile can edit, but still need to work out how to delete old line" />
+    <MESSAGE value="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Control/JobListingCtrl.java</url>
-          <line>120</line>
+          <line>122</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
