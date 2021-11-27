@@ -271,6 +271,8 @@ public class JobListingCtrl {
         View.JobListingUI jlu = new View.JobListingUI();
         View.Input input = new View.Input();
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
+        FileIO file2 = new FileIO(JSS.JSSJOBCATEGORY);
+        String[] list = file2.readFile("\n").split("\n");
 
         /*String id = jl.getJobId();
         String[] line = file.readFile("\n").split("\n");
@@ -289,6 +291,7 @@ public class JobListingCtrl {
         }*/
 
         String newString = "";
+        Date newDate;
         int detailNo = JobListingUI.editJobOptions();
         switch (detailNo)
         {
@@ -300,25 +303,26 @@ public class JobListingCtrl {
                 break;
             case 2:
                 //edit job category
-                System.out.println("Current job title: " + jl.getJobCategory());
-                newString = input.acceptString("Please enter new job category: ");
+                System.out.println("Current job category: " + jl.getJobCategory());
+                jlu.displayJobCategories();
+                newString = jlu.returnJobCategory(input.acceptInt("Please select new job category: ", 1, list.length));
                 jl.setJobCategory(newString);
                 break;
             case 3:
                 //edit job location
-                System.out.println("Current job title: " + jl.getJobLocation());
+                System.out.println("Current job location: " + jl.getJobLocation());
                 newString = input.acceptString("Please enter new job location: ");
                 jl.setJobLocation(newString);
                 break;
             case 4:
                 //edit job hours
-                System.out.println("Current job title: " + jl.getJobHours());
+                System.out.println("Current job hours: " + jl.getJobHours());
                 newString = input.acceptString("Please enter new job hours: ");
                 jl.setJobHours(newString);
                 break;
             case 5:
                 //edit job pay
-                System.out.println("Current job title: " + jl.getJobPay());
+                System.out.println("Current job compensation: " + jl.getJobPay());
                 newString = input.acceptString("Please enter new job compensation: ");
                 jl.setJobPay(newString);
                 break;
@@ -329,20 +333,22 @@ public class JobListingCtrl {
                 jl.setJobSkills(newString);//NEED TO WORK ON THIS*/
             case 7:
                 //edit job description
-                System.out.println("Current job title: " + jl.getJobDescription());
+                System.out.println("Current job description: " + jl.getJobDescription());
                 newString = input.acceptString("Please enter new job description: ");
                 jl.setJobDescription(newString);
                 break;
-           /* case 8:
+            case 8:
                 //edit application deadline
-                System.out.println("Current job title: " + jl.getAppDeadline());
-                newString = input.acceptString("Please enter new application deadline: ");
-                jl.setAppDeadline(newString);
+                System.out.println("Current job application deadline: " + jl.getAppDeadline());
+                newDate = input.acceptDate("Please enter new application deadline: ");
+                jl.setAppDeadline(newDate);
+                break;
             case 9:
                 //edit advertisement status
-                System.out.println("Current job title: " + jl.getJobAd());
+                System.out.println("Current job advertisement status: " + jl.getJobAd());
                 boolean isAdvertised = View.JobListingUI.advertiseJob();
-                jl.setJobAd(isAdvertised);*/
+                jl.setJobAd(isAdvertised);
+                break;
             case 0:
                 //Go back
                 manageJobListing(jl);

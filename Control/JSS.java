@@ -16,6 +16,7 @@ public class JSS
     public static final String RCDETAILS = "Files/rcUserDetails.txt";
     public static final String RCCOMPDETAILS = "Files/rcCompanyDetails.txt";
     public static final String JSSJOBLIST = "Files/jobListings.txt";
+    public static final String JSSJOBCATEGORY = "Files/jobCategories.txt";
 
 
     public static void main(String[] args) throws IOException, ParseException {

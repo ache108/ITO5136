@@ -1,5 +1,6 @@
 package View;
 import Control.FileIO;
+import Control.JSS;
 import Control.JobListingCtrl;
 import Control.LogInCtrl;
 import Model.JobListing;
@@ -20,25 +21,52 @@ public class JobListingUI {
         Model.JobListing jl = new Model.JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
         Input input = new Input();
+
+        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        String[] list = file.readFile("\n").split("\n");
+
         System.out.println("\nPlease provide the following details.\n(* indicates a mandatory field)");
-        String msg = "\nPlease enter ";
-        jl.setJobTitle(input.acceptString(msg + "the job title *"));
-        jl.setJobCategory(input.acceptString(msg + "the job category *"));
-        jl.setJobLocation(input.acceptString(msg + "the location of the job *"));
-        jl.setJobHours(input.acceptString(msg + "the job type (Full time, Contract, Part time) *"));
-        jl.setJobPay(input.acceptString(msg + "the compensation per annum"));
+        String msg = "\nPlease ";
+        jl.setJobTitle(input.acceptString(msg + "enter the job title *"));
+        displayJobCategories();
+        jl.setJobCategory(returnJobCategory(input.acceptInt(msg + "select the job category *", 1, list.length)));
+        jl.setJobLocation(input.acceptString(msg + "enter the location of the job *"));
+        jl.setJobHours(input.acceptString(msg + "enter the job type (Full time, Contract, Part time) *"));
+        jl.setJobPay(input.acceptString(msg + "enter the compensation per annum"));
         jl.setJobSkills(jobListingSkillInput());
-        jl.setJobDescription(input.acceptString(msg + "the job description *"));
-        jl.setAppDeadline(input.acceptDate(msg + "the application deadline *"));
+        jl.setJobDescription(input.acceptString(msg + "enter the job description *"));
+        jl.setAppDeadline(input.acceptDate(msg + "enter the application deadline *"));
         jl.displayJobDetails();
         jl.setJobAd(advertiseJob());
         System.out.println(jl.labelJobAd());
-        jl.setJobId(JobListingCtrl.generateJobID("Files/jobListings.txt"));
+        jl.setJobId(JobListingCtrl.generateJobID(JSS.JSSJOBLIST));
         jl.setJobRC(LogInCtrl.getRcUsername());
 
         // Send to Job Listing Controller to create new job
         jlc.addNewJob(jl.jobRC, jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
 
+    }
+
+    //Display list of Job Categories we have on system
+    public void displayJobCategories() throws IOException {
+        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        String[] list = file.readFile("\n").split("\n");
+
+        for (int i = 0; i < list.length; i++)
+        {
+            System.out.println((i+1) + ": " + list[i]);
+        }
+
+    }
+
+    //Return the string job category based on user input number
+    public String returnJobCategory(int num) throws IOException {
+        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        String[] list = file.readFile("\n").split("\n");
+
+        String jobCat = list[num - 1];
+
+        return jobCat;
     }
 
     //Asking if recruiter wants to advertise job
