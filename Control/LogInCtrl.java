@@ -78,8 +78,7 @@ public class LogInCtrl
         return output;
     }
 
-    private void logIn(int usrType)
-    {
+    private void logIn(int usrType) throws IOException, ParseException {
         //display log in screen, get user input
         //access job seeker usernames/passwords from file
         //if successful, direct to job seeker controller
@@ -118,8 +117,7 @@ public class LogInCtrl
         }
     }
 
-    private void register(int usrType)
-    {
+    private void register(int usrType) throws IOException, ParseException {
         LogInUI ui = new LogInUI();
 
         String filename = "";
@@ -181,8 +179,7 @@ public class LogInCtrl
     }
 
     //control flow of use case
-    public void start()
-    {
+    public void start() throws IOException, ParseException {
         LogInUI ui = new View.LogInUI();
         int logInType = ui.displayWelcomeScreen();
         switch (logInType)
@@ -197,6 +194,7 @@ public class LogInCtrl
                 break;
             case 5:
                 ui.displayMsg("Exiting Program");
+                System.exit(0);
                 break;
         }
     }

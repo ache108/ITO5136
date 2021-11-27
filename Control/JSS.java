@@ -1,6 +1,9 @@
 package Control;
 import Control.LogInCtrl;
 import Model.JobListing;
+
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,15 +18,13 @@ public class JSS
     public static final String JSSJOBLIST = "Files/jobListings.txt";
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException, ParseException {
         JSS jss = new JSS();
         jss.start();
     }
 
     //Initialise any classes/files, direct to log-in controller to begin
-    public void start()
-    {
+    public void start() throws IOException, ParseException {
         //Code to verify that all db files are available ???
         //Code to activate any objects that need to be active at the start of the program
 
