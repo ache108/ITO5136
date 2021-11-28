@@ -52,7 +52,7 @@ public class JobListingUI {
         jl.setJobRC(LogInCtrl.getRcUsername());
 
         // Send to Job Listing Controller to create new job
-        jlc.addNewJob(jl.jobRC, jl.jobId, jl.jobTitle, jl.jobCategory, jl.jobLocation, jl.jobHours, jl.jobPay, jl.jobSkills, jl.jobDescription, jl.appDeadline, jl.jobAd);
+        jlc.addNewJob(jl.getJobRC(), jl.getJobId(), jl.getJobTitle(), jl.getJobCategory(), jl.getJobLocation(), jl.getJobHours(), jl.getJobPay(), jl.getJobSkills(), jl.getJobDescription(), jl.getAppDeadline(), jl.getJobAd());
 
     }
 

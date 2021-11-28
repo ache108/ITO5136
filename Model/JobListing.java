@@ -6,18 +6,18 @@ import java.util.Date;
 
 public class JobListing {
 
-    public String jobRC;
-    public String jobId;
-    public String jobTitle;
-    public String jobCategory;
-    public String jobLocation;
-    public String jobHours;
-    public String jobPay;
-    public ArrayList<String> jobSkills;
-    public String jobDescription;
-    public Date appDeadline;
-    public boolean jobAd;
-    public int matchingScore;
+    private String jobRC;
+    private String jobId;
+    private String jobTitle;
+    private String jobCategory;
+    private String jobLocation;
+    private String jobHours;
+    private String jobPay;
+    private ArrayList<String> jobSkills;
+    private String jobDescription;
+    private Date appDeadline;
+    private boolean jobAd;
+    private int matchingScore;
 
     public JobListing()
     {
