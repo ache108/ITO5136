@@ -45,6 +45,119 @@ public class JobListingCtrl {
 
     }
 
+    //Options when editing job listing
+    public void editJobListing(Model.JobListing jl) throws IOException, ParseException {
+        View.JobListingUI jlu = new View.JobListingUI();
+        View.Input input = new View.Input();
+        FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
+        FileIO file2 = new FileIO(JSS.JSSJOBCATEGORY);
+        String[] list = file2.readFile("\n").split("\n");
+
+        /*String id = jl.getJobId();
+        String[] line = file.readFile("\n").split("\n");
+        for (int i = 0; i < line.length; i++)
+        {
+            String[] details = line[i].split(",");
+            System.out.println("Details length is " + details.length);
+            System.out.println("ID is " + details[1]);
+            if (details[1].equals(id))
+            {
+                file.replaceTextFile(line[i]);
+                System.out.println("Deleting!!!");
+            } else {
+                System.out.println("Skipping!!!!");
+            }
+        }*/
+
+        String newString = "";
+        Date newDate;
+        int detailNo = JobListingUI.editJobOptions();
+        switch (detailNo)
+        {
+            case 1:
+                //edit job title
+                System.out.println("Current job title: " + jl.getJobTitle());
+                newString = input.acceptString("Please enter new job title: ");
+                jl.setJobTitle(newString);
+                break;
+            case 2:
+                //edit job category
+                System.out.println("Current job category: " + jl.getJobCategory());
+                jlu.displayJobCategories();
+                newString = jlu.returnJobCategory(input.acceptInt("Please select new job category: ", 1, list.length));
+                if (newString.equals("Other"))
+                {
+                    jl.setJobCategory(jlu.addJobCategory());
+                } else {
+                    jl.setJobCategory(newString);
+                }
+                break;
+            case 3:
+                //edit job location
+                System.out.println("Current job location: " + jl.getJobLocation());
+                newString = input.acceptString("Please enter new job location: ");
+                jl.setJobLocation(newString);
+                break;
+            case 4:
+                //edit job hours
+                System.out.println("Current job hours: " + jl.getJobHours());
+                newString = input.acceptString("Please enter new job hours: ");
+                jl.setJobHours(newString);
+                break;
+            case 5:
+                //edit job pay
+                System.out.println("Current job compensation: " + jl.getJobPay());
+                newString = input.acceptString("Please enter new job compensation: ");
+                jl.setJobPay(newString);
+                break;
+            /*case 6:
+                //edit job skills
+                System.out.println("Current job title: " + jl.getJobSkills());
+                newString = input.acceptString("Please enter new job skills: ");
+                jl.setJobSkills(newString);//NEED TO WORK ON THIS*/
+            case 7:
+                //edit job description
+                System.out.println("Current job description: " + jl.getJobDescription());
+                newString = input.acceptString("Please enter new job description: ");
+                jl.setJobDescription(newString);
+                break;
+            case 8:
+                //edit application deadline
+                System.out.println("Current job application deadline: " + jl.getAppDeadline());
+                newDate = input.acceptDate("Please enter new application deadline: ");
+                jl.setAppDeadline(newDate);
+                break;
+            case 9:
+                //edit advertisement status
+                System.out.println("Current job advertisement status: " + jl.getJobAd());
+                boolean isAdvertised = View.JobListingUI.advertiseJob();
+                jl.setJobAd(isAdvertised);
+                break;
+            case 0:
+                //Go back
+                manageJobListing(jl);
+        }
+        String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jl.getJobId() + "," + jl.getJobTitle() + "," + jl.getJobCategory() + "," + jl.getJobLocation() + "," + jl.getJobHours() + "," + jl.getJobPay() + "," + jl.getJobSkills() + "," + jl.getJobDescription() + "," + jl.getAppDeadline() + "," + jl.getJobAd();
+        writeNewLineToFile(jobDetails, Control.JSS.JSSJOBLIST);
+        editJobListing(jl);
+    }
+
+    //Recursive method to filter out job listings that are not by the current logged in RC.
+    public ArrayList<Model.JobListing> filterRCJob(ArrayList<Model.JobListing> jobList, String username)
+    {
+        for (int i = 0; i < jobList.size(); i++)
+        {
+            if (!jobList.get(i).getJobRC().equals(username))
+            {
+                jobList.remove(i);
+                filterRCJob(jobList,username);
+            } else {
+                continue;
+            }
+        }
+        return jobList;
+    }
+
     //Generate unique 8-digit ID to each job listing
     public static String generateJobID(String filename)
             throws IOException, FileNotFoundException
@@ -56,6 +169,25 @@ public class JobListingCtrl {
         String jobID = String.format("%08d", numJob);
 
         return jobID;
+    }
+
+    //Direct to each functionality related to job listing management
+    public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
+        JobListingUI jlu = new JobListingUI();
+        int choice = JobListingUI.manageJobOptions();
+        switch (choice)
+        {
+            case 1:
+                //edit listing
+                editJobListing(jl);
+            case 2:
+                //view applications
+            case 3:
+                //invite candidates
+            case 0:
+                //go back
+                jlu.displayJobList();
+        }
     }
 
     //Generate matching scores for all job listings and call method to sort them
@@ -122,15 +254,7 @@ public class JobListingCtrl {
         return jobArray;
     }*/
 
-    public String addJobCategory() throws IOException {
-        Input input = new Input();
 
-        String newCat = input.acceptString("Please enter a new category: ");
-        writeNewLineToFile(newCat, JSS.JSSJOBCATEGORY);
-
-        return newCat;
-
-    }
 
     //Convert CSV to Array List of JL objects and return this Array List.
     public ArrayList<JobListing> parseFromCSV()
@@ -167,22 +291,6 @@ public class JobListingCtrl {
 
         }
 
-        return jobList;
-    }
-
-    //Recursive method to filter out job listings that are not by the current logged in RC.
-    public ArrayList<Model.JobListing> filterRCJob(ArrayList<Model.JobListing> jobList, String username)
-    {
-        for (int i = 0; i < jobList.size(); i++)
-        {
-            if (!jobList.get(i).getJobRC().equals(username))
-            {
-                jobList.remove(i);
-                filterRCJob(jobList,username);
-            } else {
-                continue;
-            }
-        }
         return jobList;
     }
 
@@ -254,123 +362,6 @@ public class JobListingCtrl {
             System.out.println("-----------------------------------------");
         }
         manageJobListing(jobList.get(jobNo - 1));
-    }
-
-    //Direct to each functionality related to job listing management
-
-    public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
-        JobListingUI jlu = new JobListingUI();
-        int choice = JobListingUI.manageJobOptions();
-        switch (choice)
-        {
-            case 1:
-                //edit listing
-                editJobListing(jl);
-            case 2:
-                //view applications
-            case 3:
-                //invite candidates
-            case 0:
-                //go back
-                jlu.displayJobList();
-        }
-    }
-
-    //Options when editing job listing
-    public void editJobListing(Model.JobListing jl) throws IOException, ParseException {
-        View.JobListingUI jlu = new View.JobListingUI();
-        View.Input input = new View.Input();
-        FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
-        FileIO file2 = new FileIO(JSS.JSSJOBCATEGORY);
-        String[] list = file2.readFile("\n").split("\n");
-
-        /*String id = jl.getJobId();
-        String[] line = file.readFile("\n").split("\n");
-        for (int i = 0; i < line.length; i++)
-        {
-            String[] details = line[i].split(",");
-            System.out.println("Details length is " + details.length);
-            System.out.println("ID is " + details[1]);
-            if (details[1].equals(id))
-            {
-                file.replaceTextFile(line[i]);
-                System.out.println("Deleting!!!");
-            } else {
-                System.out.println("Skipping!!!!");
-            }
-        }*/
-
-        String newString = "";
-        Date newDate;
-        int detailNo = JobListingUI.editJobOptions();
-        switch (detailNo)
-        {
-            case 1:
-                //edit job title
-                System.out.println("Current job title: " + jl.getJobTitle());
-                newString = input.acceptString("Please enter new job title: ");
-                jl.setJobTitle(newString);
-                break;
-            case 2:
-                //edit job category
-                System.out.println("Current job category: " + jl.getJobCategory());
-                jlu.displayJobCategories();
-                newString = jlu.returnJobCategory(input.acceptInt("Please select new job category: ", 1, list.length));
-                if (newString.equals("Other"))
-                {
-                    jl.setJobCategory(addJobCategory());
-                } else {
-                    jl.setJobCategory(newString);
-                }
-                break;
-            case 3:
-                //edit job location
-                System.out.println("Current job location: " + jl.getJobLocation());
-                newString = input.acceptString("Please enter new job location: ");
-                jl.setJobLocation(newString);
-                break;
-            case 4:
-                //edit job hours
-                System.out.println("Current job hours: " + jl.getJobHours());
-                newString = input.acceptString("Please enter new job hours: ");
-                jl.setJobHours(newString);
-                break;
-            case 5:
-                //edit job pay
-                System.out.println("Current job compensation: " + jl.getJobPay());
-                newString = input.acceptString("Please enter new job compensation: ");
-                jl.setJobPay(newString);
-                break;
-            /*case 6:
-                //edit job skills
-                System.out.println("Current job title: " + jl.getJobSkills());
-                newString = input.acceptString("Please enter new job skills: ");
-                jl.setJobSkills(newString);//NEED TO WORK ON THIS*/
-            case 7:
-                //edit job description
-                System.out.println("Current job description: " + jl.getJobDescription());
-                newString = input.acceptString("Please enter new job description: ");
-                jl.setJobDescription(newString);
-                break;
-            case 8:
-                //edit application deadline
-                System.out.println("Current job application deadline: " + jl.getAppDeadline());
-                newDate = input.acceptDate("Please enter new application deadline: ");
-                jl.setAppDeadline(newDate);
-                break;
-            case 9:
-                //edit advertisement status
-                System.out.println("Current job advertisement status: " + jl.getJobAd());
-                boolean isAdvertised = View.JobListingUI.advertiseJob();
-                jl.setJobAd(isAdvertised);
-                break;
-            case 0:
-                //Go back
-                manageJobListing(jl);
-        }
-        String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jl.getJobId() + "," + jl.getJobTitle() + "," + jl.getJobCategory() + "," + jl.getJobLocation() + "," + jl.getJobHours() + "," + jl.getJobPay() + "," + jl.getJobSkills() + "," + jl.getJobDescription() + "," + jl.getAppDeadline() + "," + jl.getJobAd();
-        writeNewLineToFile(jobDetails, Control.JSS.JSSJOBLIST);
-        editJobListing(jl);
     }
 
     public static void writeNewLineToFile(String infoToWrite, String fileName)
