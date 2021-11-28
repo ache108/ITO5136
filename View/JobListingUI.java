@@ -48,6 +48,64 @@ public class JobListingUI {
         return isAdvertised;
     }
 
+    public static int applicationSubmitted()
+    {
+        Input input = new Input();
+        String msg = "      JOB APPLICATION       \n"
+                + "Thank you for Submitting your Application!\n"
+                + "The recruiter has received your application and will reach out if you proceed to the next round \n"
+                + "Press 1 to continue";
+
+        return input.acceptInt(msg, 1, 1);
+    }
+
+    // act like a confirmation screen with all existing user fields on Submission as required
+    public static int applyForJobScreen(String userName,
+                                        String jobId,
+                                        String jobTitle,
+                                        String jobLocation,
+                                        String jobHours,
+                                        String jobCat,
+                                        String jobDesc,
+                                        String jobPay,
+                                        int jobMatch,
+                                        String jobRC,
+                                        Date jobDeadline,
+                                        ArrayList<String> skills)
+    {
+        // add details received from controller
+        Input input = new Input();
+        String msg = "-------------------------------\n"
+                + "       JOB APPLICATION           \n"
+                + "--------------------------------\n"
+                + "        JOB DETAILS \n"
+                + "Job ID: " + jobId + " \n"
+                + "Job Name: " + jobTitle + " \n"
+                + "Job Location: "  + jobLocation  + " \n"
+                + "Job Pay: "  + jobPay  + " \n"
+                + "Job Hours: " + jobHours + " \n"
+                + "Job Category: " + jobCat + " \n"
+                + "Job Advertisement Closing Date: " + jobDeadline + "\n"
+                + "Job Description " + jobDesc + "\n"
+                + "Job Skills: " + skills + "\n"
+                + "Matching Score: " + jobMatch  + "\n"
+                + "Recruiter: " + jobRC + "\n"
+                + "        YOUR DETAILS \n"
+                + "First Name: " + " \n"
+                + "Last Name: " + " \n"
+                + "Email: " + " \n"
+                + "Skills: " + " \n"
+                + "Experience: " + " \n"
+                + "Username: " + userName  + " \n"
+                + "--------------------------------\n"
+                + "Press 1 to Submit Application\n"
+                + "Press 0 to go back"
+                + "Press 2 to Edit your Profile and update your information"
+                + "--------------------------------\n";
+
+        return input.acceptInt(msg, 0, 2);
+    }
+
     //Accepts user input when choosing job listing from list
     public static int chooseJobListing(int max)
     {
@@ -189,7 +247,7 @@ public class JobListingUI {
 
     //Return the string job category based on user input number
     public String returnJobCategory(int num) throws IOException {
-        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        FileIO file = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
         String jobCat = list[num - 1];

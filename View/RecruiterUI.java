@@ -77,7 +77,7 @@ public class RecruiterUI extends View.UserUI
     public static void displayCompany()
             throws IOException, FileNotFoundException, ParseException
     {
-        Control.FileIO file = new Control.FileIO(JSS.RCCOMPDETAILS);
+        Control.FileIO file = new Control.FileIO(Control.JSS.RCCOMPDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
 

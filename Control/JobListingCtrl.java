@@ -1,6 +1,7 @@
 package Control;
 
 import Model.JobListing;
+import Model.JobSeeker;
 import View.Input;
 import Control.FileIO;
 import View.JobListingUI;
@@ -42,12 +43,51 @@ public class JobListingCtrl {
 
     }
 
+    public void applyForJob(Model.JobListing jl)
+            throws IOException, ParseException
+    {
+        // get userName & user Info
+        String userName = Control.LogInCtrl.getRcUsername();
+        String jobId = jl.getJobId();
+        String jobTitle = jl.getJobTitle();
+        String jobLocation = jl.getJobLocation();
+        String jobHours = jl.getJobHours();
+        String jobCat = jl.getJobCategory();
+        String jobDesc = jl.getJobDescription();
+        String jobPay = jl.getJobPay();
+        Date jobDeadline = jl.getAppDeadline();
+        int jobMatch = jl.getMatchingScore();
+        String jobRC = jl.getJobRC();
+        ArrayList <String> skills = jl.getJobSkills();
+
+        int applicationResponse = View.JobListingUI.applyForJobScreen(
+                userName, jobId, jobTitle, jobLocation, jobHours, jobCat, jobDesc, jobPay,
+                jobMatch, jobRC, jobDeadline, skills);
+
+        switch (applicationResponse)
+        {
+            case 0:
+                // return user back to job listing page
+                openJobListing(jl);
+                break;
+            case 1:
+                // only 1 can come back, getting input to delay screen so user is not rushed offscreen
+                int userAppResponse = View.JobListingUI.applicationSubmitted();
+                // Save application into Text file so that it can be viewed by recruiter or withdrawn by JobSeeker
+                break;
+            case 2:
+                // return user to profile page so they can edit their information
+                View.JobSeekerUI.displayJSDetails();
+                break;
+        }
+    }
+
     //Options when editing job listing
     public void editJobListing(Model.JobListing jl) throws IOException, ParseException {
         View.JobListingUI jlu = new View.JobListingUI();
         View.Input input = new View.Input();
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
-        FileIO file2 = new FileIO(JSS.JSSJOBCATEGORY);
+        FileIO file2 = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file2.readFile("\n").split("\n");
 
         String newString = "";
@@ -243,6 +283,7 @@ public class JobListingCtrl {
         {
             case 1:
                 //apply for job
+                applyForJob(jl);
             case 0:
                 //go back
                 viewJLFromJS();
