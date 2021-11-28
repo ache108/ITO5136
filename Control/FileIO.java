@@ -102,6 +102,7 @@ public class FileIO
         writer.close();
     }
 
+    //Remove target line from txt file (DOESN'T APPEND NEW LINE)
     public void removeLine(String target)
             throws IOException
     {

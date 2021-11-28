@@ -77,19 +77,16 @@ public class JobSeekerCtrl {
     //Method to call search keyword input and job category input, and return array list containing all the keywords.
     //Unsure if array list is best way to work with the existing matching score?
     //Might change the method to call another method to perform search and return results.
-    public static ArrayList<String> searchJob() throws IOException {
+    public static void searchJob() throws IOException, ParseException {
         View.JobSeekerUI jsu = new JobSeekerUI();
+        JobListingCtrl jlc = new JobListingCtrl();
         View.JobListingUI jlu = new JobListingUI();
-        ArrayList<String> searchKeywords = new ArrayList<String>();
-        Input input = new Input();
 
-        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
-        String[] list = file.readFile("\n").split("\n");
+        ArrayList<String> searchKeywords = jsu.inputSearchKeywords();
 
-        searchKeywords = jsu.inputSearchKeywords();
-        jlu.displayJobCategories();
-        searchKeywords.add(jlu.returnJobCategory(input.acceptInt( "Please select the job category: ", 1, list.length)));
+        //Need to write code on filtering results using searchKeywords.
 
-        return searchKeywords;
+        jlc.viewJLFromJS();
     }
+
 }

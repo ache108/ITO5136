@@ -67,15 +67,16 @@ public class JobListingUI {
         }
 
     }
-
+/*
     //displays abbreviated list of jobs posted by the recruiter
     public void displayJobList()
             throws IOException, FileNotFoundException, ParseException
     {
         Model.JobListing jl = new JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
-        jlc.printJobList();
-    }
+        //jlc.printJobList(jlc.filterRCJob(jlc.parseFromCSV(), LogInCtrl.getRcUsername()));
+        jlc.viewJLFromRC();
+    }*/
 
     //Display the options RC has when editing job listing
     public static int editJobOptions()
@@ -176,6 +177,14 @@ public class JobListingUI {
                 + "Press 3 to invite candidates\n"
                 + "Press 0 to go back";
         return input.acceptInt(msg, 0, 3);
+    }
+
+    public static int openJobOptions()
+    {
+        Input input = new Input();
+        String msg = "Press 1 to apply for this job\n"
+                + "Press 0 to go back";
+        return input.acceptInt(msg, 0, 1);
     }
 
     //Return the string job category based on user input number

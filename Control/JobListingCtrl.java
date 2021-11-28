@@ -33,34 +33,12 @@ public class JobListingCtrl {
         }
     }
 
+    //Method to bring together job listing details to write to txt file
     public static void addNewJob(String jobRC, String jobId, String jobTitle, String jobCategory, String jobLocation, String jobHours, String jobPay, ArrayList<String> jobSkills, String jobDescription, Date appDeadline, boolean jobAd)
             throws IOException, FileNotFoundException
     {
-        // new job is created
-        //Model.JobListing newJob = new Model.JobListing(jobRC, jobId, jobTitle, jobCategory, jobLocation, jobHours, jobPay, jobSkills, jobDescription, appDeadline, jobAd );
-
-        // write inputs to file now or pass and save them all in a single turn?
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
         writeNewLineToFile(jobDetails, Control.JSS.JSSJOBLIST);
-
-    }
-
-    public void removeOldJob(Model.JobListing jl) throws IOException {
-        FileIO file = new FileIO(JSS.JSSJOBLIST);
-        String[] list = file.readFile("\n").split("\n");
-
-        String id = jl.getJobId();
-
-
-        for (int i = 0; i < list.length; i++)
-        {
-            String[] details = list[i].split(",");
-            if (id.equals(details[1]))
-            {
-                file.removeLine(list[i]);
-                break;
-            }
-        }
 
     }
 
@@ -141,7 +119,6 @@ public class JobListingCtrl {
                 manageJobListing(jl);
         }
         removeOldJob(jl);
-        System.out.println("LET APPEND EDITED JOB");
         addNewJob(Control.LogInCtrl.getRcUsername(), jl.getJobId(), jl.getJobTitle(), jl.getJobCategory(), jl.getJobLocation(), jl.getJobHours(), jl.getJobPay(), jl.getJobSkills(), jl.getJobDescription(), jl.getAppDeadline(), jl.getJobAd());
         editJobListing(jl);
     }
@@ -190,7 +167,7 @@ public class JobListingCtrl {
                 //invite candidates
             case 0:
                 //go back
-                jlu.displayJobList();
+                viewJLFromRC();
         }
     }
 
@@ -258,7 +235,19 @@ public class JobListingCtrl {
         return jobArray;
     }*/
 
-
+    //Method for JS to interact with job listing
+    public void openJobListing(Model.JobListing jl) throws IOException, ParseException {
+        JobListingUI jlu = new JobListingUI();
+        int choice = JobListingUI.openJobOptions();
+        switch (choice)
+        {
+            case 1:
+                //apply for job
+            case 0:
+                //go back
+                viewJLFromJS();
+        }
+    }
 
     //Convert CSV to Array List of JL objects and return this Array List.
     public ArrayList<JobListing> parseFromCSV()
@@ -299,10 +288,9 @@ public class JobListingCtrl {
     }
 
     //Take ArrayList and print out abbreviated job list
-    public void printJobList()
+    public void printJobList(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
-        filterRCJob(jobList, Control.LogInCtrl.getRcUsername());
 
         System.out.println("--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
@@ -329,7 +317,55 @@ public class JobListingCtrl {
             System.out.println("--------------------------------");
         }
 
-        viewJobListing(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
+    }
+
+    public void printJobListJS(ArrayList<Model.JobListing> jobList)
+            throws IOException, FileNotFoundException, ParseException
+    {
+
+        System.out.println("--------------------------------");
+        for (int i = 0; i < jobList.size(); i++)
+        {
+            System.out.println("Job " + (i+1) + ": ");
+            System.out.println("Matching Score: " + jobList.get(i).getMatchingScore());
+            System.out.println(jobList.get(i).getJobTitle());
+            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
+            System.out.println("Job skills are: ");
+            for (int j = 0; j < jobList.get(i).getJobSkills().size(); j++)
+            {
+                String skill = jobList.get(i).getJobSkills().get(j);
+                if (skill.charAt(0) == '[') {
+                    skill = skill.substring(1);
+                } else if (skill.charAt(0) == ' ') {
+                    skill = skill.substring(1);
+                }
+                if (skill.charAt(skill.length() - 1) == ']') {
+                    skill = skill.substring(0, skill.length() - 1);
+                }
+                System.out.println("- " + skill);
+            }
+            System.out.println("--------------------------------");
+        }
+
+    }
+
+    //Method that removes the old job listing from the JSSJOBLIST text file
+    public void removeOldJob(Model.JobListing jl) throws IOException {
+        FileIO file = new FileIO(JSS.JSSJOBLIST);
+        String[] list = file.readFile("\n").split("\n");
+
+        String id = jl.getJobId();
+
+
+        for (int i = 0; i < list.length; i++)
+        {
+            String[] details = list[i].split(",");
+            if (id.equals(details[1]))
+            {
+                file.removeLine(list[i]);
+                break;
+            }
+        }
 
     }
 
@@ -351,8 +387,26 @@ public class JobListingCtrl {
         }
     }
 
-    //Print out all the details for the chosen job listing, or to go back.
-    public void viewJobListing(ArrayList<JobListing> jobList, int jobNo) throws IOException, ParseException {
+    //JS-centered method to call all the relevant methods for JS to search and view job listings.
+    public void viewJLFromJS()
+            throws IOException, ParseException
+    {
+        printJobListJS(parseFromCSV());
+        int num = viewJobListingJS(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
+        openJobListing(jobList.get(num - 1));
+    }
+
+    //RC-centered method to call all the relevant methods for RC to work on Job Listings.
+    public void viewJLFromRC()
+            throws IOException, ParseException
+    {
+        printJobList(filterRCJob(parseFromCSV(), LogInCtrl.getRcUsername()));
+        int num = viewJobListing(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
+        manageJobListing(jobList.get(num - 1));
+    }
+
+    //For RC to print out all the details for the chosen job listing, or to go back.
+    public int viewJobListing(ArrayList<JobListing> jobList, int jobNo) throws IOException, ParseException {
         if (jobNo == 0) {
             try {
                 Control.RecruiterCtrl.runRCHome();
@@ -365,8 +419,27 @@ public class JobListingCtrl {
             System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd());
             System.out.println("-----------------------------------------");
         }
-        manageJobListing(jobList.get(jobNo - 1));
+
+        return (jobNo);
     }
+
+    //For JS to print out all the details for the chosen job listing, or to go back.
+    public int viewJobListingJS(ArrayList<JobListing> jobList, int jobNo) throws IOException, ParseException {
+        if (jobNo == 0) {
+            try {
+                Control.RecruiterCtrl.runRCHome();
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("-----------------------------------------");
+            jobList.get(jobNo - 1).displayJobDetails();
+            System.out.println("-----------------------------------------");
+        }
+
+        return (jobNo);
+    }
+
 
     public static void writeNewLineToFile(String infoToWrite, String fileName)
             throws IOException

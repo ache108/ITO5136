@@ -41,7 +41,7 @@ public class RecruiterCtrl {
                 break;
             case 2:
                 //link to view job listings
-                jlu.displayJobList();
+                jlc.viewJLFromRC();
                 break;
             case 3:
                 //link to view company profile

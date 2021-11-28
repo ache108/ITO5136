@@ -353,11 +353,12 @@ public class JobSeekerUI extends View.UserUI
     }
 
     //Retrieve user input search criteria keywords and returns an array list.
-    public ArrayList<String> inputSearchKeywords()
-    {
+    public ArrayList<String> inputSearchKeywords() throws IOException {
         System.out.println("      SEARCH FOR JOBS");
         Input input = new Input();
         ArrayList<String> searchKeywords = new ArrayList<String>();
+        Control.JobSeekerCtrl jsc = new JobSeekerCtrl();
+        JobListingUI jlu = new JobListingUI();
         boolean addKeyword = true;
         boolean charInputCheck = true;
         do {
@@ -378,6 +379,12 @@ public class JobSeekerUI extends View.UserUI
                 }
             } while (charInputCheck);
         } while (addKeyword);
+
+        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        String[] list = file.readFile("\n").split("\n");
+
+        jlu.displayJobCategories();
+        searchKeywords.add(jlu.returnJobCategory(input.acceptInt( "Please select the job category: ", 1, list.length)));
 
         return searchKeywords;
 
