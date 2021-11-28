@@ -2,6 +2,7 @@ package Model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class JobListing {
@@ -116,33 +117,7 @@ public class JobListing {
         System.out.println("Location: " + jobLocation);
         System.out.println("Hours: " + jobHours);
         System.out.println("Compensation: " + jobPay);
-        System.out.println("Skills required: ");
-        for (int i = 0; i < jobSkills.size(); i++)
-        {
-            String skill = jobSkills.get(i);
-            if (i < jobSkills.size() - 1) {
-                if (skill.charAt(0) == '[') {
-                    skill = skill.substring(1);
-                } else if (skill.charAt(0) == ' ') {
-                    skill = skill.substring(1);
-                }
-                if (skill.charAt(skill.length() - 1) == ']') {
-                    skill = skill.substring(0, skill.length() - 1);
-                }
-                System.out.print(skill + ", ");
-            } else {
-                if (skill.charAt(0) == '[') {
-                    skill = skill.substring(1);
-                } else if (skill.charAt(0) == ' ') {
-                    skill = skill.substring(1);
-                }
-                if (skill.charAt(skill.length() - 1) == ']') {
-                    skill = skill.substring(0, jobSkills.get(i).length() - 2);
-                }
-                System.out.println(skill + ".");
-            }
-
-        }
+        System.out.println("Skills required: " + Arrays.toString(jobSkills.toArray()).replace('[', ' ').replace(']', ' ').trim());
         System.out.println("Description:\n" + jobDescription + "\n");
         System.out.println("Application deadline: " + dateShortFormat.format(appDeadline) + "\n");
         System.out.println("Matching score: " + matchingScore);

@@ -341,20 +341,8 @@ public class JobListingCtrl {
             System.out.println(jobList.get(i).getJobTitle());
             System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Advertise: " + jobList.get(i).labelJobAd());
-            System.out.println("Job skills are: ");
-            for (int j = 0; j < jobList.get(i).getJobSkills().size(); j++)
-            {
-                String skill = jobList.get(i).getJobSkills().get(j);
-                if (skill.charAt(0) == '[') {
-                    skill = skill.substring(1);
-                } else if (skill.charAt(0) == ' ') {
-                    skill = skill.substring(1);
-                }
-                if (skill.charAt(skill.length() - 1) == ']') {
-                    skill = skill.substring(0, skill.length() - 1);
-                }
-                System.out.println("- " + skill);
-            }
+            System.out.println("Job skills are: " + Arrays.toString(jobList.get(i).getJobSkills().toArray()).replace('[', ' ').replace(']', ' ').trim());
+
             System.out.println("--------------------------------");
         }
 
@@ -371,20 +359,8 @@ public class JobListingCtrl {
             System.out.println("Matching Score: " + jobList.get(i).getMatchingScore());
             System.out.println(jobList.get(i).getJobTitle());
             System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
-            System.out.println("Job skills are: ");
-            for (int j = 0; j < jobList.get(i).getJobSkills().size(); j++)
-            {
-                String skill = jobList.get(i).getJobSkills().get(j);
-                if (skill.charAt(0) == '[') {
-                    skill = skill.substring(1);
-                } else if (skill.charAt(0) == ' ') {
-                    skill = skill.substring(1);
-                }
-                if (skill.charAt(skill.length() - 1) == ']') {
-                    skill = skill.substring(0, skill.length() - 1);
-                }
-                System.out.println("- " + skill);
-            }
+            System.out.println("Job skills are: " + Arrays.toString(jobList.get(i).getJobSkills().toArray()).replace('[', ' ').replace(']', ' ').trim());
+
             System.out.println("--------------------------------");
         }
 

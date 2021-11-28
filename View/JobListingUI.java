@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class JobListingUI {
@@ -87,7 +88,7 @@ public class JobListingUI {
                 + "Job Category: " + jobCat + " \n"
                 + "Job Advertisement Closing Date: " + jobDeadline + "\n"
                 + "Job Description " + jobDesc + "\n"
-                + "Job Skills: " + skills + "\n"
+                + "Job Skills: " + Arrays.toString(skills.toArray()).replace('[', ' ').replace(']', ' ').trim() + "\n"
                 + "Matching Score: " + jobMatch  + "\n"
                 + "Recruiter: " + jobRC + "\n"
                 + "        YOUR DETAILS \n"
@@ -99,8 +100,8 @@ public class JobListingUI {
                 + "Username: " + userName  + " \n"
                 + "--------------------------------\n"
                 + "Press 1 to Submit Application\n"
-                + "Press 0 to go back"
-                + "Press 2 to Edit your Profile and update your information"
+                + "Press 0 to go back\n"
+                + "Press 2 to Edit your Profile and update your information\n"
                 + "--------------------------------\n";
 
         return input.acceptInt(msg, 0, 2);
