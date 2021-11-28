@@ -41,7 +41,7 @@ public class JobListingCtrl {
 
         // write inputs to file now or pass and save them all in a single turn?
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
-        writeNewJobToFile(jobDetails, Control.JSS.JSSJOBLIST);
+        writeNewLineToFile(jobDetails, Control.JSS.JSSJOBLIST);
 
     }
 
@@ -121,6 +121,16 @@ public class JobListingCtrl {
 
         return jobArray;
     }*/
+
+    public String addJobCategory() throws IOException {
+        Input input = new Input();
+
+        String newCat = input.acceptString("Please enter a new category: ");
+        writeNewLineToFile(newCat, JSS.JSSJOBCATEGORY);
+
+        return newCat;
+
+    }
 
     //Convert CSV to Array List of JL objects and return this Array List.
     public ArrayList<JobListing> parseFromCSV()
@@ -306,7 +316,12 @@ public class JobListingCtrl {
                 System.out.println("Current job category: " + jl.getJobCategory());
                 jlu.displayJobCategories();
                 newString = jlu.returnJobCategory(input.acceptInt("Please select new job category: ", 1, list.length));
-                jl.setJobCategory(newString);
+                if (newString.equals("Other"))
+                {
+                    jl.setJobCategory(addJobCategory());
+                } else {
+                    jl.setJobCategory(newString);
+                }
                 break;
             case 3:
                 //edit job location
@@ -354,11 +369,11 @@ public class JobListingCtrl {
                 manageJobListing(jl);
         }
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jl.getJobId() + "," + jl.getJobTitle() + "," + jl.getJobCategory() + "," + jl.getJobLocation() + "," + jl.getJobHours() + "," + jl.getJobPay() + "," + jl.getJobSkills() + "," + jl.getJobDescription() + "," + jl.getAppDeadline() + "," + jl.getJobAd();
-        writeNewJobToFile(jobDetails, Control.JSS.JSSJOBLIST);
+        writeNewLineToFile(jobDetails, Control.JSS.JSSJOBLIST);
         editJobListing(jl);
     }
 
-    public static void writeNewJobToFile(String infoToWrite, String fileName)
+    public static void writeNewLineToFile(String infoToWrite, String fileName)
             throws IOException
     {
         FileIO fName = new FileIO(fileName);

@@ -28,8 +28,17 @@ public class JobListingUI {
         System.out.println("\nPlease provide the following details.\n(* indicates a mandatory field)");
         String msg = "\nPlease ";
         jl.setJobTitle(input.acceptString(msg + "enter the job title *"));
+
+        //Display list of job categories and allow recruiter to choose from or add new ones to the system.
         displayJobCategories();
-        jl.setJobCategory(returnJobCategory(input.acceptInt(msg + "select the job category *", 1, list.length)));
+        String jobCat = returnJobCategory(input.acceptInt(msg + "select the job category *", 1, list.length));
+        if (jobCat.equals("Other"))
+        {
+            jl.setJobCategory(jlc.addJobCategory());
+        } else {
+            jl.setJobCategory(jobCat);
+        }
+
         jl.setJobLocation(input.acceptString(msg + "enter the location of the job *"));
         jl.setJobHours(input.acceptString(msg + "enter the job type (Full time, Contract, Part time) *"));
         jl.setJobPay(input.acceptString(msg + "enter the compensation per annum"));
