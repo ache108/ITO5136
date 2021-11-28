@@ -1,5 +1,6 @@
 package Control;
 import java.io.*;
+import java.nio.channels.FileChannel;
 import java.util.Scanner;
 
 /**
@@ -99,5 +100,38 @@ public class FileIO
         FileWriter writer = new FileWriter(fileName);
         writer.write(output);
         writer.close();
+    }
+
+    public void removeLine(String target)
+            throws IOException
+    {
+        File tempFile = new File("Files/TempFile.txt");
+        File inputFile = new File(fileName);
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String[] list = readFile("\n").split("\n");
+
+        for (int i = 0; i < list.length; i++)
+        {
+            if (!list[i].equals(target)) {
+                if (i == 0) {
+                    writer.write(list[i]);
+                } else {
+                    writer.write("\n" + list[i]);
+                }
+            } else {
+                continue;
+            }
+
+        }
+
+        writer.close();
+        reader.close();
+
+        FileChannel src = new FileInputStream(tempFile).getChannel();
+        FileChannel dest = new FileOutputStream(inputFile).getChannel();
+        dest.transferFrom(src, 0, src.size());
     }
 }

@@ -45,6 +45,25 @@ public class JobListingCtrl {
 
     }
 
+    public void removeOldJob(Model.JobListing jl) throws IOException {
+        FileIO file = new FileIO(JSS.JSSJOBLIST);
+        String[] list = file.readFile("\n").split("\n");
+
+        String id = jl.getJobId();
+
+
+        for (int i = 0; i < list.length; i++)
+        {
+            String[] details = list[i].split(",");
+            if (id.equals(details[1]))
+            {
+                file.removeLine(list[i]);
+                break;
+            }
+        }
+
+    }
+
     //Options when editing job listing
     public void editJobListing(Model.JobListing jl) throws IOException, ParseException {
         View.JobListingUI jlu = new View.JobListingUI();
@@ -52,22 +71,6 @@ public class JobListingCtrl {
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         FileIO file2 = new FileIO(JSS.JSSJOBCATEGORY);
         String[] list = file2.readFile("\n").split("\n");
-
-        /*String id = jl.getJobId();
-        String[] line = file.readFile("\n").split("\n");
-        for (int i = 0; i < line.length; i++)
-        {
-            String[] details = line[i].split(",");
-            System.out.println("Details length is " + details.length);
-            System.out.println("ID is " + details[1]);
-            if (details[1].equals(id))
-            {
-                file.replaceTextFile(line[i]);
-                System.out.println("Deleting!!!");
-            } else {
-                System.out.println("Skipping!!!!");
-            }
-        }*/
 
         String newString = "";
         Date newDate;
@@ -137,8 +140,9 @@ public class JobListingCtrl {
                 //Go back
                 manageJobListing(jl);
         }
-        String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jl.getJobId() + "," + jl.getJobTitle() + "," + jl.getJobCategory() + "," + jl.getJobLocation() + "," + jl.getJobHours() + "," + jl.getJobPay() + "," + jl.getJobSkills() + "," + jl.getJobDescription() + "," + jl.getAppDeadline() + "," + jl.getJobAd();
-        writeNewLineToFile(jobDetails, Control.JSS.JSSJOBLIST);
+        removeOldJob(jl);
+        System.out.println("LET APPEND EDITED JOB");
+        addNewJob(Control.LogInCtrl.getRcUsername(), jl.getJobId(), jl.getJobTitle(), jl.getJobCategory(), jl.getJobLocation(), jl.getJobHours(), jl.getJobPay(), jl.getJobSkills(), jl.getJobDescription(), jl.getAppDeadline(), jl.getJobAd());
         editJobListing(jl);
     }
 
