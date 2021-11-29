@@ -264,7 +264,7 @@ public class JobSeekerUI extends View.UserUI
                     break;
                 case 11:
                     //edit skills
-                        editSkills();
+                    editSkills();
                     break;
                 case 0:
                     //Go back
@@ -314,13 +314,20 @@ public class JobSeekerUI extends View.UserUI
     {
         assignSkills();
         System.out.print("Skills: ");
-        for (int i = 0; i < newList.size() - 1; i++)
+        if (newList.size() == 1)
         {
-            System.out.print(newList.get(i) + ", ");
+            System.out.print(newList.get(0));
         }
-        if (newList.size() > 1)
+        else
         {
-            System.out.print(newList.get(newList.size() - 1));
+            for (int i = 0; i <= newList.size() - 1; i++)
+            {
+                System.out.print(newList.get(i));
+                if (i != newList.size() - 1)
+                {
+                    System.out.print(", ");
+                }
+            }
         }
     }
 
@@ -359,11 +366,11 @@ public class JobSeekerUI extends View.UserUI
                         newList.add(skill[j].trim());
                         count++;
                     }
-                    if (count > 1)
+                    int k = skill[skill.length - 1].length() - 1;
+                    StringBuilder sb1 = new StringBuilder(skill[skill.length - 1]);
+                    sb1.deleteCharAt(k);
+                    if (skill.length > 1)
                     {
-                        int k = skill[skill.length - 1].length() - 1;
-                        StringBuilder sb1 = new StringBuilder(skill[skill.length - 1]);
-                        sb1.deleteCharAt(k);
                         count++;
                         newList.add(sb1.toString().trim());
                     }
@@ -394,7 +401,6 @@ public class JobSeekerUI extends View.UserUI
                         verifiedInput = View.UserUI.userVerifyInputs(include);
                         newList.add(include);
                         count++;
-
                         } while (!verifiedInput);
                     break;
                 case 2:
@@ -404,8 +410,6 @@ public class JobSeekerUI extends View.UserUI
                         delete = input.acceptInt("Please enter the index to remove a skill", 1, max);
                         verifiedInput = true;
                         newList.remove(delete - 1);
-                        deleteSkill();
-
                     } while (!verifiedInput);
                     break;
                 case 0:
@@ -418,27 +422,6 @@ public class JobSeekerUI extends View.UserUI
                     break;
             }
         } while (!verifiedInput);
-    }
-
-    public static void deleteSkill()
-            throws IOException, FileNotFoundException, ParseException
-    {
-        ArrayList<String> tempArray = new ArrayList<>();
-        for (int j = 0; j < newList.size() - 1; j++)
-        {
-            if (newList.get(j) == null) {
-                newList.set(j, newList.get(j + 1));
-                tempArray.add(newList.get(j));
-            } else {
-                tempArray.add(newList.get(j));
-            }
-            newList.clear();
-            for (int i = 0; i < tempArray.size(); i++)
-            {
-                newList.add(tempArray.get(i));
-            }
-            tempArray.clear();
-        }
     }
 
     public static int displayJSHome()

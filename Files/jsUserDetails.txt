@@ -5,3 +5,5 @@ test;test@test.com;T;Name;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;
 lau;jarrett.lauren@gmail.com;Lauren;Jarrett;Brisbane;QLD;Mon Jul 10 00:00:00 AEST 1989;true;98.0;Contract;Citizen;[programming, Communication];
 test;test@test.com;T;Name;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[smart, IT, test, test1, add]
 test;test@test.com;T;Name;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[IT, test, test1]
+test;test@test.com;T;Name;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[IT, test, test1, add]
+test;test@test.com;T;Name;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[IT]
