@@ -174,9 +174,29 @@ public class RecruiterUI extends View.UserUI
                 String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress + "," + usrCompEmail + "," + usrCompPhone + "," + usrCompDescr;
                 //add updated listing, old listing stays
                 Control.CompanyCtrl.writeNewRCToFile(rcDetails, Control.JSS.RCCOMPDETAILS);
+                removeTxtRcLine();
                 View.RecruiterUI.displayCompany();
             }
         } while (!verifiedInput);
+    }
+
+    public static void removeTxtRcLine()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        Control.FileIO file = new Control.FileIO(Control.JSS.RCDETAILS);
+
+        String[] numJob = file.readFile("\n").split("\n");
+
+        for (int i = 0; i < numJob.length; i++)
+        {
+            String[] details = numJob[i].split(";");
+            if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
+            {
+                Control.FileIO.removeLine(numJob[i]);
+                break;
+            }
+        }
+
     }
 
     public static int editCompanyOptions()

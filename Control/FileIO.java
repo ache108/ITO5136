@@ -11,7 +11,7 @@ import java.util.Scanner;
 */
 public class FileIO
 {
-    private String fileName;
+    private static String fileName;
 
     /**
     * Default constructor to create an object of the class FileIO
@@ -60,7 +60,7 @@ public class FileIO
     * @throws IOException
     * @throws FileNotFoundException
     */
-    public String readFile(String delim)
+    public static String readFile(String delim)
         throws IOException, FileNotFoundException
     {
         FileReader reader = new FileReader(fileName);
@@ -103,7 +103,7 @@ public class FileIO
     }
 
     //Remove target line from txt file (DOESN'T APPEND NEW LINE)
-    public void removeLine(String target)
+    public static void removeLine(String target)
             throws IOException
     {
         File tempFile = new File("Files/TempFile.txt");

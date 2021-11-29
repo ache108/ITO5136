@@ -146,7 +146,7 @@ public class JobSeekerUI extends View.UserUI
         return input.acceptInt(msg, 0, 11);
     }
 
-    //incomplete case 11
+    //incomplete case 11 delete
     public static void editJSOptions()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -283,6 +283,7 @@ public class JobSeekerUI extends View.UserUI
                 //add updated listing, old listing stays
                 Control.UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
                 newList.clear();
+                removeTxtLine();
                 displayJSDetails();
             }
         } while (!verifiedInput);
@@ -314,9 +315,18 @@ public class JobSeekerUI extends View.UserUI
     {
         assignSkills();
         System.out.print("Skills: ");
+        /*
+        int j = newList.size() - 1;
+        StringBuilder sb = new StringBuilder(newList.get(j));
+        int b = newList.get(j).length() - 1;
+        sb.deleteCharAt(b);
+           */
         if (newList.size() == 1)
         {
-            System.out.print(newList.get(0));
+            StringBuilder sb = new StringBuilder(newList.get(0));
+            int a = newList.get(0).length() - 1;
+            sb.deleteCharAt(a);
+            System.out.print(sb);
         }
         else
         {
@@ -348,12 +358,17 @@ public class JobSeekerUI extends View.UserUI
                 String[] skill = details[details.length - 1].split(",");
 
                     StringBuilder sb = new StringBuilder(skill[0]);
+                    int a = sb.length() - 1;
                     boolean char0check = false;
                     while (char0check == false)
                     {
                         if (sb.charAt(0) == '[')
                         {
                             sb.deleteCharAt(0);
+                        }
+                        else if (sb.charAt(a) == ']')
+                        {
+                            sb.deleteCharAt(a);
                         }
                         else
                         {
@@ -381,7 +396,6 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
-    //incomplete
     public static void editSkills()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -422,6 +436,25 @@ public class JobSeekerUI extends View.UserUI
                     break;
             }
         } while (!verifiedInput);
+    }
+
+    public static void removeTxtLine()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
+
+        String[] numJob = file.readFile("\n").split("\n");
+
+        for (int i = 0; i < numJob.length; i++)
+        {
+            String[] details = numJob[i].split(";");
+            if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
+            {
+                Control.FileIO.removeLine(numJob[i]);
+                break;
+            }
+        }
+
     }
 
     public static int displayJSHome()
