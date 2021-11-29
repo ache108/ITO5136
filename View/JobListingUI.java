@@ -52,7 +52,7 @@ public class JobListingUI {
     public static int applicationSubmitted()
     {
         Input input = new Input();
-        String msg = "      JOB APPLICATION       \n"
+        String msg = "\n      JOB APPLICATION       \n"
                 + "Thank you for Submitting your Application!\n"
                 + "The recruiter has received your application and will reach out if you proceed to the next round \n"
                 + "Press 1 to continue";
@@ -141,8 +141,7 @@ public class JobListingUI {
     public static int editJobOptions()
     {
         Input input = new Input();
-        String msg = "      EDIT JOB LISTING\n"
-                + "Press 1 to edit job title\n"
+        String msg = "Press 1 to edit job title\n"
                 + "Press 2 to edit job category\n"
                 + "Press 3 to edit job location\n"
                 + "Press 4 to edit job hours\n"
@@ -151,8 +150,40 @@ public class JobListingUI {
                 + "Press 7 to edit job description\n"
                 + "Press 8 to edit application deadline\n"
                 + "Press 9 to edit job advertisement status\n"
-                + "Press 0 to go back";
+                + "Press 0 to go back\n"
+                + "-----------------------------------------";
         return input.acceptInt(msg, 0, 9);
+    }
+
+    public int getSkillNo(int max)
+    {
+        Input input = new Input();
+        int skillNo = input.acceptInt("Please choose the skill you want to modify.\nAlternatively, press 0 to go back.", 0, max);
+        return skillNo;
+    }
+
+    public static int modifySkillOptions()
+    {
+        Input input = new Input();
+        String msg = "-----------------------------------------\n"
+                + "      EDIT SKILL\n"
+                + "Press 1 to modify skill\n"
+                + "Please 2 to delete skill\n"
+                + "Press 0 to go back\n"
+                + "-----------------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
+    }
+
+    public static int openSkillMenu()
+    {
+        Input input = new Input();
+        String msg = "-----------------------------------------\n"
+                + "      EDIT JOB LISTING\n"
+                + "Press 1 to add new skill\n"
+                + "Press 2 to modify/delete a skill\n"
+                + "Press 0 to go back\n"
+                + "-----------------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
     }
 
     //Accepts input from recruiters about job details, then directs them to job listing control to add the job
@@ -188,7 +219,7 @@ public class JobListingUI {
         jl.setAppDeadline(input.acceptDate(msg + "enter the application deadline *"));
         jl.displayJobDetails();
         jl.setJobAd(advertiseJob());
-        System.out.println(jl.labelJobAd());
+        System.out.println(jl.labelJobAd(jl.getJobAd()));
         jl.setJobId(JobListingCtrl.generateJobID(JSS.JSSJOBLIST));
         jl.setJobRC(LogInCtrl.getRcUsername());
 
@@ -231,18 +262,22 @@ public class JobListingUI {
     public static int manageJobOptions()
     {
         Input input = new Input();
-        String msg = "Press 1 to edit job listing\n"
+        String msg = "-----------------------------------------\n"
+                + "Press 1 to edit job listing\n"
                 + "Press 2 to view applications\n"
                 + "Press 3 to invite candidates\n"
-                + "Press 0 to go back";
+                + "Press 0 to go back\n"
+                + "-----------------------------------------\n";
         return input.acceptInt(msg, 0, 3);
     }
 
     public static int openJobOptions()
     {
         Input input = new Input();
-        String msg = "Press 1 to apply for this job\n"
-                + "Press 0 to go back";
+        String msg = "-----------------------------------------\n"
+                + "Press 1 to apply for this job\n"
+                + "Press 0 to go back\n"
+                + "-----------------------------------------\n";
         return input.acceptInt(msg, 0, 1);
     }
 

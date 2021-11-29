@@ -112,27 +112,38 @@ public class JobListing {
     public void displayJobDetails()
     {
         SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        System.out.println("\nJob title: " + jobTitle);
-        System.out.println("Job category: " + jobCategory);
-        System.out.println("Location: " + jobLocation);
-        System.out.println("Hours: " + jobHours);
-        System.out.println("Compensation: " + jobPay);
-        System.out.println("Skills required: " + Arrays.toString(jobSkills.toArray()).replace('[', ' ').replace(']', ' ').trim());
-        System.out.println("Description:\n" + jobDescription + "\n");
-        System.out.println("Application deadline: " + dateShortFormat.format(appDeadline) + "\n");
-        System.out.println("Matching score: " + matchingScore);
+        System.out.println("\nJOB TITLE:            " + jobTitle);
+        System.out.println("JOB CATEGORY:         " + jobCategory);
+        System.out.println("LOCATION:             " + jobLocation);
+        System.out.println("HOURS:                " + jobHours);
+        System.out.println("COMPENSATION:         " + jobPay);
+        System.out.println("SKILLS REQUIRED:      ");
+        displayJobSkills();
+        System.out.println();
+        System.out.println("DESCRIPTION:\n" + jobDescription + "\n");
+        System.out.println("APPLICATION DEADLINE: " + dateShortFormat.format(appDeadline) + "\n");
+        System.out.println("MATCHING SCORE:       " + matchingScore);
     }
 
-    public String labelJobAd()
+    public String labelJobAd(boolean gotAd)
     {
         String adStatus = "";
-        if (this.jobAd == true) {
+        if (gotAd == true) {
             adStatus = "Public";
         } else {
             adStatus = "Private";
         }
 
         return adStatus;
+    }
+
+    public void displayJobSkills()
+    {
+        for (int i = 0; i < getJobSkills().size(); i++)
+        {
+            System.out.println((i+1) + ": " + getJobSkills().get(i).replace('[', ' ').replace(']', ' ').trim());
+        }
+
     }
 
 }
