@@ -126,16 +126,6 @@ public class JobListingUI {
         }
 
     }
-/*
-    //displays abbreviated list of jobs posted by the recruiter
-    public void displayJobList()
-            throws IOException, FileNotFoundException, ParseException
-    {
-        Model.JobListing jl = new JobListing();
-        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
-        //jlc.printJobList(jlc.filterRCJob(jlc.parseFromCSV(), LogInCtrl.getRcUsername()));
-        jlc.viewJLFromRC();
-    }*/
 
     //Display the options RC has when editing job listing
     public static int editJobOptions()
@@ -160,30 +150,6 @@ public class JobListingUI {
         Input input = new Input();
         int skillNo = input.acceptInt("Please choose the skill you want to modify.\nAlternatively, press 0 to go back.", 0, max);
         return skillNo;
-    }
-
-    public static int modifySkillOptions()
-    {
-        Input input = new Input();
-        String msg = "-----------------------------------------\n"
-                + "      EDIT SKILL\n"
-                + "Press 1 to modify skill\n"
-                + "Please 2 to delete skill\n"
-                + "Press 0 to go back\n"
-                + "-----------------------------------------\n";
-        return input.acceptInt(msg, 0, 2);
-    }
-
-    public static int openSkillMenu()
-    {
-        Input input = new Input();
-        String msg = "-----------------------------------------\n"
-                + "      EDIT JOB LISTING\n"
-                + "Press 1 to add new skill\n"
-                + "Press 2 to modify/delete a skill\n"
-                + "Press 0 to go back\n"
-                + "-----------------------------------------\n";
-        return input.acceptInt(msg, 0, 2);
     }
 
     //Accepts input from recruiters about job details, then directs them to job listing control to add the job
@@ -271,6 +237,19 @@ public class JobListingUI {
         return input.acceptInt(msg, 0, 3);
     }
 
+    //Prints the options for editing a specific skill from a job listing
+    public static int modifySkillOptions()
+    {
+        Input input = new Input();
+        String msg = "-----------------------------------------\n"
+                + "      EDIT SKILL\n"
+                + "Press 1 to modify skill\n"
+                + "Please 2 to delete skill\n"
+                + "Press 0 to go back\n"
+                + "-----------------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
+    }
+
     public static int openJobOptions()
     {
         Input input = new Input();
@@ -289,6 +268,19 @@ public class JobListingUI {
         String jobCat = list[num - 1];
 
         return jobCat;
+    }
+
+    //Prints the options for managing the skills of a specific job listing
+    public static int openSkillMenu()
+    {
+        Input input = new Input();
+        String msg = "-----------------------------------------\n"
+                + "      EDIT JOB LISTING\n"
+                + "Press 1 to add new skill\n"
+                + "Press 2 to modify/delete a skill\n"
+                + "Press 0 to go back\n"
+                + "-----------------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
     }
 
 }

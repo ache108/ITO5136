@@ -1,5 +1,6 @@
 package Control;
 
+import Model.JobListing;
 import Model.JobSeeker;
 import Model.User;
 import View.Input;
@@ -55,6 +56,13 @@ public class JobSeekerCtrl {
         }
     }
 
+    //Method to link with Job Listing Control.
+    public static void searchJob() throws IOException, ParseException {
+        JobListingCtrl jlc = new JobListingCtrl();
+
+        jlc.viewJLFromJS();
+    }
+
     public static String writeJSString(JobSeeker js)
     {
         String msg = "";
@@ -74,19 +82,6 @@ public class JobSeekerCtrl {
         return msg;
     }
 
-    //Method to call search keyword input and job category input, and return array list containing all the keywords.
-    //Unsure if array list is best way to work with the existing matching score?
-    //Might change the method to call another method to perform search and return results.
-    public static void searchJob() throws IOException, ParseException {
-        View.JobSeekerUI jsu = new JobSeekerUI();
-        JobListingCtrl jlc = new JobListingCtrl();
-        View.JobListingUI jlu = new JobListingUI();
 
-        ArrayList<String> searchKeywords = jsu.inputSearchKeywords();
-
-        //Need to write code on filtering results using searchKeywords.
-
-        jlc.viewJLFromJS();
-    }
 
 }

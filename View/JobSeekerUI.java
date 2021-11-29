@@ -1,5 +1,6 @@
 package View;
 import Control.*;
+import Model.JobListing;
 import Model.JobSeeker;
 import View.Input;
 
@@ -352,41 +353,32 @@ public class JobSeekerUI extends View.UserUI
         return input.acceptInt(msg, 0, 4);
     }
 
-    //Retrieve user input search criteria keywords and returns an array list.
-    public ArrayList<String> inputSearchKeywords() throws IOException {
+    //Retrieve user input search criteria keywords and returns a Job Listing object.
+    public Model.JobListing inputSearchKeywords()
+            throws IOException
+    {
         System.out.println("      SEARCH FOR JOBS");
         Input input = new Input();
-        ArrayList<String> searchKeywords = new ArrayList<String>();
         Control.JobSeekerCtrl jsc = new JobSeekerCtrl();
         JobListingUI jlu = new JobListingUI();
-        boolean addKeyword = true;
-        boolean charInputCheck = true;
-        do {
-            String keyword = input.acceptString("Please enter keywords to search for jobs.\nKeywords can be job titles, locations, job types (hours), and compensation level.");
-            searchKeywords.add(keyword);
-            // add another keyword
-            char userResponse = input.acceptChar("To add another keyword please enter y. \nTo complete the list please enter n");
-            do {
-                if (userResponse == 'y') {
-                    addKeyword = true;
-                    charInputCheck = false;
-                } else if (userResponse == 'n') {
-                    addKeyword = false;
-                    charInputCheck = false;
-                } else {
-                    System.out.println("Please enter y or n!");
-                    charInputCheck = true;
-                }
-            } while (charInputCheck);
-        } while (addKeyword);
+        Model.JobListing req = new JobListing();
+        Control.JobListingCtrl jlc = new JobListingCtrl();
 
         FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
+        System.out.println("\nPlease enter keywords for each respective fields to start your search.");
+        req.setJobTitle(input.acceptString("Job title: "));
+
         jlu.displayJobCategories();
-        searchKeywords.add(jlu.returnJobCategory(input.acceptInt( "Please select the job category: ", 1, list.length)));
+        String jobCat = jlu.returnJobCategory(input.acceptInt("Please select the job category *", 1, list.length));
+        req.setJobCategory(jobCat);
 
-        return searchKeywords;
+        req.setJobLocation(input.acceptString("Location of the job:"));
+        req.setJobHours(input.acceptString("Job type (Full time, Contract, Part time):"));
+        req.setJobPay(input.acceptString("Job compensation per annum"));
+        //req.setJobSkills(/*JOB SEEKER SKILL SET IN PROFILE*/);
 
+        return req;
     }
 }
