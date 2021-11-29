@@ -20,6 +20,43 @@ public class JobSeekerCtrl {
         UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
     }
 
+    public static Model.JobSeeker getCurrentJobSeeker()
+            throws IOException, ParseException
+    {
+        Model.User curUser = Control.UserCntrl.getCurrentUser();
+        Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
+
+        String[] numJob = file.readFile("\n").split("\n");
+        String workType = "";
+        String workRes = "";
+        String wage = "";
+        String strSkills = "";
+
+        for (int i = numJob.length - 1; i >= 0; i--) {
+            String[] details = numJob[i].split(";");
+            if (details[0].equals(curUser.userName)) //(display only profile for this user only)
+            {
+                wage = details[8];
+                workType = details[9];
+                workRes = details[10];
+                strSkills = details[11];
+                break;
+            }
+        }
+        double hrlyWage = Double.parseDouble(wage);
+        //.replace('[', ' ').replace(']', ' ').trim()
+        String[] skillsSplit = strSkills.split(",");
+
+        ArrayList<String> usrSkills = new ArrayList<String>();
+        for (int i=0; i< skillsSplit.length; i++)
+        {
+            usrSkills.add(skillsSplit[i]);
+        }
+
+        Model.JobSeeker js = new JobSeeker(curUser, hrlyWage, workType, workRes, usrSkills);
+        return js;
+    }
+
     //Job Seeker home page
     public static void runJSHome() throws IOException, ParseException {
         LogInUI ui = new View.LogInUI();

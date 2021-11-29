@@ -1,7 +1,11 @@
 package Control;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.*;
 import Control.FileIO;
+import java.io.IOException;
+import java.text.ParseException;
+
 
 public class UserCntrl
 {
@@ -18,9 +22,45 @@ public class UserCntrl
 
     }
 
-    public void showUser(String userName)
+    public static Model.User getCurrentUser()
+            throws IOException, ParseException
     {
-        // return all information from UserDetails file to show user on home screen
+        // return all information from UserDetails file for logged in User
+        String username = Control.LogInCtrl.getRcUsername();
+        String email = "";
+        String fName = "";
+        String lName = "";
+        String city = "";
+        String state = "";
+        String dob = "";
+        String profilePublic = "";
+
+        Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
+
+        String[] numJob = file.readFile("\n").split("\n");
+
+        for (int i = numJob.length - 1; i >= 0; i--)
+        {
+            String[] details = numJob[i].split(";");
+            if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
+            {
+                email = details[1];
+                fName = details[2];
+                lName = details[3];
+                city = details[4];
+                state = details[5];
+                dob = details[6];
+                profilePublic = details[7];
+                break;
+            }
+        }
+
+        boolean pubProfile = Boolean.parseBoolean(profilePublic);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        Date userDob = dateFormat.parse(dob);
+
+        Model.User curUser = new Model.User (username, email, fName, lName, city, state, userDob, pubProfile);
+        return curUser;
     }
 
     public static void writeNewUserToFile(String infoToWrite, String fileName)

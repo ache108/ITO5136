@@ -44,8 +44,9 @@ public class JobListingCtrl {
     public void applyForJob(Model.JobListing jl)
             throws IOException, ParseException
     {
-        // get userName & user Info
-        String userName = Control.LogInCtrl.getRcUsername();
+        // get current Job Information and current Jobseeker info
+        Model.JobSeeker js = Control.JobSeekerCtrl.getCurrentJobSeeker();
+
         String jobId = jl.getJobId();
         String jobTitle = jl.getJobTitle();
         String jobLocation = jl.getJobLocation();
@@ -56,11 +57,17 @@ public class JobListingCtrl {
         Date jobDeadline = jl.getAppDeadline();
         int jobMatch = jl.getMatchingScore();
         String jobRC = jl.getJobRC();
-        ArrayList <String> skills = jl.getJobSkills();
+        ArrayList <String> jobSkills = jl.getJobSkills();
+
+        String firstName = js.getFirstName();
+        String userName = js.getUserName();
+        String lastName = js.getLastName();
+        String email = js.getUserEmail();
+        ArrayList<String> userSkills = js.getSkillList();
 
         int applicationResponse = View.JobListingUI.applyForJobScreen(
                 userName, jobId, jobTitle, jobLocation, jobHours, jobCat, jobDesc, jobPay,
-                jobMatch, jobRC, jobDeadline, skills);
+                jobMatch, jobRC, jobDeadline, jobSkills, firstName, lastName, email, userSkills);
 
         switch (applicationResponse)
         {
@@ -71,7 +78,8 @@ public class JobListingCtrl {
             case 1:
                 // only 1 can come back, getting input to delay screen so user is not rushed offscreen
                 int userAppResponse = View.JobListingUI.applicationSubmitted();
-                // Save application into Text file so that it can be viewed by recruiter or withdrawn by JobSeeker
+                String toWrite = writeInfoAsString();
+                writeJobApplicationToFile(toWrite);
                 break;
             case 2:
                 // return user to profile page so they can edit their information
@@ -191,7 +199,6 @@ public class JobListingCtrl {
     }
 
     //Method to allow RC to change and replace an existing skill for the job listing, or to delete an existing skill.
-
     public ArrayList<String> editJobSkill(Model.JobListing jl, ArrayList<String> jobSkills, String skill) throws IOException, ParseException {
         Input input = new Input();
         View.JobListingUI jlu = new JobListingUI();
@@ -606,12 +613,37 @@ public class JobListingCtrl {
         return (jobNo);
     }
 
+    public static void writeJobApplicationToFile(String infoToWrite)
+            throws IOException
+    {
+        FileIO fName = new FileIO(Control.JSS.JOBAPPLICATIONS);
+        fName.appendFile(infoToWrite);
+    }
 
     public static void writeNewLineToFile(String infoToWrite, String fileName)
             throws IOException
     {
         FileIO fName = new FileIO(fileName);
         fName.appendFile(infoToWrite);
+    }
+
+    public static String writeInfoAsString()
+    {
+        String msg = "";
+//        msg += userName;
+//        msg += ";" + userEmail;
+//        msg += ";" + firstName;
+//        msg += ";" + lastName;
+//        msg += ";" + city;
+//        msg += ";" + state;
+//        msg += ";" + dateOfBirth;
+//        msg += ";" + publicProfile;
+//        msg += ";" + hourlyWageRate;
+//        msg += ";" + wrkType;
+//        msg += ";" + residencyType;
+//        msg += ";" + skillsList + ";";
+
+        return msg;
     }
 
     /*

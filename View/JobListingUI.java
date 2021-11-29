@@ -69,7 +69,12 @@ public class JobListingUI {
                                         int jobMatch,
                                         String jobRC,
                                         Date jobDeadline,
-                                        ArrayList<String> skills)
+                                        ArrayList<String> skills,
+                                        String firstName,
+                                        String lastName,
+                                        String email,
+                                        ArrayList<String> userSkills
+    )
     {
         // add details received from controller
         Input input = new Input();
@@ -89,10 +94,10 @@ public class JobListingUI {
                 + "Matching Score: " + jobMatch  + "\n"
                 + "Recruiter: " + jobRC + "\n"
                 + "        YOUR DETAILS \n"
-                + "First Name: " + " \n"
-                + "Last Name: " + " \n"
-                + "Email: " + " \n"
-                + "Skills: " + " \n"
+                + "First Name: " + firstName + " \n"
+                + "Last Name: " + lastName + " \n"
+                + "Email: " + email + " \n"
+                + "Skills: " + Arrays.toString(userSkills.toArray()).replace('[', ' ').replace(']', ' ').trim() + " \n"
                 + "Experience: " + " \n"
                 + "Username: " + userName  + " \n"
                 + "--------------------------------\n"
