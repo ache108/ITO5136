@@ -423,19 +423,15 @@ public class JobSeekerUI extends View.UserUI
     public static void deleteSkill()
             throws IOException, FileNotFoundException, ParseException
     {
+        ArrayList<String> tempArray = new ArrayList<>();
+        for (int j = 0; j < newList.size() - 1; j++)
         {
-            ArrayList<String> tempArray = new ArrayList<>();
-                    for (int j = 0; j < newList.size() - 1; j++)
-                        if (newList.get(j) == null)
-                        {
-                            newList.set(j, newList.get(j + 1));
-                            tempArray.add(newList.get(j));
-                        }
-                        else
-                        {
-                            tempArray.add(newList.get(j));
-                        }
-
+            if (newList.get(j) == null) {
+                newList.set(j, newList.get(j + 1));
+                tempArray.add(newList.get(j));
+            } else {
+                tempArray.add(newList.get(j));
+            }
             newList.clear();
             for (int i = 0; i < tempArray.size(); i++)
             {

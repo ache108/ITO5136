@@ -1,39 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Added exit and working back functionality">
-      <change beforePath="$PROJECT_DIR$/.idea/ache108.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ache108.iml" afterDir="false" />
+    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Added new skill functionality to js profile">
+      <change beforePath="$PROJECT_DIR$/Control/JobListingCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobListingCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Control/RecruiterCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/RecruiterCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/JobListingUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/JobListingUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/JobSeekerUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/JobSeekerUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/CompanyCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/CompanyCtrl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JSS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JSS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/LogInCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/LogInCtrl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Files/jsLoginCredentials.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Files/jsLoginCredentials.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Files/jsUserDetails.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Files/jsUserDetails.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/View/JobSeekerUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/View/JobSeekerUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/View/RecruiterUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/View/RecruiterUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/jsLoginCredentials.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/jsLoginCredentials.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/jsUserDetails.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/jsUserDetails.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/rcLoginCredentials.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/rcUserDetails.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/jobListings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/jobListings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/jobListings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/rcLoginCredentials.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/rcUserDetails.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/jobListings.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/rcLoginCredentials.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/rcUserDetails.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/Files/jobListings.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/jobListings.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/rcLoginCredentials.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/test/ache108/rcUserDetails.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -247,7 +228,21 @@
       <option name="project" value="LOCAL" />
       <updated>1638012027438</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added new skill functionality to js profile">
+      <created>1638158286705</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1638158286705</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added new skill functionality to js profile">
+      <created>1638161099672</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1638161099672</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,14 +266,15 @@
     <MESSAGE value="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile" />
     <MESSAGE value="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)" />
     <MESSAGE value="Added exit and working back functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added exit and working back functionality" />
+    <MESSAGE value="Added new skill functionality to js profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new skill functionality to js profile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Control/JobListingCtrl.java</url>
-          <line>275</line>
+          <line>395</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
