@@ -104,7 +104,7 @@ public class JobSeekerUI extends View.UserUI
 
             String[] numJob = file.readFile("\n").split("\n");
 
-            for (int i = numJob.length - 1; i >= 0; i--)
+            for (int i = 0; i < numJob.length; i++)
             {
                 String[] details = numJob[i].split(";");
                 if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
@@ -120,8 +120,6 @@ public class JobSeekerUI extends View.UserUI
                     System.out.println("Work Type: " + details[9]);
                     System.out.println("Work Residency: " + details[10]);
                     displaySkills2();
-
-                    break;
                 }
             }
             editJSOptions();
@@ -167,7 +165,7 @@ public class JobSeekerUI extends View.UserUI
 
         String[] numJob = file.readFile("\n").split("\n");
 
-        for (int i = numJob.length - 1; i >= 0; i--)
+        for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(";");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
@@ -182,7 +180,6 @@ public class JobSeekerUI extends View.UserUI
                 wage = details[8];
                 workType = details[9];
                 workRes = details[10];
-                break;
             }
         }
         int detailNo = editJSOptionsDisplay();
@@ -315,17 +312,9 @@ public class JobSeekerUI extends View.UserUI
     {
         assignSkills();
         System.out.print("Skills: ");
-        /*
-        int j = newList.size() - 1;
-        StringBuilder sb = new StringBuilder(newList.get(j));
-        int b = newList.get(j).length() - 1;
-        sb.deleteCharAt(b);
-           */
         if (newList.size() == 1)
         {
             StringBuilder sb = new StringBuilder(newList.get(0));
-            int a = newList.get(0).length() - 1;
-            sb.deleteCharAt(a);
             System.out.print(sb);
         }
         else
@@ -350,7 +339,7 @@ public class JobSeekerUI extends View.UserUI
 
         String[] numJob = file.readFile("\n").split("\n");
 
-        for (int i = numJob.length - 1; i >= 0; i--)
+        for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(";");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
@@ -358,24 +347,30 @@ public class JobSeekerUI extends View.UserUI
                 String[] skill = details[details.length - 1].split(",");
 
                     StringBuilder sb = new StringBuilder(skill[0]);
-                    int a = sb.length() - 1;
                     boolean char0check = false;
-                    while (char0check == false)
+                    boolean characheck = false;
+                    while (char0check == false && characheck == false)
                     {
                         if (sb.charAt(0) == '[')
                         {
                             sb.deleteCharAt(0);
                         }
-                        else if (sb.charAt(a) == ']')
-                        {
-                            sb.deleteCharAt(a);
-                        }
                         else
                         {
                             char0check = true;
                         }
+
+                        if (sb.charAt(sb.length() - 1) == ']')
+                        {
+                            sb.deleteCharAt(sb.length() - 1);
+                        }
+                        else
+                        {
+                            characheck = true;
+                        }
                     }
                     newList.add(sb.toString().trim());
+                    newList.set(0, sb.toString());
                     for (int j = 1; j < skill.length - 1; j++)
                     {
                         newList.add(skill[j].trim());
@@ -390,8 +385,6 @@ public class JobSeekerUI extends View.UserUI
                         newList.add(sb1.toString().trim());
                     }
                     max = newList.size();
-
-                break;
             }
         }
     }

@@ -73,7 +73,7 @@ public class RecruiterUI extends View.UserUI
 
         String[] numJob = file.readFile("\n").split("\n");
 
-        for (int i = numJob.length - 1; i >= 0; i--)
+        for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(",");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
@@ -83,7 +83,6 @@ public class RecruiterUI extends View.UserUI
                 System.out.println("Company Email: " + details[3]);
                 System.out.println("Company Phone Number: " + details[4]);
                 System.out.println("Company Description: " + details[5]);
-                break;
             }
         }
         editCompanyListing();
@@ -102,7 +101,7 @@ public class RecruiterUI extends View.UserUI
 
         String[] numJob = file.readFile("\n").split("\n");
         //for loop read file from bottom to top, breaks once username is found for the first time
-        for (int i = numJob.length - 1; i >= 0; i--)
+        for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(",");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
@@ -112,7 +111,6 @@ public class RecruiterUI extends View.UserUI
                 usrCompEmail = details[3];
                 usrCompPhone = details[4];
                 usrCompDescr = details[5];
-                break;
             }
         }
 
