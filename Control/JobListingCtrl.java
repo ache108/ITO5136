@@ -90,6 +90,10 @@ public class JobListingCtrl {
         FileIO file2 = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file2.readFile("\n").split("\n");
 
+        System.out.println("-----------------------------------\n"
+                + "      EDIT JOB LISTING\n");
+        jl.displayJobDetails();
+        System.out.println("-----------------------------------\n");
         String newString = "";
         Date newDate;
         int detailNo = JobListingUI.editJobOptions();
@@ -97,13 +101,13 @@ public class JobListingCtrl {
         {
             case 1:
                 //edit job title
-                System.out.println("Current job title: " + jl.getJobTitle());
+                System.out.println("\nCurrent job title: " + jl.getJobTitle());
                 newString = input.acceptString("Please enter new job title: ");
                 jl.setJobTitle(newString);
                 break;
             case 2:
                 //edit job category
-                System.out.println("Current job category: " + jl.getJobCategory());
+                System.out.println("\nCurrent job category: " + jl.getJobCategory());
                 jlu.displayJobCategories();
                 newString = jlu.returnJobCategory(input.acceptInt("Please select new job category: ", 1, list.length));
                 if (newString.equals("Other"))
@@ -115,42 +119,64 @@ public class JobListingCtrl {
                 break;
             case 3:
                 //edit job location
-                System.out.println("Current job location: " + jl.getJobLocation());
+                System.out.println("\nCurrent job location: " + jl.getJobLocation());
                 newString = input.acceptString("Please enter new job location: ");
                 jl.setJobLocation(newString);
                 break;
             case 4:
                 //edit job hours
-                System.out.println("Current job hours: " + jl.getJobHours());
+                System.out.println("\nCurrent job hours: " + jl.getJobHours());
                 newString = input.acceptString("Please enter new job hours: ");
                 jl.setJobHours(newString);
                 break;
             case 5:
                 //edit job pay
-                System.out.println("Current job compensation: " + jl.getJobPay());
+                System.out.println("\nCurrent job compensation: " + jl.getJobPay());
                 newString = input.acceptString("Please enter new job compensation: ");
                 jl.setJobPay(newString);
                 break;
-            /*case 6:
+            case 6:
                 //edit job skills
-                System.out.println("Current job title: " + jl.getJobSkills());
-                newString = input.acceptString("Please enter new job skills: ");
-                jl.setJobSkills(newString);//NEED TO WORK ON THIS*/
+                ArrayList<String> newSkills;
+                ArrayList<String> origSkills = jl.getJobSkills();
+                System.out.println("\nCurrent saved job skills are: ");
+                jl.displayJobSkills();
+                int proceedNo = jlu.openSkillMenu();
+                switch (proceedNo)
+                {
+                    case 1:
+                        //add new skill to jl
+                        newSkills = jlu.inputJobListingSkill();
+                        for (int j = 0; j < newSkills.size(); j++)
+                        {
+                            origSkills.add(newSkills.get(j));
+                        }
+                        break;
+                    case 2:
+                        //modify skill
+                        origSkills = editJobSkill(jl, origSkills, origSkills.get(jlu.getSkillNo(origSkills.size()) - 1));
+                        break;
+                    case 0:
+                        //go back
+                        editJobListing(jl);
+                }
+                jl.setJobSkills(origSkills);
+                break;
             case 7:
                 //edit job description
-                System.out.println("Current job description: " + jl.getJobDescription());
+                System.out.println("\nCurrent job description: " + jl.getJobDescription());
                 newString = input.acceptString("Please enter new job description: ");
                 jl.setJobDescription(newString);
                 break;
             case 8:
                 //edit application deadline
-                System.out.println("Current job application deadline: " + jl.getAppDeadline());
+                System.out.println("\nCurrent job application deadline: " + jl.getAppDeadline());
                 newDate = input.acceptDate("Please enter new application deadline: ");
                 jl.setAppDeadline(newDate);
                 break;
             case 9:
                 //edit advertisement status
-                System.out.println("Current job advertisement status: " + jl.getJobAd());
+                System.out.println("\nCurrent job advertisement status: " + jl.labelJobAd(jl.getJobAd()));
                 boolean isAdvertised = View.JobListingUI.advertiseJob();
                 jl.setJobAd(isAdvertised);
                 break;
@@ -162,6 +188,72 @@ public class JobListingCtrl {
         addNewJob(Control.LogInCtrl.getRcUsername(), jl.getJobId(), jl.getJobTitle(), jl.getJobCategory(), jl.getJobLocation(), jl.getJobHours(), jl.getJobPay(), jl.getJobSkills(), jl.getJobDescription(), jl.getAppDeadline(), jl.getJobAd());
         editJobListing(jl);
     }
+
+    public ArrayList<String> editJobSkill(Model.JobListing jl, ArrayList<String> jobSkills, String skill) throws IOException, ParseException {
+        Input input = new Input();
+        View.JobListingUI jlu = new JobListingUI();
+        int optNo = JobListingUI.modifySkillOptions();
+        switch (optNo)
+        {
+            case 1:
+                //edit the skill
+                System.out.println("\nThe skill provided previously was: " + skill.replace('[', ' ').replace(']', ' ').trim() + ".");
+                String newSkill = input.acceptString("Please input the new skill that you want to replace this skill with:");
+                jobSkills.remove(skill);
+                jobSkills.add(newSkill);
+                System.out.println("\nCurrent saved job skills are: ");
+                jl.displayJobSkills();
+                break;
+            case 2:
+                //delete the skill
+                System.out.println("\nThe skill provided previously was: " + skill.replace('[', ' ').replace(']', ' ').trim() + ".");
+                boolean deleteSkill = true;
+                boolean charInputCheck = false;
+                char userRepsonse = input.acceptChar("Please enter y to delete skill; or n to go back");
+                do {
+                    if (userRepsonse == 'y') {
+                        deleteSkill = true;
+                    } else if (userRepsonse == 'n') {
+                        deleteSkill = false;
+                    } else {
+                        System.out.println("Please enter y or n!");
+                        charInputCheck = true;
+                    }
+                } while (charInputCheck);
+                if (deleteSkill)
+                {
+                    jobSkills.remove(skill);
+                    System.out.println("\nCurrent job skills are: ");
+                    jl.displayJobSkills();
+                    break;
+                } else {
+                    editJobSkill(jl, jobSkills, skill);
+                }
+                break;
+            case 0:
+                //go back
+                editJobListing(jl);
+        }
+
+        return jobSkills;
+    }
+
+    /*public int selectJobSkill(ArrayList<JobListing> jobList, int jobNo) throws IOException, ParseException {
+        if (jobNo == 0) {
+            try {
+                Control.RecruiterCtrl.runRCHome();
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("-----------------------------------------\n");
+            jobList.get(jobNo - 1).displayJobDetails();
+            System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd());
+            System.out.println("-----------------------------------------");
+        }
+
+        return (jobNo);
+    }*/
 
     //Recursive method to filter out job listings that are not by the current logged in RC.
     public ArrayList<Model.JobListing> filterRCJob(ArrayList<Model.JobListing> jobList, String username)
@@ -195,6 +287,8 @@ public class JobListingCtrl {
     //Direct to each functionality related to job listing management
     public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
         JobListingUI jlu = new JobListingUI();
+        System.out.println("       MANAGE JOB LISTING");
+        jl.displayJobDetails();
         int choice = JobListingUI.manageJobOptions();
         switch (choice)
         {
@@ -333,33 +427,21 @@ public class JobListingCtrl {
             throws IOException, FileNotFoundException, ParseException
     {
 
-        System.out.println("--------------------------------");
+        System.out.println("          JOB LIST\n--------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
-            System.out.println("Job " + (i+1) + ": ");
-            System.out.println("Matching Score: " + jobList.get(i).getMatchingScore());
-            System.out.println(jobList.get(i).getJobTitle());
-            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
-            System.out.println("Advertise: " + jobList.get(i).labelJobAd());
-            System.out.println("Job skills are: ");
-            for (int j = 0; j < jobList.get(i).getJobSkills().size(); j++)
-            {
-                String skill = jobList.get(i).getJobSkills().get(j);
-                if (skill.charAt(0) == '[') {
-                    skill = skill.substring(1);
-                } else if (skill.charAt(0) == ' ') {
-                    skill = skill.substring(1);
-                }
-                if (skill.charAt(skill.length() - 1) == ']') {
-                    skill = skill.substring(0, skill.length() - 1);
-                }
-                System.out.println("- " + skill);
-            }
+            System.out.println("Job " + (i+1) + ":          ");
+            //System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
+            System.out.println(jobList.get(i).getJobTitle().toUpperCase());
+            System.out.println("Application deadline:    " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
+            System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
+
             System.out.println("--------------------------------");
         }
 
     }
 
+    //Print abbreviated job list for JS
     public void printJobListJS(ArrayList<Model.JobListing> jobList)
             throws IOException, FileNotFoundException, ParseException
     {
@@ -372,19 +454,8 @@ public class JobListingCtrl {
             System.out.println(jobList.get(i).getJobTitle());
             System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Job skills are: ");
-            for (int j = 0; j < jobList.get(i).getJobSkills().size(); j++)
-            {
-                String skill = jobList.get(i).getJobSkills().get(j);
-                if (skill.charAt(0) == '[') {
-                    skill = skill.substring(1);
-                } else if (skill.charAt(0) == ' ') {
-                    skill = skill.substring(1);
-                }
-                if (skill.charAt(skill.length() - 1) == ']') {
-                    skill = skill.substring(0, skill.length() - 1);
-                }
-                System.out.println("- " + skill);
-            }
+            jobList.get(i).displayJobSkills();
+
             System.out.println("--------------------------------");
         }
 
@@ -455,9 +526,9 @@ public class JobListingCtrl {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("-----------------------------------------");
+            System.out.print("-----------------------------------------");
             jobList.get(jobNo - 1).displayJobDetails();
-            System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd());
+            System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd(jobList.get(jobNo - 1).getJobAd()));
             System.out.println("-----------------------------------------");
         }
 
