@@ -363,8 +363,6 @@ public class JobSeekerUI extends View.UserUI
                         verifiedInput = View.UserUI.userVerifyInputs(include);
                         newList.add(include);
                         count++;
-                        System.out.println(newList);
-                        System.out.println(count);
                         } while (!verifiedInput);
                     break;
                 case 2:
