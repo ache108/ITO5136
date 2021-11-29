@@ -1,16 +1,8 @@
 package View;
-import Control.JSS;
-import Model.JobListing;
-import View.Input;
-import java.io.*;
-import Control.RecruiterCtrl;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
-import java.util.ArrayList;
 
-import Model.CompanyListing;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 
 public class RecruiterUI extends View.UserUI
 {

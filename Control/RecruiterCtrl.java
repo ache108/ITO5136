@@ -1,18 +1,12 @@
 package Control;
 
-import Model.JobSeeker;
 import Model.Recruiter;
-import Model.User;
 import View.JobListingUI;
-import View.JobSeekerUI;
 import View.LogInUI;
 import View.RecruiterUI;
-import Control.LogInCtrl;
-import Control.JobListingCtrl;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 public class RecruiterCtrl {
     public static void createNewRecruiter(Model.User newUser)

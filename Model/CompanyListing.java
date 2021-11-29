@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.Date;
-
 public class CompanyListing {
 
     public String rcID;

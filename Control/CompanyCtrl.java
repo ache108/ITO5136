@@ -3,7 +3,6 @@ package Control;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import View.UserUI;
 
 public class CompanyCtrl {
 
@@ -11,7 +10,7 @@ public class CompanyCtrl {
             throws IOException, FileNotFoundException
     {
         // new job is created
-        Model.CompanyListing newJob = new Model.CompanyListing(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
+        //Model.CompanyListing newJob = new Model.CompanyListing(rcID, usrCompany, usrCompAddress, usrCompEmail, usrCompPhone, usrCompDescr);
 
         // write inputs to file now or pass and save them all in a single turn?
         String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress+ "," + usrCompEmail + "," + usrCompPhone+ "," + usrCompDescr;
@@ -100,7 +99,7 @@ public class CompanyCtrl {
                     break;
 
             }
-            if (case0 = false)
+            if (case0 == false)
             {
                 String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress + "," + usrCompEmail + "," + usrCompPhone + "," + usrCompDescr;
                 //add updated listing, old listing stays
