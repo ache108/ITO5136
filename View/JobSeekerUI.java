@@ -1,4 +1,5 @@
 package View;
+
 import Control.*;
 import Model.JobSeeker;
 import View.Input;
@@ -9,6 +10,25 @@ import java.io.*;
 
 public class JobSeekerUI extends View.UserUI
 {
+    private static ArrayList<String> newList;
+    private static int count;
+
+    public JobSeekerUI()
+    {
+        newList = new ArrayList<String>();
+        count = 1;
+    }
+
+    public ArrayList<String> getNewList()
+    {
+        return this.newList;
+    }
+
+    public void setNewList(ArrayList<String> newList)
+    {
+        newList = this.newList;
+    }
+
     public static void jobSeekerInputs(String userName)
             throws IOException
     {
@@ -243,11 +263,11 @@ public class JobSeekerUI extends View.UserUI
                     break;
                 case 11:
                     //edit skills
-                        case0 = true;
                         editSkills();
                     break;
                 case 0:
                     //Go back
+                    case0 = true;
                     Control.JobSeekerCtrl.runJSHome();
                     break;
                 default:
@@ -256,11 +276,12 @@ public class JobSeekerUI extends View.UserUI
                     break;
 
             }
-            if (case0 = false)
+            if (case0 == false)
             {
-                String wrJS = username + ";" + email + ";" + fName + ";" + lName + ";" + city + ";" + state + ";" + dob + ";" + profilePublic + ";" + wage + ";" + workType + ";" + workRes + ";" + skills;
+                String wrJS = username + ";" + email + ";" + fName + ";" + lName + ";" + city + ";" + state + ";" + dob + ";" + profilePublic + ";" + wage + ";" + workType + ";" + workRes + ";" + newList;
                 //add updated listing, old listing stays
                 Control.UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
+                newList.clear();
                 displayJSDetails();
             }
         } while (!verifiedInput);
@@ -280,6 +301,16 @@ public class JobSeekerUI extends View.UserUI
     public static void displaySkills()
             throws IOException, FileNotFoundException, ParseException
     {
+        assignSkills();
+        for (int i = 0; i < newList.size(); i++)
+        {
+            System.out.println(i + 1 + ": " + newList.get(i));
+        }
+    }
+
+    public static void assignSkills()
+            throws IOException, FileNotFoundException, ParseException
+    {
         Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
@@ -290,10 +321,23 @@ public class JobSeekerUI extends View.UserUI
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
             {
                 String[] skill = details[details.length - 1].split(",");
-                for (int j = 0; j < skill.length; j++)
-                {
-                    System.out.println(j + 1 + ": " + skill[j]);
-                }
+
+                    StringBuilder sb = new StringBuilder(skill[0]);
+                    sb.deleteCharAt(0);
+                    newList.add(sb.toString());
+                    //int count = 1;
+                    for (int j = 1; j < skill.length - 1; j++) {
+                        newList.add(skill[j]);
+                        count++;
+                    }
+                    if (count > 1) {
+                        int k = skill[skill.length - 1].length() - 1;
+                        StringBuilder sb1 = new StringBuilder(skill[skill.length - 1]);
+                        sb1.deleteCharAt(k);
+                        count++;
+                        newList.add(sb1.toString());
+                    }
+
                 break;
             }
         }
@@ -306,7 +350,7 @@ public class JobSeekerUI extends View.UserUI
         Input input = new Input();
         int detailNo = displayEditSkills();
         boolean verifiedInput = false;
-        String add = "";
+        String include = "";
         String remove = "";
         do {
             switch (detailNo)
@@ -314,8 +358,13 @@ public class JobSeekerUI extends View.UserUI
                 case 1:
                     //add skill
                     do {
-                        add = input.acceptString("Please enter the index to remove a skill");
-                        verifiedInput = View.UserUI.userVerifyInputs(add);
+                        displaySkills();
+                        include = input.acceptString("Please enter a new skill to add");
+                        verifiedInput = View.UserUI.userVerifyInputs(include);
+                        newList.add(include);
+                        count++;
+                        System.out.println(newList);
+                        System.out.println(count);
                         } while (!verifiedInput);
                     break;
                 case 2:
@@ -334,9 +383,7 @@ public class JobSeekerUI extends View.UserUI
                     String home = input.acceptString("Going back");
                     View.UserUI.userVerifyInputs(home);
                     break;
-
             }
-
         } while (!verifiedInput);
     }
 
