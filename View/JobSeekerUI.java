@@ -1,8 +1,7 @@
 package View;
 
 import Control.*;
-import Model.JobListing;
-import Model.JobSeeker;
+import Model.*;
 import View.Input;
 
 import java.text.ParseException;
@@ -13,11 +12,13 @@ public class JobSeekerUI extends View.UserUI
 {
     private static ArrayList<String> newList;
     private static int count;
+    private static int max;
 
     public JobSeekerUI()
     {
         newList = new ArrayList<String>();
         count = 1;
+        max = 0;
     }
 
     public ArrayList<String> getNewList()
@@ -118,7 +119,8 @@ public class JobSeekerUI extends View.UserUI
                     System.out.println("Desired Hourly Wage: " + details[8]);
                     System.out.println("Work Type: " + details[9]);
                     System.out.println("Work Residency: " + details[10]);
-                    System.out.println("Skills: " + details[11]);
+                    displaySkills2();
+
                     break;
                 }
             }
@@ -160,7 +162,6 @@ public class JobSeekerUI extends View.UserUI
         String wage = "";
         String workType = "";
         String workRes = "";
-        String skills = "";
 
         Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
 
@@ -181,7 +182,6 @@ public class JobSeekerUI extends View.UserUI
                 wage = details[8];
                 workType = details[9];
                 workRes = details[10];
-                skills = details[11];
                 break;
             }
         }
@@ -309,9 +309,26 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
+    public static void displaySkills2()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        assignSkills();
+        System.out.print("Skills: ");
+        for (int i = 0; i < newList.size() - 1; i++)
+        {
+            System.out.print(newList.get(i) + ", ");
+        }
+        if (newList.size() > 1)
+        {
+            System.out.print(newList.get(newList.size() - 1));
+        }
+    }
+
     public static void assignSkills()
             throws IOException, FileNotFoundException, ParseException
     {
+        newList.clear();
+
         Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
@@ -324,20 +341,33 @@ public class JobSeekerUI extends View.UserUI
                 String[] skill = details[details.length - 1].split(",");
 
                     StringBuilder sb = new StringBuilder(skill[0]);
-                    sb.deleteCharAt(0);
-                    newList.add(sb.toString());
-                    //int count = 1;
-                    for (int j = 1; j < skill.length - 1; j++) {
-                        newList.add(skill[j]);
+                    boolean char0check = false;
+                    while (char0check == false)
+                    {
+                        if (sb.charAt(0) == '[')
+                        {
+                            sb.deleteCharAt(0);
+                        }
+                        else
+                        {
+                            char0check = true;
+                        }
+                    }
+                    newList.add(sb.toString().trim());
+                    for (int j = 1; j < skill.length - 1; j++)
+                    {
+                        newList.add(skill[j].trim());
                         count++;
                     }
-                    if (count > 1) {
+                    if (count > 1)
+                    {
                         int k = skill[skill.length - 1].length() - 1;
                         StringBuilder sb1 = new StringBuilder(skill[skill.length - 1]);
                         sb1.deleteCharAt(k);
                         count++;
-                        newList.add(sb1.toString());
+                        newList.add(sb1.toString().trim());
                     }
+                    max = newList.size();
 
                 break;
             }
@@ -352,7 +382,7 @@ public class JobSeekerUI extends View.UserUI
         int detailNo = displayEditSkills();
         boolean verifiedInput = false;
         String include = "";
-        String remove = "";
+        int delete = -1;
         do {
             switch (detailNo)
             {
@@ -364,14 +394,18 @@ public class JobSeekerUI extends View.UserUI
                         verifiedInput = View.UserUI.userVerifyInputs(include);
                         newList.add(include);
                         count++;
+
                         } while (!verifiedInput);
                     break;
                 case 2:
                     //remove skill
                     do {
                         displaySkills();
-                        remove = input.acceptString("Please enter the index to remove a skill");
-                        verifiedInput = View.UserUI.userVerifyInputs(remove);
+                        delete = input.acceptInt("Please enter the index to remove a skill", 1, max);
+                        verifiedInput = true;
+                        newList.remove(delete - 1);
+                        deleteSkill();
+
                     } while (!verifiedInput);
                     break;
                 case 0:
@@ -384,6 +418,31 @@ public class JobSeekerUI extends View.UserUI
                     break;
             }
         } while (!verifiedInput);
+    }
+
+    public static void deleteSkill()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        {
+            ArrayList<String> tempArray = new ArrayList<>();
+                    for (int j = 0; j < newList.size() - 1; j++)
+                        if (newList.get(j) == null)
+                        {
+                            newList.set(j, newList.get(j + 1));
+                            tempArray.add(newList.get(j));
+                        }
+                        else
+                        {
+                            tempArray.add(newList.get(j));
+                        }
+
+            newList.clear();
+            for (int i = 0; i < tempArray.size(); i++)
+            {
+                newList.add(tempArray.get(i));
+            }
+            tempArray.clear();
+        }
     }
 
     public static int displayJSHome()
@@ -407,7 +466,7 @@ public class JobSeekerUI extends View.UserUI
         Control.JobSeekerCtrl jsc = new JobSeekerCtrl();
         JobListingUI jlu = new JobListingUI();
         Model.JobListing req = new JobListing();
-        Control.JobListingCtrl jlc = new JobListingCtrl();
+        JobListingCtrl jlc = new JobListingCtrl();
 
         FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");

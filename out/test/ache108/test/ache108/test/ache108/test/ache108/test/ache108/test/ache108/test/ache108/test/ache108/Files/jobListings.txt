@@ -1,8 +1,0 @@
-bill,00000001,Software Engineer,IT,Melbourne,Full Time,100000,Detail-oriented,We are looking to hire someone!,Mon Nov 22 00:00:00 AEDT 2021,false
-cody,00000002,Manager,Management,Melbourne,Full Time,120000,Management skills,We are hiring a manager,Tue Nov 23 00:00:00 AEDT 2021,true
-luke,00000003,Receptionist,IT,Perth,Full time,90000,Organised,Hello we are looking for someone to join the team,Wed Nov 24 00:00:00 AEDT 2021,false
-doug,00000004,Head Chef,Food and Beverages,Brisbane,Full Time,100000,Work well under pressure,We are looking to hire a head chef to work with us. ,Thu Nov 25 00:00:00 AEDT 2021,true
-cody,00000005,Software engineer,IT,Sydney,full time,80000,[Detail-oriented, Team spirit, Motivated],We are looking to hire someone!,Thu Nov 25 00:00:00 AEDT 2021,true
-bill,00000008,Doctor,Healthcare and Medical,Adelaide,Full Time,120000,[Medical knowledge],Hiring!,Sat Dec 25 00:00:00 AEDT 2021,true
-amy,00000006,Teacher,Education and Training,Brisbane,Full time,60000,[Patient, Teaching experience, Proficiency in Maths],Looking for teachers!,Tue Nov 30 00:00:00 AEDT 2021,true
-amy,00000007,Software engineer,Information and Communication Technology,Brisbane,Full Time,100000,[Detail-oriented, Proficiency in multiple programming languages, Independent, Team player],We are looking to hire a software engineer to join our team in Melbourne. We are a fast-growing startup company. ,Wed Dec 01 00:00:00 AEDT 2021,true

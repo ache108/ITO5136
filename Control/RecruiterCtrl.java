@@ -1,6 +1,6 @@
 package Control;
 
-import Model.Recruiter;
+import Model.*;
 import View.JobListingUI;
 import View.LogInUI;
 import View.RecruiterUI;

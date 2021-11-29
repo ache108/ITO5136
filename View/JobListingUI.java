@@ -1,14 +1,11 @@
 package View;
+
 import Control.FileIO;
 import Control.JSS;
-import Control.JobListingCtrl;
 import Control.LogInCtrl;
-import Model.JobListing;
-import View.Input;
-import java.io.File;
-import java.io.FileNotFoundException;
+import Control.*;
+
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -185,7 +182,7 @@ public class JobListingUI {
         jl.setAppDeadline(input.acceptDate(msg + "enter the application deadline *"));
         jl.displayJobDetails();
         jl.setJobAd(advertiseJob());
-        System.out.println(jl.labelJobAd(jl.getJobAd()));
+        //System.out.println(jl.labelJobAd(jl.getJobAd()));
         jl.setJobId(JobListingCtrl.generateJobID(JSS.JSSJOBLIST));
         jl.setJobRC(LogInCtrl.getRcUsername());
 

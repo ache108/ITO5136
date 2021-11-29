@@ -1,22 +1,17 @@
 package Control;
 
+import Model.*;
 import Model.JobListing;
-import Model.JobSeeker;
 import View.Input;
-import Control.FileIO;
 import View.JobListingUI;
 import View.JobSeekerUI;
-import View.RecruiterUI;
-import Control.MatchingCtrl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
 import java.text.SimpleDateFormat;
-import java.util.Objects;
-
-import Control.RecruiterCtrl.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class JobListingCtrl {
 
@@ -86,6 +81,7 @@ public class JobListingCtrl {
     }
 
     //Options when editing job listing
+
     public void editJobListing(Model.JobListing jl) throws IOException, ParseException {
         View.JobListingUI jlu = new View.JobListingUI();
         View.Input input = new View.Input();
@@ -143,7 +139,7 @@ public class JobListingCtrl {
                 ArrayList<String> newSkills;
                 ArrayList<String> origSkills = jl.getJobSkills();
                 System.out.println("\nCurrent saved job skills are: ");
-                jl.displayJobSkills();
+                //jl.displayJobSkills();
 
                 //the following switch case is to allow RC to add or modify a skill
                 int proceedNo = jlu.openSkillMenu();
@@ -181,7 +177,7 @@ public class JobListingCtrl {
                 break;
             case 9:
                 //edit advertisement status
-                System.out.println("\nCurrent job advertisement status: " + jl.labelJobAd(jl.getJobAd()));
+                //System.out.println("\nCurrent job advertisement status: " + jl.labelJobAd(jl.getJobAd()));
                 boolean isAdvertised = View.JobListingUI.advertiseJob();
                 jl.setJobAd(isAdvertised);
                 break;
@@ -195,6 +191,7 @@ public class JobListingCtrl {
     }
 
     //Method to allow RC to change and replace an existing skill for the job listing, or to delete an existing skill.
+
     public ArrayList<String> editJobSkill(Model.JobListing jl, ArrayList<String> jobSkills, String skill) throws IOException, ParseException {
         Input input = new Input();
         View.JobListingUI jlu = new JobListingUI();
@@ -208,7 +205,7 @@ public class JobListingCtrl {
                 jobSkills.remove(skill);
                 jobSkills.add(newSkill);
                 System.out.println("\nCurrent saved job skills are: ");
-                jl.displayJobSkills();
+                //jl.displayJobSkills();
                 break;
             case 2:
                 //delete the skill
@@ -230,7 +227,7 @@ public class JobListingCtrl {
                 {
                     jobSkills.remove(skill);
                     System.out.println("\nCurrent job skills are: ");
-                    jl.displayJobSkills();
+                    //jl.displayJobSkills();
                     break;
                 } else {
                     editJobSkill(jl, jobSkills, skill);
@@ -364,7 +361,7 @@ public class JobListingCtrl {
     }
 
     //BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
-    /*public void matchJobs(JobListing reqs)
+    public void matchJobs(JobListing reqs)
     {
         for(int i = 0; i < jobList.size(); i++)
         {
@@ -396,7 +393,7 @@ public class JobListingCtrl {
         }
 
         sortJobs();
-    }*/
+    }
 
     //Method for JS to interact with job listing
     public void openJobListing(Model.JobListing jl) throws IOException, ParseException {
@@ -463,7 +460,7 @@ public class JobListingCtrl {
             //System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
             System.out.println(jobList.get(i).getJobTitle().toUpperCase());
             System.out.println("Application deadline:    " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
-            System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
+            //System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
 
             System.out.println("--------------------------------");
         }
@@ -483,7 +480,7 @@ public class JobListingCtrl {
             System.out.println(jobList.get(i).getJobTitle());
             System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Job skills are: ");
-            jobList.get(i).displayJobSkills();
+            //jobList.get(i).displayJobSkills();
 
             System.out.println("--------------------------------");
         }
@@ -585,7 +582,7 @@ public class JobListingCtrl {
         } else {
             System.out.print("-----------------------------------------");
             jobList.get(jobNo - 1).displayJobDetails();
-            System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd(jobList.get(jobNo - 1).getJobAd()));
+            //System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd(jobList.get(jobNo - 1).getJobAd()));
             System.out.println("-----------------------------------------");
         }
 
@@ -644,5 +641,4 @@ public class JobListingCtrl {
 
         return jobArray;
     }*/
-
 }

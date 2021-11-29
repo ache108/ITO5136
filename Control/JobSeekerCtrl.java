@@ -1,14 +1,8 @@
 package Control;
 
-import Model.JobListing;
-import Model.JobSeeker;
-import Model.User;
-import View.Input;
-import View.JobListingUI;
+import Model.*;
 import View.JobSeekerUI;
 import View.LogInUI;
-import Control.LogInCtrl;
-import Control.UserCntrl;
 
 import java.io.IOException;
 import java.text.ParseException;
