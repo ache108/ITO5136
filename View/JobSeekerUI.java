@@ -175,7 +175,7 @@ public class JobSeekerUI extends View.UserUI
                 lName = details[3];
                 city = details[4];
                 state = details[5];
-                SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
                 dob = format.parse(details[6]);
                 profilePublic = Boolean.valueOf(details[7]);
                 wage = details[8];
@@ -228,14 +228,14 @@ public class JobSeekerUI extends View.UserUI
                 case 6:
                     //edit dob
                     do {
-                        dob = input.acceptDate(msg + "your date of birth");
+                        dob = input.acceptDate(msg + "your date of birth (dd-mm-yyyy)");
                         verifiedInput = View.UserUI.userVerifyInputs(dob.toString());
                     } while (!verifiedInput);
                     break;
                 case 7:
                     //edit public profile
                     do {
-                        profilePublic = input.acceptBoolean(msg + "whether to make your profile public or private");
+                        profilePublic = input.acceptBoolean(msg + "whether to make your profile public (true or false)");
                         verifiedInput = View.UserUI.userVerifyInputs(profilePublic.toString());
                     } while (!verifiedInput);
                     break;
@@ -346,7 +346,6 @@ public class JobSeekerUI extends View.UserUI
             throws IOException, FileNotFoundException, ParseException
     {
         newList.clear();
-
         Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
@@ -357,48 +356,45 @@ public class JobSeekerUI extends View.UserUI
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
             {
                 String[] skill = details[details.length - 1].split(",");
+                        StringBuilder sb = new StringBuilder(skill[0]);
+                        if (newList.size() > 0)
+                        {
+                            boolean char0check = false;
+                            boolean characheck = false;
+                            while (char0check == false) {
+                                if (sb.charAt(0) == 91)  // [ check
+                                {
+                                    sb.deleteCharAt(0);
+                                } else {
+                                    char0check = true;
+                                }
+                            }
+                            while (characheck == false) {
+                                if (sb.charAt(sb.length() - 1) == 93) // ] check
+                                {
+                                    sb.deleteCharAt(sb.length() - 1);
+                                } else {
+                                    characheck = true;
+                                }
+                            }
+                        }
+                        newList.add(sb.toString().trim());
+                        newList.set(0, sb.toString());
+                        for (int j = 1; j < skill.length - 1; j++)
+                        {
+                            newList.add(skill[j].trim());
+                            count++;
+                        }
+                        int k = skill[skill.length - 1].length() - 1;
+                        StringBuilder sb1 = new StringBuilder(skill[skill.length - 1]);
+                        sb1.deleteCharAt(k);
+                        if (skill.length > 1)
+                        {
+                            count++;
+                            newList.add(sb1.toString().trim());
+                        }
+                        max = newList.size();
 
-                    StringBuilder sb = new StringBuilder(skill[0]);
-                    boolean char0check = false;
-                    boolean characheck = false;
-                    while (char0check == false)
-                    {
-                        if (sb.charAt(0) == 91)  // [ check
-                        {
-                            sb.deleteCharAt(0);
-                        }
-                        else
-                        {
-                            char0check = true;
-                        }
-                    }
-                    while (characheck == false)
-                    {
-                        if (sb.charAt(sb.length() - 1) == 93) // ] check
-                        {
-                            sb.deleteCharAt(sb.length() - 1);
-                        }
-                        else
-                        {
-                            characheck = true;
-                        }
-                    }
-                    newList.add(sb.toString().trim());
-                    newList.set(0, sb.toString());
-                    for (int j = 1; j < skill.length - 1; j++)
-                    {
-                        newList.add(skill[j].trim());
-                        count++;
-                    }
-                    int k = skill[skill.length - 1].length() - 1;
-                    StringBuilder sb1 = new StringBuilder(skill[skill.length - 1]);
-                    sb1.deleteCharAt(k);
-                    if (skill.length > 1)
-                    {
-                        count++;
-                        newList.add(sb1.toString().trim());
-                    }
-                    max = newList.size();
             }
         }
     }

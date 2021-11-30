@@ -51,7 +51,7 @@ public class Input
     {
         boolean validIpt = true;
         Date date = null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
 
         do {
             try {
