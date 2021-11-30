@@ -144,7 +144,39 @@ public class JobSeekerUI extends View.UserUI
         return input.acceptInt(msg, 0, 11);
     }
 
-    //incomplete case 11 delete
+    // static issues
+    /*public static void setJSOptions()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        View.Input input = new View.Input();
+        String username = Control.LogInCtrl.getRcUsername();
+
+        Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
+
+        String[] numJob = file.readFile("\n").split("\n");
+
+        for (int i = 0; i < numJob.length; i++)
+        {
+            String[] details = numJob[i].split(";");
+            if (details[0].equals(Control.LogInCtrl.getRcUsername()))
+            {
+                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
+                Model.User.setUserEmail(details[1]);
+                Model.User.setFirstName(details[2]);
+                Model.User.setLastName(details[3]);
+                Model.User.setCity(details[4]);
+                Model.User.setState(details[5]);
+                Model.User.setDateOfBirth(format.parse(details[6]));
+                Model.User.setProfilePublic(Boolean.valueOf(details[7]));
+                Model.JobSeeker.setHourlyWageRate(Double.valueOf(details[8].toString()));
+                Model.JobSeeker.setWrkType(details[9]);
+                Model.JobSeeker.setResidencyType(details[10]);
+                assignSkills();
+                Model.JobSeeker.setSkillsList(newList);
+            }
+        }
+    }*/
+
     public static void editJSOptions()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -157,7 +189,7 @@ public class JobSeekerUI extends View.UserUI
         String state = "";
         Date dob = null;
         Boolean profilePublic = true;
-        String wage = "";
+        Double wage = 0.00;
         String workType = "";
         String workRes = "";
 
@@ -178,7 +210,7 @@ public class JobSeekerUI extends View.UserUI
                 SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
                 dob = format.parse(details[6]);
                 profilePublic = Boolean.valueOf(details[7]);
-                wage = details[8];
+                wage = Double.valueOf(details[8]);
                 workType = details[9];
                 workRes = details[10];
             }
@@ -242,8 +274,8 @@ public class JobSeekerUI extends View.UserUI
                 case 8:
                     //edit wage
                     do {
-                        wage = input.acceptString(msg + "your desired hourly wage");
-                        verifiedInput = View.UserUI.userVerifyInputs(wage);
+                        wage = input.acceptDouble(msg + "your desired hourly wage");
+                        verifiedInput = View.UserUI.userVerifyInputs(wage.toString());
                     } while (!verifiedInput);
                     break;
                 case 9:

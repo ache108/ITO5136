@@ -464,10 +464,10 @@ public class JobListingCtrl {
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ":          ");
-            //System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
+            System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
             System.out.println(jobList.get(i).getJobTitle().toUpperCase());
             System.out.println("Application deadline:    " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
-            //System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
+            System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
 
             System.out.println("--------------------------------");
         }
@@ -487,7 +487,7 @@ public class JobListingCtrl {
             System.out.println(jobList.get(i).getJobTitle());
             System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Job skills are: ");
-            //jobList.get(i).displayJobSkills();
+            jobList.get(i).displayJobSkills();
 
             System.out.println("--------------------------------");
         }
@@ -589,7 +589,7 @@ public class JobListingCtrl {
         } else {
             System.out.print("-----------------------------------------");
             jobList.get(jobNo - 1).displayJobDetails();
-            //System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd(jobList.get(jobNo - 1).getJobAd()));
+            System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd(jobList.get(jobNo - 1).getJobAd()));
             System.out.println("-----------------------------------------");
         }
 
