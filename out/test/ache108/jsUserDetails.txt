@@ -1,2 +1,2 @@
 lau;jarrett.lauren@gmail.com;Lauren;Jarrett;Brisbane;QLD;Mon Jul 10 00:00:00 AEST 1989;true;98.0;Contract;Citizen;[programming, Communication];
-test;t@t;T;Name;H;S;Fri Sep 13 00:00:00 AEST 4447;true;50.0;full;visa;[IT]
+test;t@t;T;Name;H;S;02-02-2000;true;50.0;full;visa;[IT, add]

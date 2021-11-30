@@ -4,6 +4,8 @@ import Control.*;
 import Model.*;
 import View.Input;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.io.*;
@@ -153,8 +155,8 @@ public class JobSeekerUI extends View.UserUI
         String lName = "";
         String city = "";
         String state = "";
-        String dob = "";
-        String profilePublic = "";
+        Date dob = null;
+        Boolean profilePublic = true;
         String wage = "";
         String workType = "";
         String workRes = "";
@@ -173,8 +175,9 @@ public class JobSeekerUI extends View.UserUI
                 lName = details[3];
                 city = details[4];
                 state = details[5];
-                dob = details[6];
-                profilePublic = details[7];
+                SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+                dob = format.parse(details[6]);
+                profilePublic = Boolean.valueOf(details[7]);
                 wage = details[8];
                 workType = details[9];
                 workRes = details[10];
@@ -225,15 +228,15 @@ public class JobSeekerUI extends View.UserUI
                 case 6:
                     //edit dob
                     do {
-                        dob = input.acceptString(msg + "your date of birth");
-                        verifiedInput = View.UserUI.userVerifyInputs(dob);
+                        dob = input.acceptDate(msg + "your date of birth");
+                        verifiedInput = View.UserUI.userVerifyInputs(dob.toString());
                     } while (!verifiedInput);
                     break;
                 case 7:
                     //edit public profile
                     do {
-                        profilePublic = input.acceptString(msg + "whether to make your profile public or private");
-                        verifiedInput = View.UserUI.userVerifyInputs(profilePublic);
+                        profilePublic = input.acceptBoolean(msg + "whether to make your profile public or private");
+                        verifiedInput = View.UserUI.userVerifyInputs(profilePublic.toString());
                     } while (!verifiedInput);
                     break;
                 case 8:
@@ -360,7 +363,7 @@ public class JobSeekerUI extends View.UserUI
                     boolean characheck = false;
                     while (char0check == false)
                     {
-                        if (sb.charAt(0) == 91)
+                        if (sb.charAt(0) == 91)  // [ check
                         {
                             sb.deleteCharAt(0);
                         }
@@ -371,7 +374,7 @@ public class JobSeekerUI extends View.UserUI
                     }
                     while (characheck == false)
                     {
-                        if (sb.charAt(sb.length() - 1) == 93)
+                        if (sb.charAt(sb.length() - 1) == 93) // ] check
                         {
                             sb.deleteCharAt(sb.length() - 1);
                         }

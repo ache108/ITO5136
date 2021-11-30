@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Added new skill functionality to js profile">
-      <change beforePath="$PROJECT_DIR$/Control/JobListingCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobListingCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Control/RecruiterCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/RecruiterCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/JobListingUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/JobListingUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/JobSeekerUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/JobSeekerUI.java" afterDir="false" />
-    </list>
+    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="Added more functionality to edit js skills" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.updates" />
@@ -242,7 +236,56 @@
       <option name="project" value="LOCAL" />
       <updated>1638161099672</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added delete skill functionality to js profile">
+      <created>1638180039199</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1638180039199</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added delete skill functionality to js profile">
+      <created>1638180186090</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1638180186090</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added delete skill functionality to js profile">
+      <created>1638180431092</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1638180431092</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added delete skill functionality to js profile">
+      <created>1638181681357</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1638181681357</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added delete line for profiles">
+      <created>1638189689080</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1638189689080</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Added delete line for profiles">
+      <created>1638191822931</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1638191822931</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added more functionality to edit js skills">
+      <created>1638239298194</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1638239298194</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -267,14 +310,17 @@
     <MESSAGE value="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)" />
     <MESSAGE value="Added exit and working back functionality" />
     <MESSAGE value="Added new skill functionality to js profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new skill functionality to js profile" />
+    <MESSAGE value="Added delete skill functionality to js profile" />
+    <MESSAGE value="Added delete line for profiles" />
+    <MESSAGE value="Added more functionality to edit js skills" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added more functionality to edit js skills" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Control/JobListingCtrl.java</url>
-          <line>395</line>
+          <line>402</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
