@@ -56,8 +56,6 @@ public class JobSeekerUI extends View.UserUI
         ArrayList <String> iptSkills = jobSeekerSkillInput();
         double wrkHrlyRate = input.acceptDouble(msg + "your desired hourly salary rate.");
 
-        // TO DO CV
-
         // Send to Controller to create new user on Model
         Control.JobSeekerCtrl.createNewJobSeeker(newUser, wrkHrlyRate, wrkType, wrkResidency, iptSkills);
     }
@@ -277,7 +275,6 @@ public class JobSeekerUI extends View.UserUI
             if (case0 == false)
             {
                 String wrJS = username + ";" + email + ";" + fName + ";" + lName + ";" + city + ";" + state + ";" + dob + ";" + profilePublic + ";" + wage + ";" + workType + ";" + workRes + ";" + newList;
-                //add updated listing, old listing stays
                 Control.UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
                 newList.clear();
                 removeTxtLine();
@@ -301,6 +298,10 @@ public class JobSeekerUI extends View.UserUI
             throws IOException, FileNotFoundException, ParseException
     {
         assignSkills();
+        if (newList.get(0).equals("[]"))
+        {
+            newList.clear();
+        }
         for (int i = 0; i < newList.size(); i++)
         {
             System.out.println(i + 1 + ": " + newList.get(i));
@@ -311,13 +312,17 @@ public class JobSeekerUI extends View.UserUI
             throws IOException, FileNotFoundException, ParseException
     {
         assignSkills();
+        if (newList.get(0).equals("[]"))
+        {
+            newList.clear();
+        }
         System.out.print("Skills: ");
         if (newList.size() == 1)
         {
             StringBuilder sb = new StringBuilder(newList.get(0));
             System.out.print(sb);
         }
-        else
+        else if (newList.size() > 1)
         {
             for (int i = 0; i <= newList.size() - 1; i++)
             {
@@ -327,6 +332,10 @@ public class JobSeekerUI extends View.UserUI
                     System.out.print(", ");
                 }
             }
+        }
+        else if (newList.size() == 0)
+        {
+            System.out.print("No skills added");
         }
     }
 
@@ -349,9 +358,9 @@ public class JobSeekerUI extends View.UserUI
                     StringBuilder sb = new StringBuilder(skill[0]);
                     boolean char0check = false;
                     boolean characheck = false;
-                    while (char0check == false && characheck == false)
+                    while (char0check == false)
                     {
-                        if (sb.charAt(0) == '[')
+                        if (sb.charAt(0) == 91)
                         {
                             sb.deleteCharAt(0);
                         }
@@ -359,8 +368,10 @@ public class JobSeekerUI extends View.UserUI
                         {
                             char0check = true;
                         }
-
-                        if (sb.charAt(sb.length() - 1) == ']')
+                    }
+                    while (characheck == false)
+                    {
+                        if (sb.charAt(sb.length() - 1) == 93)
                         {
                             sb.deleteCharAt(sb.length() - 1);
                         }
@@ -395,6 +406,7 @@ public class JobSeekerUI extends View.UserUI
         Input input = new Input();
         int detailNo = displayEditSkills();
         boolean verifiedInput = false;
+        boolean sameSkill = false;
         String include = "";
         int delete = -1;
         do {
@@ -403,10 +415,22 @@ public class JobSeekerUI extends View.UserUI
                 case 1:
                     //add skill
                     do {
+                        sameSkill = false;
                         displaySkills();
                         include = input.acceptString("Please enter a new skill to add");
                         verifiedInput = View.UserUI.userVerifyInputs(include);
-                        newList.add(include);
+                        for (int i = 0; i < newList.size(); i++)
+                        {
+                            if (newList.get(i).equals(include))
+                            {
+                                System.out.println("Skill already added");
+                                sameSkill = true;
+                            }
+                        }
+                        if (sameSkill == false)
+                        {
+                            newList.add(include);
+                        }
                         count++;
                         } while (!verifiedInput);
                     break;
@@ -414,9 +438,17 @@ public class JobSeekerUI extends View.UserUI
                     //remove skill
                     do {
                         displaySkills();
-                        delete = input.acceptInt("Please enter the index to remove a skill", 1, max);
-                        verifiedInput = true;
-                        newList.remove(delete - 1);
+                        if (newList.size() > 0)
+                        {
+                            delete = input.acceptInt("Please enter the index to remove a skill", 1, max);
+                            verifiedInput = true;
+                            newList.remove(delete - 1);
+                        }
+                        else
+                        {
+                            verifiedInput = true;
+                            System.out.print("No skills to delete");
+                        }
                     } while (!verifiedInput);
                     break;
                 case 0:

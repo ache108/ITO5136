@@ -100,7 +100,6 @@ public class RecruiterUI extends View.UserUI
         Control.FileIO file = new Control.FileIO(Control.JSS.RCCOMPDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
-        //for loop read file from bottom to top, breaks once username is found for the first time
         for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(",");
@@ -170,7 +169,6 @@ public class RecruiterUI extends View.UserUI
             if (case0 == false)
             {
                 String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress + "," + usrCompEmail + "," + usrCompPhone + "," + usrCompDescr;
-                //add updated listing, old listing stays
                 Control.CompanyCtrl.writeNewRCToFile(rcDetails, Control.JSS.RCCOMPDETAILS);
                 removeTxtRcLine();
                 View.RecruiterUI.displayCompany();
