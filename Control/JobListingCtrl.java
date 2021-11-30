@@ -1,6 +1,6 @@
 package Control;
 
-import Model.*;
+import Model.JobSeeker;
 import Model.JobListing;
 import View.Input;
 import View.JobListingUI;
@@ -39,53 +39,6 @@ public class JobListingCtrl {
         String jobDetails = Control.LogInCtrl.getRcUsername() + "," + jobId + "," + jobTitle + "," + jobCategory + "," + jobLocation + "," + jobHours + "," + jobPay + "," + jobSkills + "," + jobDescription + "," + appDeadline + "," + jobAd;
         writeNewLineToFile(jobDetails, Control.JSS.JSSJOBLIST);
 
-    }
-
-    public void applyForJob(Model.JobListing jl)
-            throws IOException, ParseException
-    {
-        // get current Job Information and current Jobseeker info
-        Model.JobSeeker js = Control.JobSeekerCtrl.getCurrentJobSeeker();
-
-        String jobId = jl.getJobId();
-        String jobTitle = jl.getJobTitle();
-        String jobLocation = jl.getJobLocation();
-        String jobHours = jl.getJobHours();
-        String jobCat = jl.getJobCategory();
-        String jobDesc = jl.getJobDescription();
-        String jobPay = jl.getJobPay();
-        Date jobDeadline = jl.getAppDeadline();
-        int jobMatch = jl.getMatchingScore();
-        String jobRC = jl.getJobRC();
-        ArrayList <String> jobSkills = jl.getJobSkills();
-
-        String firstName = js.getFirstName();
-        String userName = js.getUserName();
-        String lastName = js.getLastName();
-        String email = js.getUserEmail();
-        ArrayList<String> userSkills = js.getSkillList();
-
-        int applicationResponse = View.JobListingUI.applyForJobScreen(
-                userName, jobId, jobTitle, jobLocation, jobHours, jobCat, jobDesc, jobPay,
-                jobMatch, jobRC, jobDeadline, jobSkills, firstName, lastName, email, userSkills);
-
-        switch (applicationResponse)
-        {
-            case 0:
-                // return user back to job listing page
-                openJobListing(jl);
-                break;
-            case 1:
-                // only 1 can come back, getting input to delay screen so user is not rushed offscreen
-                int userAppResponse = View.JobListingUI.applicationSubmitted();
-                String toWrite = writeInfoAsString();
-                writeJobApplicationToFile(toWrite);
-                break;
-            case 2:
-                // return user to profile page so they can edit their information
-                View.JobSeekerUI.displayJSDetails();
-                break;
-        }
     }
 
     //Options when editing job listing
@@ -410,7 +363,7 @@ public class JobListingCtrl {
         {
             case 1:
                 //apply for job
-                applyForJob(jl);
+                Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
                 generateJobSearch(req);
@@ -613,37 +566,11 @@ public class JobListingCtrl {
         return (jobNo);
     }
 
-    public static void writeJobApplicationToFile(String infoToWrite)
-            throws IOException
-    {
-        FileIO fName = new FileIO(Control.JSS.JOBAPPLICATIONS);
-        fName.appendFile(infoToWrite);
-    }
-
     public static void writeNewLineToFile(String infoToWrite, String fileName)
             throws IOException
     {
         FileIO fName = new FileIO(fileName);
         fName.appendFile(infoToWrite);
-    }
-
-    public static String writeInfoAsString()
-    {
-        String msg = "";
-//        msg += userName;
-//        msg += ";" + userEmail;
-//        msg += ";" + firstName;
-//        msg += ";" + lastName;
-//        msg += ";" + city;
-//        msg += ";" + state;
-//        msg += ";" + dateOfBirth;
-//        msg += ";" + publicProfile;
-//        msg += ";" + hourlyWageRate;
-//        msg += ";" + wrkType;
-//        msg += ";" + residencyType;
-//        msg += ";" + skillsList + ";";
-
-        return msg;
     }
 
     /*
