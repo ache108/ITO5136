@@ -116,7 +116,7 @@ public class JobSeekerUI extends View.UserUI
                     System.out.println("State: " + details[5]);
                     System.out.println("Date of Birth: " + details[6]);
                     System.out.println("Public Profile: " + details[7]);
-                    System.out.println("Desired Hourly Wage: " + details[8]);
+                    System.out.println("Desired Yearly Wage: " + details[8]);
                     System.out.println("Work Type: " + details[9]);
                     System.out.println("Work Residency: " + details[10]);
                     displaySkills2();
@@ -136,46 +136,13 @@ public class JobSeekerUI extends View.UserUI
                 + "Press 5 to edit your state\n"
                 + "Press 6 to edit your date of birth\n"
                 + "Press 7 to edit whether to make your profile public or private\n"
-                + "Press 8 to edit your desired hourly wage\n"
+                + "Press 8 to edit your desired yearly wage\n"
                 + "Press 9 to edit your work type\n"
                 + "Press 10 to edit your work residency\n"
                 + "Press 11 to edit your skills\n"
                 + "Press 0 to go back";
         return input.acceptInt(msg, 0, 11);
     }
-
-    // static issues
-    /*public static void setJSOptions()
-            throws IOException, FileNotFoundException, ParseException
-    {
-        View.Input input = new View.Input();
-        String username = Control.LogInCtrl.getRcUsername();
-
-        Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
-
-        String[] numJob = file.readFile("\n").split("\n");
-
-        for (int i = 0; i < numJob.length; i++)
-        {
-            String[] details = numJob[i].split(";");
-            if (details[0].equals(Control.LogInCtrl.getRcUsername()))
-            {
-                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
-                Model.User.setUserEmail(details[1]);
-                Model.User.setFirstName(details[2]);
-                Model.User.setLastName(details[3]);
-                Model.User.setCity(details[4]);
-                Model.User.setState(details[5]);
-                Model.User.setDateOfBirth(format.parse(details[6]));
-                Model.User.setProfilePublic(Boolean.valueOf(details[7]));
-                Model.JobSeeker.setHourlyWageRate(Double.valueOf(details[8].toString()));
-                Model.JobSeeker.setWrkType(details[9]);
-                Model.JobSeeker.setResidencyType(details[10]);
-                assignSkills();
-                Model.JobSeeker.setSkillsList(newList);
-            }
-        }
-    }*/
 
     public static void editJSOptions()
             throws IOException, FileNotFoundException, ParseException
@@ -274,7 +241,7 @@ public class JobSeekerUI extends View.UserUI
                 case 8:
                     //edit wage
                     do {
-                        wage = input.acceptDouble(msg + "your desired hourly wage");
+                        wage = input.acceptDouble(msg + "your desired yearly wage");
                         verifiedInput = View.UserUI.userVerifyInputs(wage.toString());
                     } while (!verifiedInput);
                     break;

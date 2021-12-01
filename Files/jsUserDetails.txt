@@ -1,2 +1,2 @@
-lau;jarrett.lauren@gmail.com;Lauren;Jarrett;Brisbane;QLD;10-06-1989;true;98.0;Contract;Citizen;[programming, Communication];
-test;t@t;T;Name;H;S;Sun Jan 02 00:02:00 AEDT 2000;true;50.0;full;visa;[IT]
+lau;jarrett.lauren@gmail.com;Lauren;Jarrett;Brisbane;;Sun Jan 02 00:02:00 AEDT 2000;true;98000.0;Contract;Citizen;[programming, Communication];
+test;t@t;T;Name;H;S;Sun Jan 02 00:02:00 AEDT 2000;true;50000.0;full;visa;[IT]
