@@ -15,6 +15,7 @@ public class JobApplication {
     private String jobSeekerUserName;
     private String recruiterUserName;
     private Date applicationDate;
+    private boolean applicationActive;
 
     public JobApplication()
     {
@@ -27,7 +28,10 @@ public class JobApplication {
         this.jobSeekerUserName = jobSeekerUserName;
         this.recruiterUserName = recruiterUserName;
         this.applicationDate = applicationDate;
+        this.applicationActive = true;
     }
+
+    public boolean getJobApplicationActive() { return this.applicationActive; }
 
     public Date getJobApplicationAppDate()
     {
@@ -48,6 +52,8 @@ public class JobApplication {
     {
         return this.recruiterUserName;
     }
+
+    public void setJobApplicationInactive(boolean removeApplication) {this.applicationActive = removeApplication ; }
 
     // Dangerous & Use with caution. Will reassign job application submitted date.
     public void setJobApplicationAppDate(Date newDate)

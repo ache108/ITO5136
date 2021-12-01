@@ -42,7 +42,7 @@ public class UserCntrl
         for (int i = numJob.length - 1; i >= 0; i--)
         {
             String[] details = numJob[i].split(";");
-            if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
+            if (details[0].equals(username)) //(display only profile for this user only)
             {
                 email = details[1];
                 fName = details[2];
@@ -60,6 +60,46 @@ public class UserCntrl
         Date userDob = dateFormat.parse(dob);
 
         Model.User curUser = new Model.User (username, email, fName, lName, city, state, userDob, pubProfile);
+        return curUser;
+    }
+
+    public static Model.User getUser(String userName)
+            throws IOException, ParseException
+    {
+        // return all information from UserDetails file passed in user
+        String email = "";
+        String fName = "";
+        String lName = "";
+        String city = "";
+        String state = "";
+        String dob = "";
+        String profilePublic = "";
+
+        Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
+
+        String[] numJob = file.readFile("\n").split("\n");
+
+        for (int i = numJob.length - 1; i >= 0; i--)
+        {
+            String[] details = numJob[i].split(";");
+            if (details[0].equals(userName)) //(display only profile for this user only)
+            {
+                email = details[1];
+                fName = details[2];
+                lName = details[3];
+                city = details[4];
+                state = details[5];
+                dob = details[6];
+                profilePublic = details[7];
+                break;
+            }
+        }
+
+        boolean pubProfile = Boolean.parseBoolean(profilePublic);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        Date userDob = dateFormat.parse(dob);
+
+        Model.User curUser = new Model.User (userName, email, fName, lName, city, state, userDob, pubProfile);
         return curUser;
     }
 

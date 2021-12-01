@@ -1,11 +1,14 @@
 package Control;
 
+import Model.JobApplication;
 import Model.JobListing;
 import Model.JobSeeker;
-import Model.JobSeeker;
+import Model.User;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -61,9 +64,16 @@ public class JobApplicationCtrl {
         }
     }
 
-    public Model.JobSeeker getJobApplicationJobSeekerInfo(String userName)
+    public static String displayArrayListJobApplication(Model.JobApplication ja)
     {
-        Model.JobSeeker js = new Model.JobSeeker();
+        String msg = "Job Id:  " + ja.getJobApplicationJobId() + " was submitted on " + ja.getJobApplicationAppDate() + ".\n";
+        return msg;
+    }
+
+    public Model.JobSeeker getJobApplicationJobSeekerInfo(String userName)
+            throws IOException, ParseException
+    {
+        Model.JobSeeker js = Control.JobSeekerCtrl.getJobSeeker(userName);
         return js;
     }
 
@@ -77,6 +87,83 @@ public class JobApplicationCtrl {
     {
         Model.Recruiter rc = new Model.Recruiter();
         return rc;
+    }
+
+    public static ArrayList<Model.JobApplication> parseJobApplicationTextFile(String userType)
+            throws IOException, FileNotFoundException, ParseException
+    {
+        Control.FileIO file = new FileIO(Control.JSS.JOBAPPLICATIONS);
+        String[] allJobApplications = file.readFile("\n").split("\n");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        ArrayList<Model.JobApplication> ja = new ArrayList<Model.JobApplication>();
+        String userName = Control.LogInCtrl.getRcUsername();
+
+        if (allJobApplications.length > 1)
+            for (int i = 0; i < allJobApplications.length; i++)
+            {
+                String[] jobAppDetails = allJobApplications[i].split(";");
+                String jobId = jobAppDetails[0];
+                String jobAppUserName = jobAppDetails[1];
+                String jobRecruiter = jobAppDetails[2];
+                Date jobAppSubDate = dateFormat.parse(jobAppDetails[3]);
+                boolean jobActive = Boolean.parseBoolean(jobAppDetails[4]);
+
+                if (userType.equals("JS"))
+                    if ((jobAppUserName.equals(userName)) && (jobActive))
+                        ja.add(new Model.JobApplication(jobId, jobAppUserName, jobRecruiter, jobAppSubDate));
+                else
+                    if ((jobRecruiter.equals(userName)) && (jobActive))
+                        ja.add(new Model.JobApplication(jobId, jobAppUserName, jobRecruiter, jobAppSubDate));
+            }
+        return ja;
+    }
+
+    public static void revokeApplicationScreen(ArrayList<Model.JobApplication> ja)
+            throws IOException, ParseException
+    {
+        int jobAppSize = ja.size();
+        int jobNum = 0;
+        String jobId = "";
+
+        jobNum = View.JobApplicationUI.chooseJobApplication(jobAppSize);
+        jobId = String.valueOf(jobNum);
+        for (int i = 0; i < jobAppSize; i++)
+        {
+            Model.JobApplication jobApp = ja.get(i);
+            if (jobApp.getJobApplicationJobId().equals(jobId))
+                setJobApplicationToInactive(jobApp);
+                View.JobApplicationUI.revokeJobApplication(jobId);
+        }
+        Control.JobSeekerCtrl.runJSHome();
+    }
+
+    public static void setJobApplicationToInactive(Model.JobApplication ja)
+    {
+        ja.setJobApplicationInactive(false);
+        // write updated record to file and remove old one
+    }
+
+    public static void viewJSApplication()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        String userType = "JS";
+        int userResponse = 0;
+        ArrayList<Model.JobApplication> ja = parseJobApplicationTextFile(userType);
+        if (ja.size() > 0) {
+            userResponse = View.JobApplicationUI.viewJobApplicationJobSeeker(ja);
+            switch (userResponse) {
+                case 1:
+                    // revoke application
+                    revokeApplicationScreen(ja);
+                case 0:
+                    // go back
+                    Control.JobSeekerCtrl.runJSHome();
+            }
+        }
+        else {
+            System.out.println("No Job Applications found!");
+            Control.JobSeekerCtrl.runJSHome();
+        }
     }
 
     public static void writeJobApplicationToFile(String infoToWrite)
@@ -93,6 +180,7 @@ public class JobApplicationCtrl {
         msg += ";" + ja.getJobApplicationJSUserName();
         msg += ";" + ja.getRecruiterUserName();
         msg += ";" + ja.getJobApplicationAppDate();
+        msg += ";" + ja.getJobApplicationActive();
 
         return msg;
     }

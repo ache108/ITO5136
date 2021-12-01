@@ -71,9 +71,43 @@ public class JobApplicationUI {
         return input.acceptInt(msg, 0, 2);
     }
 
-    public static void viewJobApplicationJobSeeker()
+    public static int chooseJobApplication(int max)
     {
+        Input input = new Input();
+        int chosenJobApp = input.acceptInt("Please enter the job number you wish to revoke your application.\nAlternatively, press 0 to go back.", 0, max);
+        return chosenJobApp;
+    }
 
+    public static void revokeJobApplication(String jobId)
+    {
+        String msg = "-------------------------------------\n"
+                + "       REVOKE JOB APPLICATION        \n"
+                + "------------------------------------\n"
+                + "Application for Job Id + " + jobId + " has been revoked. \n"
+                + "--------------------------------\n";
+        System.out.println(msg);
+    }
+
+    public static int viewJobApplicationJobSeeker(ArrayList<Model.JobApplication> ja)
+    {
+        Input input = new Input();
+        String jobAppMsg = "";
+        for (int i = 0; i < ja.size(); i++)
+        {
+            String appMsg = Control.JobApplicationCtrl.displayArrayListJobApplication(ja.get(i));
+            jobAppMsg += appMsg;
+        }
+
+        String msg = "-------------------------------------\n"
+                + "       JOB APPLICATIONS SUBMITTED        \n"
+                + "------------------------------------\n"
+                + jobAppMsg
+                + "------------------------------------\n"
+                + "Press 1 to Revoke Application\n"
+                + "Press 0 to go back\n"
+                + "--------------------------------\n";
+
+        return input.acceptInt(msg, 0, 1);
     }
 
     public static void viewJobApplicationRecruiter()
