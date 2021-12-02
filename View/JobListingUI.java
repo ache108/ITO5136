@@ -55,7 +55,7 @@ public class JobListingUI {
         return jobChose;
     }
 
-    //Display list of Job Categories we have on system
+    //Display list of Job Caftegories we have on system
     public void displayJobCategories() throws IOException {
         FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");

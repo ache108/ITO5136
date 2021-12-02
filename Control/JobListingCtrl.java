@@ -201,6 +201,21 @@ public class JobListingCtrl {
         return jobSkills;
     }
 
+    public static Model.JobListing filterSpecificJobListingByID(String jobID)
+    {
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
+        int numJobListings = jlc.jobList.size();
+        Model.JobListing jl = new Model.JobListing();
+        for (int i = 0; i < numJobListings; i++)
+        {
+            Model.JobListing jlCheck = jlc.jobList.get(i);
+            String jobListingId = jlCheck.getJobId();
+            if(jobListingId.equals(jobID))
+                jl = jlCheck;
+        }
+        return jl;
+    }
+
     //Recursive method to filter out job listings that are not by the current logged in RC.
     public ArrayList<Model.JobListing> filterRCJob(ArrayList<Model.JobListing> jobList, String username)
     {
@@ -274,6 +289,7 @@ public class JobListingCtrl {
                 editJobListing(jl);
             case 2:
                 //view applications
+                Control.JobApplicationCtrl.viewRCApplication();
             case 3:
                 //invite candidates
             case 0:
@@ -511,6 +527,24 @@ public class JobListingCtrl {
                 }
             }
         }
+    }
+
+    public static boolean verifyJobIDInFile(String jobID)
+    {
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
+        int numJobListings = jlc.jobList.size();
+        boolean jobFound = false;
+        for (int i = 0; i < numJobListings; i++)
+        {
+            Model.JobListing jlCheck = jlc.jobList.get(i);
+            String jobListingId = jlCheck.getJobId();
+            if(jobListingId.equals(jobID))
+            {
+                jobFound = true;
+                break;
+            }
+        }
+        return jobFound;
     }
 
     //JS-centered method to call all the relevant methods for JS to search and view job listings.

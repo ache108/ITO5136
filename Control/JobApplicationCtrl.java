@@ -4,6 +4,7 @@ import Model.JobApplication;
 import Model.JobListing;
 import Model.JobSeeker;
 import Model.User;
+import Control.JobListingCtrl;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -70,23 +71,17 @@ public class JobApplicationCtrl {
         return msg;
     }
 
-    public Model.JobSeeker getJobApplicationJobSeekerInfo(String userName)
+    public static Model.JobSeeker getJobApplicationJobSeekerInfo(String userName)
             throws IOException, ParseException
     {
         Model.JobSeeker js = Control.JobSeekerCtrl.getJobSeeker(userName);
         return js;
     }
 
-    public Model.JobListing getJobApplicationJobListingInfo(String jobId)
+    public static Model.JobListing getJobApplicationJobListingInfo(String jobId)
     {
-        Model.JobListing jl = new Model.JobListing();
+        Model.JobListing jl = Control.JobListingCtrl.filterSpecificJobListingByID(jobId);
         return jl;
-    }
-
-    public Model.Recruiter getJobApplicationRecruiterInfo(String recruiterUserName)
-    {
-        Model.Recruiter rc = new Model.Recruiter();
-        return rc;
     }
 
     public static ArrayList<Model.JobApplication> parseJobApplicationTextFile(String userType)
@@ -163,7 +158,6 @@ public class JobApplicationCtrl {
     public static void setJobApplicationToInactive(Model.JobApplication ja)
     {
         ja.setJobApplicationInactive(false);
-        // write updated record to file and remove old one
     }
 
     public static void viewJSApplication()
@@ -186,6 +180,70 @@ public class JobApplicationCtrl {
         else {
             System.out.println("No Job Applications found!");
             Control.JobSeekerCtrl.runJSHome();
+        }
+    }
+
+    public static void viewRCApplication()
+            throws IOException, FileNotFoundException, ParseException
+    {
+        // filters job to only those for the recruiter
+        String userType = "RC";
+        ArrayList<Model.JobApplication> ja = parseJobApplicationTextFile(userType);
+        int userChoice = View.JobApplicationUI.viewJobApplicationRecruiterScreen();
+        switch(userChoice)
+        {
+            case 1:
+                // view specific job applicants
+                viewRCSpecificApplication(ja);
+            case 0:
+                // back to recruiter home menu
+                Control.RecruiterCtrl.runRCHome();
+        }
+    }
+
+    public static void viewRCSpecificApplication(ArrayList<Model.JobApplication> rcJobApps)
+            throws IOException, FileNotFoundException, ParseException
+    {
+        int rcJobID = View.JobApplicationUI.viewJobApplicationRecruiterSpecificScreen();
+        String jobID = String.valueOf(rcJobID);
+        int recruiterAction = 0;
+        if (rcJobID == 0)
+        {
+            // return user home
+            Control.RecruiterCtrl.runRCHome();
+        }
+        else {
+            // verify jobID is in file
+            boolean jobIDInFile = Control.JobListingCtrl.verifyJobIDInFile(jobID);
+            if (jobIDInFile)
+            {
+                Model.JobListing jl = getJobApplicationJobListingInfo(jobID);
+               for (int i = 0; i < rcJobApps.size(); i++)
+               {
+                   Model.JobApplication ja = rcJobApps.get(i);
+                   String appUserName = ja.getJobApplicationJSUserName();
+                   // for each applicant for thei job, get their user info and show recruiter
+                   Model.JobSeeker js = getJobApplicationJobSeekerInfo(appUserName);
+                   recruiterAction = View.JobApplicationUI.viewJobApplicationRecruiter(js, jl);
+                   switch(recruiterAction)
+                   {
+                       case 1:
+                           // invite for interview
+                           // update status to be accepted
+                       case 2:
+                           // update status to rejected
+                       case 0:
+                           continue;
+
+                   }
+               }
+            }
+            else
+            {
+                // Job ID not found. reload screen.
+                System.out.println("Job Id Not found. Please try again");
+                viewRCSpecificApplication(rcJobApps);
+            }
         }
     }
 

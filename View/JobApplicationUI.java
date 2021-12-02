@@ -110,8 +110,60 @@ public class JobApplicationUI {
         return input.acceptInt(msg, 0, 1);
     }
 
-    public static void viewJobApplicationRecruiter()
+    public static int viewJobApplicationRecruiter(Model.JobSeeker js, Model.JobListing jl)
     {
+        Input input = new Input();
+        String msg = "-------------------------------------\n"
+                + "       JOB APPLICATIONS SUBMITTED        \n"
+                + "------------------------------------\n"
+                + "Applicant First Name: " + js.firstName + "\n"
+                + "Applicant Last Name: " + js.lastName + "\n"
+                + "Applicant Skills: " + js.skillsList + "\n"
+                + "Applicant Qualifications: " + "\n"
+                + "Applicant Experience: " + "\n"
+                + "Applicant Salary Expectations : " + js.hourlyWageRate + "\n"
+                + "Applicant Matching Score: " + jl.getMatchingScore() + "\n"
+                + "------------------------------------\n"
+                + "Press 1 to invite job seeker for an interview"
+                + "Press 2 to reject application"
+                + "Press 0 to go to next application \n"
+                + "--------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
+    }
 
+    public static int viewJobApplicationRecruiterScreen()
+    {
+        Input input = new Input();
+        String msg = "-------------------------------------\n"
+                + "       JOB APPLICATIONS SUBMITTED        \n"
+                + "------------------------------------\n"
+                + "Press 1 to view the applications for a specific Job"
+                + "Press 0 to go back\n"
+                + "--------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
+    }
+
+    public static int viewJobApplicationRecruiterInterviewOfferScreen()
+    {
+        Input input = new Input();
+        String msg = "-------------------------------------\n"
+                + "       JOB APPLICATIONS SUBMITTED        \n"
+                + "------------------------------------\n"
+                + "Press 1 to invite job seeker for an interview"
+                + "Press 0 to go back\n"
+                + "--------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
+    }
+
+    public static int viewJobApplicationRecruiterSpecificScreen()
+    {
+        Input input = new Input();
+        String msg = "-------------------------------------\n"
+                + "       JOB APPLICATIONS SUBMITTED        \n"
+                + "------------------------------------\n"
+                + "Please enter the Job Id you want to view applicants for \n"
+                + "Press 0 to go back\n"
+                + "--------------------------------\n";
+        return input.acceptInt(msg, 0, 2);
     }
 }
