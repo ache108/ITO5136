@@ -118,6 +118,25 @@ public class JobApplicationCtrl {
         return ja;
     }
 
+    public static void removeOldJobAppFromFile(Model.JobApplication ja)
+        throws IOException
+    {
+        FileIO file = new FileIO(Control.JSS.JOBAPPLICATIONS);
+        String[] list = file.readFile("\n").split("\n");
+
+        String id = ja.getJobApplicationJobId();
+
+        for (int i = 0; i < list.length; i++)
+        {
+            String[] jobApp = list[i].split(";");
+            if (id.equals(jobApp[0]))
+            {
+                file.removeLine(list[i]);
+                break;
+            }
+        }
+    }
+
     public static void revokeApplicationScreen(ArrayList<Model.JobApplication> ja)
             throws IOException, ParseException
     {
@@ -131,8 +150,12 @@ public class JobApplicationCtrl {
         {
             Model.JobApplication jobApp = ja.get(i);
             if (jobApp.getJobApplicationJobId().equals(jobId))
+                // remove old entry from file, update Active to False and resave
+                removeOldJobAppFromFile(jobApp);
                 setJobApplicationToInactive(jobApp);
                 View.JobApplicationUI.revokeJobApplication(jobId);
+                String fileInfo = writeInfoAsString(jobApp);
+                writeJobApplicationToFile(fileInfo);
         }
         Control.JobSeekerCtrl.runJSHome();
     }
