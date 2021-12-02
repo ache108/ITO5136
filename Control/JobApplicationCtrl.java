@@ -228,7 +228,7 @@ public class JobApplicationCtrl {
                    // for each applicant for their job, get their user info and show recruiter
                    Model.JobSeeker js = getJobApplicationJobSeekerInfo(appUserName);
                    recruiterAction = View.JobApplicationUI.viewJobApplicationRecruiter(js, jl);
-                   String fileInfo = "":
+                   String fileInfo = "";
 
                    switch(recruiterAction)
                    {
