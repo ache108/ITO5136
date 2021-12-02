@@ -59,9 +59,6 @@ public class UserCntrl
         }
 
         boolean pubProfile = Boolean.parseBoolean(profilePublic);
-        /*SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
-        Date userDob = null;
-        userDob = dateFormat.parse(dob);*/
 
         Model.User curUser = new Model.User (username, email, fName, lName, city, state, userDob, pubProfile);
         return curUser;
@@ -86,7 +83,7 @@ public class UserCntrl
         for (int i = numJob.length - 1; i >= 0; i--)
         {
             String[] details = numJob[i].split(";");
-            if (details[0].equals(userName)) //(display only profile for this user only)
+            if (details[0].equals(userName))
             {
                 email = details[1];
                 fName = details[2];

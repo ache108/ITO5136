@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class JobListingCtrl {
 
@@ -260,6 +261,8 @@ public class JobListingCtrl {
     }
 
     public void generateJobSearch(Model.JobListing req) throws IOException, ParseException {
+        parseFromCSV();
+
         printJobListJS(matchJobs(jobList, req));
 
         if (matchJobs(jobList, req).size() > 0) {
@@ -393,7 +396,7 @@ public class JobListingCtrl {
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
         jobList = new ArrayList<Model.JobListing>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
 
         String[] numJob = file.readFile("\n").split("\n");
 
