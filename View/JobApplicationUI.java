@@ -114,7 +114,7 @@ public class JobApplicationUI {
     {
         Input input = new Input();
         String msg = "-------------------------------------\n"
-                + "       JOB APPLICATIONS SUBMITTED        \n"
+                + "       JOB APPLICATION SUBMITTED FOR JOB ID " +  jl.getJobId() + " TITLE " + jl.getJobTitle()  + "     \n"
                 + "------------------------------------\n"
                 + "Applicant First Name: " + js.firstName + "\n"
                 + "Applicant Last Name: " + js.lastName + "\n"
@@ -138,18 +138,6 @@ public class JobApplicationUI {
                 + "       JOB APPLICATIONS SUBMITTED        \n"
                 + "------------------------------------\n"
                 + "Press 1 to view the applications for a specific Job"
-                + "Press 0 to go back\n"
-                + "--------------------------------\n";
-        return input.acceptInt(msg, 0, 2);
-    }
-
-    public static int viewJobApplicationRecruiterInterviewOfferScreen()
-    {
-        Input input = new Input();
-        String msg = "-------------------------------------\n"
-                + "       JOB APPLICATIONS SUBMITTED        \n"
-                + "------------------------------------\n"
-                + "Press 1 to invite job seeker for an interview"
                 + "Press 0 to go back\n"
                 + "--------------------------------\n";
         return input.acceptInt(msg, 0, 2);

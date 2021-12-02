@@ -67,7 +67,7 @@ public class JobApplicationCtrl {
 
     public static String displayArrayListJobApplication(Model.JobApplication ja)
     {
-        String msg = "Job Id:  " + ja.getJobApplicationJobId() + " was submitted on " + ja.getJobApplicationAppDate() + ".\n";
+        String msg = "Job Id:  " + ja.getJobApplicationJobId() + " was submitted on " + ja.getJobApplicationAppDate() + " and has a status of " + ja.getJobApplicationStatus() + ".\n";
         return msg;
     }
 
@@ -102,9 +102,10 @@ public class JobApplicationCtrl {
                 String jobRecruiter = jobAppDetails[2];
                 Date jobAppSubDate = dateFormat.parse(jobAppDetails[3]);
                 boolean jobActive = Boolean.parseBoolean(jobAppDetails[4]);
+                String jobAppStatus = jobAppDetails[5];
 
                 if (userType.equals("JS"))
-                    if ((jobAppUserName.equals(userName)) && (jobActive))
+                    if ((jobAppUserName.equals(userName)) && (jobActive) && jobAppStatus.equals("submitted"))
                         ja.add(new Model.JobApplication(jobId, jobAppUserName, jobRecruiter, jobAppSubDate));
                 else
                     if ((jobRecruiter.equals(userName)) && (jobActive))
@@ -159,6 +160,8 @@ public class JobApplicationCtrl {
     {
         ja.setJobApplicationInactive(false);
     }
+
+    public static void setJobApplicationStatus(Model.JobApplication ja, String newStatus) {ja.setJobApplicationStatus(newStatus);}
 
     public static void viewJSApplication()
             throws IOException, FileNotFoundException, ParseException
@@ -222,21 +225,26 @@ public class JobApplicationCtrl {
                {
                    Model.JobApplication ja = rcJobApps.get(i);
                    String appUserName = ja.getJobApplicationJSUserName();
-                   // for each applicant for thei job, get their user info and show recruiter
+                   // for each applicant for their job, get their user info and show recruiter
                    Model.JobSeeker js = getJobApplicationJobSeekerInfo(appUserName);
                    recruiterAction = View.JobApplicationUI.viewJobApplicationRecruiter(js, jl);
                    switch(recruiterAction)
                    {
                        case 1:
                            // invite for interview
-                           // update status to be accepted
+                           setJobApplicationStatus( ja,"accepted");
+                           continue;
                        case 2:
-                           // update status to rejected
+                           setJobApplicationStatus(ja,"reviewed and not proceeded with");
+                           continue;
                        case 0:
                            continue;
 
                    }
+                   System.out.println("All Applicants processed!");
+                   viewRCSpecificApplication(rcJobApps);
                }
+
             }
             else
             {
@@ -262,6 +270,7 @@ public class JobApplicationCtrl {
         msg += ";" + ja.getRecruiterUserName();
         msg += ";" + ja.getJobApplicationAppDate();
         msg += ";" + ja.getJobApplicationActive();
+        msg += ";" + ja.getJobApplicationStatus();
 
         return msg;
     }
