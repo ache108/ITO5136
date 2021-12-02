@@ -1,15 +1,12 @@
 package Control;
-import Control.JSS;
-import Control.FileIO;
-import Control.JobSeekerCtrl;
-import Control.RecruiterCtrl;
-import View.LogInUI;
-import View.JobSeekerUI;
-import View.RecruiterUI;
-import java.io.*;
-import java.text.ParseException;
 
-import static View.RecruiterUI.*;
+import View.JobSeekerUI;
+import View.LogInUI;
+import View.RecruiterUI;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 
 public class LogInCtrl
 {
