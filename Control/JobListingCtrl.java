@@ -1,5 +1,6 @@
 package Control;
 
+import Model.JobSeeker;
 import Model.JobListing;
 import View.Input;
 import View.JobListingUI;
@@ -299,14 +300,12 @@ public class JobListingCtrl {
 
     //Generate matching scores for all job listings, filters out private jobs and
     //jobs that do not match job title search criteria, and call method to sort them
-    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, Model.JobListing req)
-            throws IOException, FileNotFoundException, ParseException
+    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, JobListing req)
     {
-        Control.MatchingCtrl mc = new Control.MatchingCtrl();
-        parseFromCSV();
+        MatchingCtrl mc = new MatchingCtrl();
+
         //Remove all private jobs from joblist first.
         ArrayList<Model.JobListing> publicJobList = removePrivateJobs(jobList);
-
         ArrayList<Model.JobListing> updatedJobList = removeDiffJobTitle(publicJobList, req);
 
         //Hard filter: Remove all jobs that do not contain words from job title search input
@@ -328,6 +327,7 @@ public class JobListingCtrl {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
         }
+
         filterJobSearch(updatedJobList);
 
         if (updatedJobList.size() > 1) {
@@ -390,10 +390,10 @@ public class JobListingCtrl {
     public ArrayList<JobListing> parseFromCSV()
             throws IOException, FileNotFoundException, ParseException
     {
-        Control.FileIO file = new Control.FileIO(Control.JSS.JSSJOBLIST);
+        FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
         jobList = new ArrayList<Model.JobListing>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
 
         String[] numJob = file.readFile("\n").split("\n");
 
@@ -414,7 +414,7 @@ public class JobListingCtrl {
             }
             jl.setJobSkills(skillList);
             jl.setJobDescription(details[details.length - 3]);
-            //jl.setAppDeadline(dateFormat.parse(details[details.length - 2]));
+            jl.setAppDeadline(dateFormat.parse(details[details.length - 2]));
             jl.setJobAd(Boolean.parseBoolean(details[details.length - 1]));
 
             jobList.add(new JobListing(jl.getJobRC(), jl.getJobId(), jl.getJobTitle(), jl.getJobCategory(), jl.getJobLocation(), jl.getJobHours(), jl.getJobPay(), jl.getJobSkills(), jl.getJobDescription(), jl.getAppDeadline(), jl.getJobAd()));
@@ -454,7 +454,7 @@ public class JobListingCtrl {
             System.out.println("Job " + (i+1) + ": ");
             System.out.println("Matching Score: " + jobList.get(i).getMatchingScore());
             System.out.println(jobList.get(i).getJobTitle());
-            //System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
+            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Job skills are: ");
             jobList.get(i).displayJobSkills();
 

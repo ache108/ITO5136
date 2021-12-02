@@ -16,6 +16,7 @@ public class JobApplication {
     private String recruiterUserName;
     private Date applicationDate;
     private boolean applicationActive;
+    private String applicationStatus;
 
     public JobApplication()
     {
@@ -29,6 +30,7 @@ public class JobApplication {
         this.recruiterUserName = recruiterUserName;
         this.applicationDate = applicationDate;
         this.applicationActive = true;
+        this.applicationStatus = "submitted";
     }
 
     public boolean getJobApplicationActive() { return this.applicationActive; }
@@ -52,6 +54,8 @@ public class JobApplication {
     {
         return this.recruiterUserName;
     }
+
+    public String getJobApplicationStatus() {return this.applicationStatus; }
 
     public void setJobApplicationInactive(boolean removeApplication) {this.applicationActive = removeApplication ; }
 
@@ -78,5 +82,7 @@ public class JobApplication {
     {
         this.recruiterUserName = rcId;
     }
+
+    public void setJobApplicationStatus(String newStatus) {this.applicationStatus = newStatus;}
 
 }

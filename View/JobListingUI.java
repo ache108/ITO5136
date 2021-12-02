@@ -7,6 +7,7 @@ import Control.JobSeekerCtrl;
 import Control.JobListingCtrl;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -103,9 +104,11 @@ public class JobListingUI {
         FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
-        System.out.println("\nPlease provide the following details.\n(* indicates a mandatory field)");
+        System.out.println("\nPlease provide the following details.\n(Every field is mandatory.)");
         String msg = "\nPlease ";
-        jl.setJobTitle(input.acceptString(msg + "enter the job title *"));
+
+        //Enter job title
+        jl.setJobTitle(input.acceptMandatoryString(msg + "enter the job title *"));
 
         //Display list of job categories and allow recruiter to choose from or add new ones to the system.
         displayJobCategories();
@@ -117,16 +120,48 @@ public class JobListingUI {
             jl.setJobCategory(jobCat);
         }
 
-        jl.setJobLocation(input.acceptString(msg + "enter the location of the job *"));
-        jl.setJobHours(input.acceptString(msg + "enter the job type (Full time, Contract, Part time) *"));
-        jl.setJobPay(input.acceptString(msg + "enter the compensation per annum"));
+        //Enter location
+        jl.setJobLocation(input.acceptMandatoryString(msg + "enter the location of the job *"));
+
+        //Enter job hours/type
+        jl.setJobHours(input.acceptMandatoryString(msg + "enter the job type (Full time, Contract, Part time) *"));
+
+        //Enter job pay
+        jl.setJobPay(input.acceptMandatoryString(msg + "enter the compensation per annum"));
+
+        //Enter job skills
         jl.setJobSkills(inputJobListingSkill());
-        jl.setJobDescription(input.acceptString(msg + "enter the job description *"));
-        jl.setAppDeadline(input.acceptDate(msg + "enter the application deadline *"));
+
+        //Enter job description
+        jl.setJobDescription(input.acceptMandatoryString(msg + "enter the job description *"));
+
+        //Enter job application deadline
+        //boolean validIpt = true;
+
+        boolean validIpt = true;
+        Date date = null;
+        Date iptDate = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        do {
+            try {
+               iptDate = input.acceptDate(msg + "enter the application deadline in format dd-mm-yyyy *");
+               validIpt = false;
+
+            } catch (Exception e) {
+                System.out.println("Error! Please enter date in format dd-mm-yyyy");
+            }
+        } while (validIpt);
+        jl.setAppDeadline(iptDate);
+
         jl.displayJobDetails();
+
+        //Enter job advertisement status
         jl.setJobAd(advertiseJob());
-        //System.out.println(jl.labelJobAd(jl.getJobAd()));
+
+        //Generate job Id
         jl.setJobId(JobListingCtrl.generateJobID(JSS.JSSJOBLIST));
+
+        //Link job to RC
         jl.setJobRC(LogInCtrl.getRcUsername());
 
         // Send to Job Listing Controller to create new job
@@ -172,9 +207,10 @@ public class JobListingUI {
                 + "Press 1 to edit job listing\n"
                 + "Press 2 to view applications\n"
                 + "Press 3 to invite candidates\n"
+                + "Press 4 to delete job listing\n"
                 + "Press 0 to go back\n"
                 + "-----------------------------------------\n";
-        return input.acceptInt(msg, 0, 3);
+        return input.acceptInt(msg, 0, 4);
     }
 
     //Prints the options for editing a specific skill from a job listing
