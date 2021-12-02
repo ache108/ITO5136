@@ -259,10 +259,9 @@ public class JobListingCtrl {
         return jobID;
     }
 
-    public void generateJobSearch(Model.JobListing req) throws IOException, ParseException {
-        printJobListJS(matchJobs(jobList, req));
+    public void generateSearchResults(ArrayList<Model.JobListing> jobList) throws IOException, ParseException {
 
-        if (matchJobs(jobList, req).size() > 0) {
+        if (jobList.size() > 0) {
             int num = viewJobListingJS(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
             openJobListing(jobList.get(num - 1));
         } else {
@@ -317,13 +316,13 @@ public class JobListingCtrl {
             if(updatedJobList.get(i).getJobCategory().equals(req.getJobCategory())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobLocation(), req.getJobLocation())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobLocation(), req.getJobLocation()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobHours(), req.getJobHours())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobHours(), req.getJobHours()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobPay(), req.getJobPay())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobPay(), req.getJobPay()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
         }
@@ -336,7 +335,7 @@ public class JobListingCtrl {
         return updatedJobList;
     }
 
-    //BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
+    /*BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
     public void matchJobs(JobListing reqs)
     {
         for(int i = 0; i < jobList.size(); i++)
@@ -369,7 +368,7 @@ public class JobListingCtrl {
         }
 
         sortJobs();
-    }
+    }*/
 
     //Method for JS to interact with job listing
     public void openJobListing(Model.JobListing jl) throws IOException, ParseException {
@@ -382,7 +381,8 @@ public class JobListingCtrl {
                 Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
-                generateJobSearch(req);
+                printJobListJS(jobList);
+                generateSearchResults(jobList);
         }
     }
 
@@ -433,8 +433,9 @@ public class JobListingCtrl {
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ":          ");
-            System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
-            System.out.println(jobList.get(i).getJobTitle().toUpperCase());
+            System.out.println("Job ID:                  " + jobList.get(i).getJobId());
+            //System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
+            System.out.println("Job Title:               " + jobList.get(i).getJobTitle().toUpperCase());
             System.out.println("Application deadline:    " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
 
@@ -548,12 +549,17 @@ public class JobListingCtrl {
     }
 
     //JS-centered method to call all the relevant methods for JS to search and view job listings.
-    public void viewJLFromJS()
+    public ArrayList<Model.JobListing> viewJLFromJS()
             throws IOException, ParseException
     {
         View.JobSeekerUI jsu = new JobSeekerUI();
         req = jsu.inputSearchKeywords();
-        generateJobSearch(req);
+        ArrayList<Model.JobListing> searchResults = matchJobs(jobList, req);
+
+        printJobListJS(searchResults);
+        generateSearchResults(searchResults);
+
+        return searchResults;
     }
 
     //RC-centered method to call all the relevant methods for RC to work on Job Listings.

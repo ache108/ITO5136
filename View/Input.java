@@ -111,6 +111,26 @@ public class Input
         return keyboardInput();
     }
 
+    public String acceptMandatoryString(String prompt)
+    {
+        String iptString = "";
+        boolean validIpt = true;
+        do {
+            printPrompt(prompt);
+            iptString = keyboardInput();
+            if (!iptString.isBlank())
+            {
+                validIpt = false;
+            }
+            else
+            {
+                printPrompt("This is mandatory so please provide an input.");
+            }
+        } while (validIpt);
+
+        return iptString;
+    }
+
     private String keyboardInput()
     {
         Scanner console = new Scanner(System.in);
