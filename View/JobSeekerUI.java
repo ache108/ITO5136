@@ -2,13 +2,14 @@ package View;
 
 import Control.*;
 import Model.*;
-import View.Input;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.io.*;
+import java.util.Date;
+import java.util.Locale;
 
 public class JobSeekerUI extends View.UserUI
 {
@@ -56,7 +57,7 @@ public class JobSeekerUI extends View.UserUI
         } while (!verifiedInput);
 
         ArrayList <String> iptSkills = jobSeekerSkillInput();
-        double wrkHrlyRate = input.acceptDouble(msg + "your desired hourly salary rate.");
+        double wrkHrlyRate = input.acceptDouble(msg + "your desired yearly salary rate.");
 
         // Send to Controller to create new user on Model
         Control.JobSeekerCtrl.createNewJobSeeker(newUser, wrkHrlyRate, wrkType, wrkResidency, iptSkills);
@@ -68,7 +69,7 @@ public class JobSeekerUI extends View.UserUI
         boolean addAnotherSkill = true;
         boolean charInputCheck = true;
         ArrayList <String> iptSkills = new ArrayList<String>();
-        Input input = new Input();
+        View.Input input = new View.Input();
         do {
             String iptSkill = input.acceptString("Please enter a skill to add to your profile.");
             iptSkills.add(iptSkill);
@@ -174,7 +175,7 @@ public class JobSeekerUI extends View.UserUI
                 lName = details[3];
                 city = details[4];
                 state = details[5];
-                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
                 dob = format.parse(details[6]);
                 profilePublic = Boolean.valueOf(details[7]);
                 wage = Double.valueOf(details[8]);
@@ -296,6 +297,7 @@ public class JobSeekerUI extends View.UserUI
         return input.acceptInt(msg, 0, 2);
     }
 
+    // display skill when editing
     public static void displaySkills()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -310,6 +312,7 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
+    // display skill in profile
     public static void displaySkills2()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -341,6 +344,7 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
+    // assign skills to an array
     public static void assignSkills()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -398,6 +402,7 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
+    // editing skills
     public static void editSkills()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -497,13 +502,13 @@ public class JobSeekerUI extends View.UserUI
             throws IOException
     {
         System.out.println("      SEARCH FOR JOBS");
-        Input input = new Input();
-        Control.JobSeekerCtrl jsc = new JobSeekerCtrl();
-        JobListingUI jlu = new JobListingUI();
-        Model.JobListing req = new JobListing();
-        JobListingCtrl jlc = new JobListingCtrl();
+        View.Input input = new View.Input();
+        Control.JobSeekerCtrl jsc = new Control.JobSeekerCtrl();
+        View.JobListingUI jlu = new View.JobListingUI();
+        Model.JobListing req = new Model.JobListing();
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
 
-        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        Control.FileIO file = new Control.FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
         System.out.println("\nPlease enter keywords for each respective fields to start your search.");
