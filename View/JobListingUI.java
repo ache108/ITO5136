@@ -207,9 +207,10 @@ public class JobListingUI {
                 + "Press 1 to edit job listing\n"
                 + "Press 2 to view applications\n"
                 + "Press 3 to invite candidates\n"
+                + "Press 4 to delete job listing\n"
                 + "Press 0 to go back\n"
                 + "-----------------------------------------\n";
-        return input.acceptInt(msg, 0, 3);
+        return input.acceptInt(msg, 0, 4);
     }
 
     //Prints the options for editing a specific skill from a job listing

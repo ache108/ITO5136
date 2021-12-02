@@ -286,22 +286,30 @@ public class JobListingCtrl {
             case 1:
                 //edit listing
                 editJobListing(jl);
+                break;
             case 2:
                 //view applications
                 Control.JobApplicationCtrl.viewRCApplication();
+                break;
             case 3:
                 //invite candidates
+            case 4:
+                //delete job listing
+                removeOldJob(jl);
+                viewJLFromRC();
+                break;
             case 0:
                 //go back
                 viewJLFromRC();
+                break;
         }
     }
 
     //Generate matching scores for all job listings, filters out private jobs and
     //jobs that do not match job title search criteria, and call method to sort them
-    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, JobListing req)
-    {
+    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, JobListing req) throws IOException, ParseException {
         MatchingCtrl mc = new MatchingCtrl();
+        Model.JobSeeker js = Control.JobSeekerCtrl.getCurrentJobSeeker();
 
         //Remove all private jobs from joblist first.
         ArrayList<Model.JobListing> publicJobList = removePrivateJobs(jobList);
@@ -312,7 +320,8 @@ public class JobListingCtrl {
             updatedJobList.get(i).incrementMatchingScore(1);
         }
 
-        for (int i = 0; i < jobList.size(); i++) {
+        //Matching job category, location, hours, and pay with user search criteria
+        for (int i = 0; i < updatedJobList.size(); i++) {
             if(updatedJobList.get(i).getJobCategory().equals(req.getJobCategory())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
@@ -325,6 +334,29 @@ public class JobListingCtrl {
             if(mc.isMatch(updatedJobList.get(i).getJobPay(), req.getJobPay()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
+
+            //Matching user skills and job listing
+            ArrayList<String> list1 = updatedJobList.get(i).getJobSkills();
+            ArrayList<String> list2 = js.getSkillList();
+
+            for (int j = 0; j < list2.size(); j++)
+                {
+                    for (int k = 0; k < list1.size(); k++)
+                    {
+                        String skill1 = list2.get(j).replace('[', ' ').replace(']', ' ').trim();
+                        String skill2 = list1.get(k).replace('[', ' ').replace(']', ' ').trim();
+
+                        //System.out.println("Comparing " + skill1 + " and " + skill2);
+
+                        if(mc.isMatch(skill1, skill2)) {
+                            //System.out.println("Updating score!");
+                            updatedJobList.get(i).incrementMatchingScore(1);
+                        }
+                    }
+                }
+
+
+
         }
 
         filterJobSearch(updatedJobList);
