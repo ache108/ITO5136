@@ -3,18 +3,24 @@ package Control;
 import Model.JobListing;
 import Model.JobSeeker;
 import java.util.ArrayList;
+import java.io.*;
+import Control.JSS;
+import Control.FileIO;
 
 public class MatchingCtrl
 {
     public boolean isMatch(String str1, String str2)
     {
+        if(str1 == null || str1.length() == 0)
+            return false;
+        if(str2 == null || str2.length() == 0)
+            return false;
         return str1.toLowerCase().contains(str2.toLowerCase()) || str2.toLowerCase().contains(str1.toLowerCase());
     }
 
     public ArrayList<JobSeeker> matchJobSeekers(JobListing job)
     {
-        ArrayList<JobSeeker> js = new ArrayList<>();
-        //initiate arraylist from file
+        ArrayList<JobSeeker> js = parseJobSeekers();
 
         for(int i = 0; i < js.size(); i++)
         {
@@ -40,10 +46,29 @@ public class MatchingCtrl
         return sort(js);
     }
 
-    /*public ArrayList<JobSeeker> parseJobSeekers()
+    public ArrayList<JobSeeker> parseJobSeekers()
     {
-        //UNFINISHED
-    }*/
+        FileIO file = new FileIO(JSS.JSDETAILS);
+        ArrayList<JobSeeker> users = new ArrayList<>();
+
+        try
+        {
+            String[] lines = file.readFile("\n").split("\n");
+
+            for (int i = 0; i < lines.length; i++) {
+                String[] line = lines[i].split(";");
+                if (line[7] == "true")
+                    users.add(Control.JobSeekerCtrl.getJobSeeker(line[0]));
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("There was a problem reading the user details file.");
+        }
+
+        return users;
+    }
+
 
     public ArrayList<JobSeeker> sort(ArrayList<JobSeeker> js)
     {
