@@ -228,14 +228,22 @@ public class JobApplicationCtrl {
                    // for each applicant for their job, get their user info and show recruiter
                    Model.JobSeeker js = getJobApplicationJobSeekerInfo(appUserName);
                    recruiterAction = View.JobApplicationUI.viewJobApplicationRecruiter(js, jl);
+                   String fileInfo = "":
+
                    switch(recruiterAction)
                    {
                        case 1:
                            // invite for interview
+                           removeOldJobAppFromFile(ja);
                            setJobApplicationStatus( ja,"accepted");
+                           fileInfo = writeInfoAsString(ja);
+                           writeJobApplicationToFile(fileInfo);
                            continue;
                        case 2:
+                           removeOldJobAppFromFile(ja);
                            setJobApplicationStatus(ja,"reviewed and not proceeded with");
+                           fileInfo = writeInfoAsString(ja);
+                           writeJobApplicationToFile(fileInfo);
                            continue;
                        case 0:
                            continue;
@@ -244,7 +252,6 @@ public class JobApplicationCtrl {
                    System.out.println("All Applicants processed!");
                    viewRCSpecificApplication(rcJobApps);
                }
-
             }
             else
             {
