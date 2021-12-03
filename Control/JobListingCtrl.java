@@ -2,6 +2,7 @@ package Control;
 
 import Model.JobSeeker;
 import Model.JobListing;
+import Control.MatchingCtrl;
 import View.Input;
 import View.JobListingUI;
 import View.JobSeekerUI;
@@ -293,6 +294,15 @@ public class JobListingCtrl {
                 break;
             case 3:
                 //invite candidates
+                MatchingCtrl mc = new MatchingCtrl();
+                ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
+                int usrIn = jlu.selectJobSeeker(js);
+                if(usrIn == 0)
+                    manageJobListing(jl);
+                else
+                    System.out.println(usrIn);
+                    //invite candidate
+                break;
             case 4:
                 //delete job listing
                 removeOldJob(jl);

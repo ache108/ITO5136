@@ -5,6 +5,7 @@ import Control.JSS;
 import Control.LogInCtrl;
 import Control.JobSeekerCtrl;
 import Control.JobListingCtrl;
+import Model.JobSeeker;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -257,6 +258,30 @@ public class JobListingUI {
                 + "Press 0 to go back\n"
                 + "-----------------------------------------\n";
         return input.acceptInt(msg, 0, 2);
+    }
+
+    //Prints the job seekers who match with a job and allow user to select one to invite for interview
+    public int selectJobSeeker(ArrayList<JobSeeker> js)
+    {
+        Input input = new Input();
+        String msg = "-----------------------------------------\n";
+        for(int i = 0; i < js.size(); i++)
+        {
+            msg += "Job Seeker " + (i + 1) + ":\n";
+            msg += "Matching Score: " + js.get(i).getMatchingScore() + "\n";
+            msg += "Job skills are:\n";
+
+            for(int j = 0; j < js.get(i).getSkillListSize(); j++)
+            {
+                msg += (j + 1) + ": " + js.get(i).getSkillFromList(j) + "\n";
+            }
+
+            msg += "-----------------------------------------\n";
+        }
+        msg += "Please enter the job seeker number to view the job seeker.\n";
+        msg += "Alternatively, press 0 to go back.";
+
+        return input.acceptInt(msg, 0, js.size());
     }
 
 }

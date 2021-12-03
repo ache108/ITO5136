@@ -22,6 +22,7 @@ public class MatchingCtrl
     {
         ArrayList<JobSeeker> js = parseJobSeekers();
 
+        //match job to job seekers based on skills, location, work type
         for(int i = 0; i < js.size(); i++)
         {
             if(!js.get(i).publicProfile)
@@ -42,6 +43,14 @@ public class MatchingCtrl
             }
         }
 
+        //remove job seekers with a matching score of 0
+        for(int i = js.size() - 1; i >= 0; i--)
+        {
+            if(js.get(i).getMatchingScore() == 0)
+            {
+                js.remove(i);
+            }
+        }
 
         return sort(js);
     }
@@ -57,8 +66,9 @@ public class MatchingCtrl
 
             for (int i = 0; i < lines.length; i++) {
                 String[] line = lines[i].split(";");
-                if (line[7] == "true")
+                if (line[7].equals("true")) {
                     users.add(Control.JobSeekerCtrl.getJobSeeker(line[0]));
+                }
             }
         }
         catch(Exception e)
