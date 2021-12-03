@@ -279,6 +279,8 @@ public class JobListingCtrl {
     //Method to link jl to job app
     public void linkJobApp(ArrayList<Model.JobListing> jobList) throws IOException, ParseException {
         JobApplicationCtrl jac = new JobApplicationCtrl();
+        System.out.println("\n              JOB APPLICATIONS\n"
+            + "--------------------------------------------\n");
         printListJobRC(jobList);
         JobApplicationCtrl.viewRCSpecificApplication(jobList, JobApplicationCtrl.parseJobApplicationTextFile("RC"));
     }
@@ -379,41 +381,6 @@ public class JobListingCtrl {
         }
         return updatedJobList;
     }
-
-    /*BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
-    public void matchJobs(JobListing reqs)
-    {
-        for(int i = 0; i < jobList.size(); i++)
-        {
-            if(jobList.get(i).getJobAd() == false)
-                continue;
-            if(jobList.get(i).getJobTitle().equals(reqs.getJobTitle()))
-                jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobCategory().equals(reqs.getJobCategory()))
-                jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobLocation().equals(reqs.getJobLocation()))
-                jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobHours().equals(reqs.getJobHours()))
-                jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobPay().equals(reqs.getJobPay()))
-                jobList.get(i).incrementMatchingScore(1);
-            if(jobList.get(i).getJobDescription().equals(reqs.getJobDescription()))
-                jobList.get(i).incrementMatchingScore(1);
-
-            ArrayList<String> jSkills = jobList.get(i).getJobSkills();
-            for(int j = 0; j < jSkills.size(); j++)
-            {
-                ArrayList<String> reqSkills = reqs.getJobSkills();
-                for(int k = 0; k < reqSkills.size(); k++)
-                {
-                    if(jSkills.get(j).equals(reqSkills.get(k)))
-                        jobList.get(i).incrementMatchingScore(1);
-                }
-            }
-        }
-
-        sortJobs();
-    }*/
 
     //Method for JS to interact with job listing
     public void openJobListing(Model.JobListing jl) throws IOException, ParseException {
@@ -572,7 +539,7 @@ public class JobListingCtrl {
                 }
             }
             System.out.println("Job " + (i+1) + ": " + currentList.get(i).getJobTitle());
-            System.out.println("Number of applications: " + counter);
+            System.out.println("Number of applications: " + counter + "\n");
         }
     }
 
