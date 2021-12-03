@@ -1,7 +1,7 @@
 package View;
 
 import Control.FileIO;
-import Control.JSS;
+//import Control.JSS;
 import Control.LogInCtrl;
 import Control.JobSeekerCtrl;
 import Control.JobListingCtrl;
@@ -59,7 +59,7 @@ public class JobListingUI {
 
     //Display list of Job Caftegories we have on system
     public void displayJobCategories() throws IOException {
-        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        FileIO file = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
         for (int i = 0; i < list.length; i++)
@@ -102,7 +102,7 @@ public class JobListingUI {
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
         Input input = new Input();
 
-        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        FileIO file = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
         System.out.println("\nPlease provide the following details.\n(Every field is mandatory.)");
@@ -160,7 +160,7 @@ public class JobListingUI {
         jl.setJobAd(advertiseJob());
 
         //Generate job Id
-        jl.setJobId(JobListingCtrl.generateJobID(JSS.JSSJOBLIST));
+        jl.setJobId(JobListingCtrl.generateJobID(Control.JSS.JSSJOBLIST));
 
         //Link job to RC
         jl.setJobRC(LogInCtrl.getRcUsername());

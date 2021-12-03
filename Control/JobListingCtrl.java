@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class JobListingCtrl {
 
@@ -260,9 +261,12 @@ public class JobListingCtrl {
         return jobID;
     }
 
-    public void generateSearchResults(ArrayList<Model.JobListing> jobList) throws IOException, ParseException {
+    public void generateJobSearch(Model.JobListing req) throws IOException, ParseException {
+        parseFromCSV();
 
-        if (jobList.size() > 0) {
+        printJobListJS(matchJobs(jobList, req));
+
+        if (matchJobs(jobList, req).size() > 0) {
             int num = viewJobListingJS(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
             openJobListing(jobList.get(num - 1));
         } else {
@@ -317,9 +321,9 @@ public class JobListingCtrl {
 
     //Generate matching scores for all job listings, filters out private jobs and
     //jobs that do not match job title search criteria, and call method to sort them
-    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, JobListing req) throws IOException, ParseException {
+    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, JobListing req)
+    {
         MatchingCtrl mc = new MatchingCtrl();
-        Model.JobSeeker js = Control.JobSeekerCtrl.getCurrentJobSeeker();
 
         //Remove all private jobs from joblist first.
         ArrayList<Model.JobListing> publicJobList = removePrivateJobs(jobList);
@@ -330,43 +334,19 @@ public class JobListingCtrl {
             updatedJobList.get(i).incrementMatchingScore(1);
         }
 
-        //Matching job category, location, hours, and pay with user search criteria
-        for (int i = 0; i < updatedJobList.size(); i++) {
+        for (int i = 0; i < jobList.size(); i++) {
             if(updatedJobList.get(i).getJobCategory().equals(req.getJobCategory())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobLocation(), req.getJobLocation()) && (!req.getJobLocation().isBlank())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobLocation(), req.getJobLocation())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobHours(), req.getJobHours()) && (!req.getJobLocation().isBlank())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobHours(), req.getJobHours())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobPay(), req.getJobPay()) && (!req.getJobLocation().isBlank())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobPay(), req.getJobPay())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-
-            //Matching user skills and job listing
-            ArrayList<String> list1 = updatedJobList.get(i).getJobSkills();
-            ArrayList<String> list2 = js.getSkillList();
-
-            for (int j = 0; j < list2.size(); j++)
-                {
-                    for (int k = 0; k < list1.size(); k++)
-                    {
-                        String skill1 = list2.get(j).replace('[', ' ').replace(']', ' ').trim();
-                        String skill2 = list1.get(k).replace('[', ' ').replace(']', ' ').trim();
-
-                        //System.out.println("Comparing " + skill1 + " and " + skill2);
-
-                        if(mc.isMatch(skill1, skill2)) {
-                            //System.out.println("Updating score!");
-                            updatedJobList.get(i).incrementMatchingScore(1);
-                        }
-                    }
-                }
-
-
-
         }
 
         filterJobSearch(updatedJobList);
@@ -377,7 +357,7 @@ public class JobListingCtrl {
         return updatedJobList;
     }
 
-    /*BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
+    //BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
     public void matchJobs(JobListing reqs)
     {
         for(int i = 0; i < jobList.size(); i++)
@@ -410,7 +390,7 @@ public class JobListingCtrl {
         }
 
         sortJobs();
-    }*/
+    }
 
     //Method for JS to interact with job listing
     public void openJobListing(Model.JobListing jl) throws IOException, ParseException {
@@ -423,8 +403,7 @@ public class JobListingCtrl {
                 Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
-                printJobListJS(jobList);
-                generateSearchResults(jobList);
+                generateJobSearch(req);
         }
     }
 
@@ -435,7 +414,7 @@ public class JobListingCtrl {
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
         jobList = new ArrayList<Model.JobListing>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
 
         String[] numJob = file.readFile("\n").split("\n");
 
@@ -475,9 +454,8 @@ public class JobListingCtrl {
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ":          ");
-            System.out.println("Job ID:                  " + jobList.get(i).getJobId());
-            //System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
-            System.out.println("Job Title:               " + jobList.get(i).getJobTitle().toUpperCase());
+            System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
+            System.out.println(jobList.get(i).getJobTitle().toUpperCase());
             System.out.println("Application deadline:    " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
 
@@ -591,17 +569,12 @@ public class JobListingCtrl {
     }
 
     //JS-centered method to call all the relevant methods for JS to search and view job listings.
-    public ArrayList<Model.JobListing> viewJLFromJS()
+    public void viewJLFromJS()
             throws IOException, ParseException
     {
         View.JobSeekerUI jsu = new JobSeekerUI();
         req = jsu.inputSearchKeywords();
-        ArrayList<Model.JobListing> searchResults = matchJobs(jobList, req);
-
-        printJobListJS(searchResults);
-        generateSearchResults(searchResults);
-
-        return searchResults;
+        generateJobSearch(req);
     }
 
     //RC-centered method to call all the relevant methods for RC to work on Job Listings.

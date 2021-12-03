@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="js wage changes">
+      <change beforePath="$PROJECT_DIR$/.idea/ache108.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ache108.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Control/JobApplicationCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobApplicationCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Control/JobListingCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobListingCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Control/RecruiterCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/RecruiterCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/JobSeekerUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/JobSeekerUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Bailey Edwards &lt;bailey.t.edwards@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
+  <component name="ProjectId" id="20wwYb9ljHWIwZviXbZ0fke2qXN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="JSS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Control.JSS" />
+      <module name="ache108" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.JSS" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="" />
+      <created>1636969007111</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1636969007111</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added initial control and view classes for log in use case">
+      <created>1637325547316</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1637325547316</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added initial control and view classes for log in use case">
+      <created>1637396315263</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1637396315263</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added initial control and view classes for log in use case">
+      <created>1637399049618</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1637399049618</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added initial control and view classes for log in use case">
+      <created>1637489327443</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1637489327443</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added initial control and view classes for log in use case">
+      <created>1637506057908</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1637506057908</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637548385362</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1637548385362</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637551050029</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1637551050029</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637551863301</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1637551863301</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637557020251</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1637557020251</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637633602062</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1637633602062</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108">
+      <created>1637635259213</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1637635259213</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Recruiter profile linked to user and display correctly">
+      <created>1637665223786</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1637665223786</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Recruiter profile code cleanup">
+      <created>1637746383062</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1637746383062</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Recruiter profile can edit, but still need to work out how to delete old line">
+      <created>1637838198402</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1637838198402</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Recruiter profile can edit, but still need to work out how to delete old line">
+      <created>1637838593433</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1637838593433</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637917438260</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1637917438260</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637917454315</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1637917454315</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637920930289</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1637920930289</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile">
+      <created>1637983396771</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1637983396771</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)">
+      <created>1638009542273</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1638009542273</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added exit and working back functionality">
+      <created>1638012027438</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1638012027438</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added new skill functionality to js profile">
+      <created>1638158286705</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1638158286705</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added new skill functionality to js profile">
+      <created>1638161099672</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1638161099672</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added delete skill functionality to js profile">
+      <created>1638180039199</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1638180039199</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added delete skill functionality to js profile">
+      <created>1638180186090</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1638180186090</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added delete skill functionality to js profile">
+      <created>1638180431092</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1638180431092</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added delete skill functionality to js profile">
+      <created>1638181681357</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1638181681357</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added delete line for profiles">
+      <created>1638189689080</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1638189689080</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Added delete line for profiles">
+      <created>1638191822931</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1638191822931</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added more functionality to edit js skills">
+      <created>1638239298194</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1638239298194</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Added more functionality to edit js skills">
+      <created>1638247850844</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1638247850844</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Added more functionality to edit js skills">
+      <created>1638263677836</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1638263677836</updated>
+    </task>
+    <task id="LOCAL-00033" summary="set JS details method added">
+      <created>1638268209072</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1638268209072</updated>
+    </task>
+    <task id="LOCAL-00034" summary="js wage changes">
+      <created>1638347029457</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1638347029457</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added initial control and view classes for log in use case" />
+    <MESSAGE value="Merge branch 'master' of https://git-prd.infotech.monash.edu/ito5136/ito5136-tp6-2021/ache108" />
+    <MESSAGE value="Recruiter profile linked to user and display correctly" />
+    <MESSAGE value="Recruiter profile code cleanup" />
+    <MESSAGE value="Recruiter profile can edit, but still need to work out how to delete old line" />
+    <MESSAGE value="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)&#10;Added validation for company profile" />
+    <MESSAGE value="Read company profile from bottom to top then break if found, so it can display updated details (old one still there though)" />
+    <MESSAGE value="Added exit and working back functionality" />
+    <MESSAGE value="Added new skill functionality to js profile" />
+    <MESSAGE value="Added delete skill functionality to js profile" />
+    <MESSAGE value="Added delete line for profiles" />
+    <MESSAGE value="Added more functionality to edit js skills" />
+    <MESSAGE value="set JS details method added" />
+    <MESSAGE value="js wage changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="js wage changes" />
+  </component>
+</project>

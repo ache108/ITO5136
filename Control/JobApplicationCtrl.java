@@ -1,14 +1,10 @@
 package Control;
 
-import Model.JobApplication;
-import Model.JobListing;
-import Model.JobSeeker;
 import Model.User;
-import Control.JobListingCtrl;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,7 +83,7 @@ public class JobApplicationCtrl {
     public static ArrayList<Model.JobApplication> parseJobApplicationTextFile(String userType)
             throws IOException, FileNotFoundException, ParseException
     {
-        Control.FileIO file = new FileIO(Control.JSS.JOBAPPLICATIONS);
+        Control.FileIO file = new Control.FileIO(Control.JSS.JOBAPPLICATIONS);
         String[] allJobApplications = file.readFile("\n").split("\n");
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
         ArrayList<Model.JobApplication> ja = new ArrayList<Model.JobApplication>();
@@ -117,7 +113,7 @@ public class JobApplicationCtrl {
     public static void removeOldJobAppFromFile(Model.JobApplication ja)
         throws IOException
     {
-        FileIO file = new FileIO(Control.JSS.JOBAPPLICATIONS);
+        Control.FileIO file = new Control.FileIO(Control.JSS.JOBAPPLICATIONS);
         String[] list = file.readFile("\n").split("\n");
 
         String id = ja.getJobApplicationJobId();
@@ -265,7 +261,7 @@ public class JobApplicationCtrl {
     public static void writeJobApplicationToFile(String infoToWrite)
             throws IOException
     {
-        FileIO fName = new FileIO(Control.JSS.JOBAPPLICATIONS);
+        Control.FileIO fName = new Control.FileIO(Control.JSS.JOBAPPLICATIONS);
         fName.appendFile(infoToWrite);
     }
 

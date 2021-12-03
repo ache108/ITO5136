@@ -1,10 +1,10 @@
 package Control;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.io.*;
-import Control.FileIO;
+
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class UserCntrl
@@ -35,14 +35,16 @@ public class UserCntrl
         String dob = "";
         String profilePublic = "";
 
+        Date userDob = null;
+
         Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
 
-        for (int i = numJob.length - 1; i >= 0; i--)
+        for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(";");
-            if (details[0].equals(username)) //(display only profile for this user only)
+            if (details[0].equals(username))
             {
                 email = details[1];
                 fName = details[2];
@@ -50,14 +52,13 @@ public class UserCntrl
                 city = details[4];
                 state = details[5];
                 dob = details[6];
+                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
+                userDob = format.parse(details[6]);
                 profilePublic = details[7];
-                break;
             }
         }
 
         boolean pubProfile = Boolean.parseBoolean(profilePublic);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
-        Date userDob = dateFormat.parse(dob);
 
         Model.User curUser = new Model.User (username, email, fName, lName, city, state, userDob, pubProfile);
         return curUser;
@@ -82,7 +83,7 @@ public class UserCntrl
         for (int i = numJob.length - 1; i >= 0; i--)
         {
             String[] details = numJob[i].split(";");
-            if (details[0].equals(userName)) //(display only profile for this user only)
+            if (details[0].equals(userName))
             {
                 email = details[1];
                 fName = details[2];
