@@ -2,13 +2,13 @@ package View;
 
 import Control.*;
 import Model.*;
+import View.Input;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.io.*;
 import java.util.Locale;
 
 public class JobSeekerUI extends View.UserUI
@@ -57,7 +57,7 @@ public class JobSeekerUI extends View.UserUI
         } while (!verifiedInput);
 
         ArrayList <String> iptSkills = jobSeekerSkillInput();
-        double wrkHrlyRate = input.acceptDouble(msg + "your desired yearly salary rate.");
+        double wrkHrlyRate = input.acceptDouble(msg + "your desired hourly salary rate.");
 
         // Send to Controller to create new user on Model
         Control.JobSeekerCtrl.createNewJobSeeker(newUser, wrkHrlyRate, wrkType, wrkResidency, iptSkills);
@@ -69,7 +69,7 @@ public class JobSeekerUI extends View.UserUI
         boolean addAnotherSkill = true;
         boolean charInputCheck = true;
         ArrayList <String> iptSkills = new ArrayList<String>();
-        View.Input input = new View.Input();
+        Input input = new Input();
         do {
             String iptSkill = input.acceptString("Please enter a skill to add to your profile.");
             iptSkills.add(iptSkill);
@@ -105,21 +105,24 @@ public class JobSeekerUI extends View.UserUI
 
             String[] numJob = file.readFile("\n").split("\n");
 
+            System.out.print("\n              VIEW PROFILE\n"
+                + "--------------------------------------------");
+
             for (int i = 0; i < numJob.length; i++)
             {
                 String[] details = numJob[i].split(";");
                 if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
                 {
-                    System.out.println("\nEmail: " + details[1]);
-                    System.out.println("First Name: " + details[2]);
-                    System.out.println("Last Name: " + details[3]);
-                    System.out.println("City: " + details[4]);
-                    System.out.println("State: " + details[5]);
-                    System.out.println("Date of Birth: " + details[6]);
-                    System.out.println("Public Profile: " + details[7]);
-                    System.out.println("Desired Yearly Wage: " + details[8]);
-                    System.out.println("Work Type: " + details[9]);
-                    System.out.println("Work Residency: " + details[10]);
+                    System.out.println("\nEmail:                " + details[1]);
+                    System.out.println("First Name:           " + details[2]);
+                    System.out.println("Last Name:            " + details[3]);
+                    System.out.println("City:                 " + details[4]);
+                    System.out.println("State:                " + details[5]);
+                    System.out.println("Date of Birth:        " + details[6]);
+                    System.out.println("Public Profile:       " + details[7]);
+                    System.out.println("Desired Yearly Wage:  " + details[8]);
+                    System.out.println("Work Type:            " + details[9]);
+                    System.out.println("Work Residency:       " + details[10]);
                     displaySkills2();
                 }
             }
@@ -129,7 +132,8 @@ public class JobSeekerUI extends View.UserUI
     public static int editJSOptionsDisplay()
     {
         Input input = new Input();
-        String msg = "      \nEDIT JOB SEEKER PROFILE\n"
+        String msg = "\n\n         EDIT JOB SEEKER PROFILE\n"
+                + "--------------------------------------------\n"
                 + "Press 1 to edit your email\n"
                 + "Press 2 to edit your first name\n"
                 + "Press 3 to edit your last name\n"
@@ -175,8 +179,8 @@ public class JobSeekerUI extends View.UserUI
                 lName = details[3];
                 city = details[4];
                 state = details[5];
-                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
-                dob = format.parse(details[6]);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
+                dob = dateFormat.parse(details[6]);
                 profilePublic = Boolean.valueOf(details[7]);
                 wage = Double.valueOf(details[8]);
                 workType = details[9];
@@ -297,7 +301,6 @@ public class JobSeekerUI extends View.UserUI
         return input.acceptInt(msg, 0, 2);
     }
 
-    // display skill when editing
     public static void displaySkills()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -312,7 +315,6 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
-    // display skill in profile
     public static void displaySkills2()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -321,7 +323,7 @@ public class JobSeekerUI extends View.UserUI
         {
             newList.clear();
         }
-        System.out.print("Skills: ");
+        System.out.print("Skills:               ");
         if (newList.size() == 1)
         {
             StringBuilder sb = new StringBuilder(newList.get(0));
@@ -344,7 +346,6 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
-    // assign skills to an array
     public static void assignSkills()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -402,7 +403,6 @@ public class JobSeekerUI extends View.UserUI
         }
     }
 
-    // editing skills
     public static void editSkills()
             throws IOException, FileNotFoundException, ParseException
     {
@@ -488,7 +488,9 @@ public class JobSeekerUI extends View.UserUI
     public static int displayJSHome()
     {
         Input input = new Input();
-        String msg = "      JOB SEEKER HOME PAGE\n"
+        String msg = "----------------------------------\n"
+                +    "|      JOB SEEKER HOME PAGE      |\n"
+                +    "----------------------------------\n"
                 + "Press 1 to search for jobs\n"
                 + "Press 2 to view and edit your profile\n"
                 + "Press 3 to view your interview offers\n"
@@ -501,26 +503,29 @@ public class JobSeekerUI extends View.UserUI
     public Model.JobListing inputSearchKeywords()
             throws IOException
     {
-        System.out.println("      SEARCH FOR JOBS");
-        View.Input input = new View.Input();
-        Control.JobSeekerCtrl jsc = new Control.JobSeekerCtrl();
-        View.JobListingUI jlu = new View.JobListingUI();
-        Model.JobListing req = new Model.JobListing();
-        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
+        System.out.println("\n            SEARCH FOR JOBS\n"
+                         + "--------------------------------------------");
+        Input input = new Input();
+        Control.JobSeekerCtrl jsc = new JobSeekerCtrl();
+        JobListingUI jlu = new JobListingUI();
+        Model.JobListing req = new JobListing();
+        JobListingCtrl jlc = new JobListingCtrl();
 
-        Control.FileIO file = new Control.FileIO(Control.JSS.JSSJOBCATEGORY);
+        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
         System.out.println("\nPlease enter keywords for each respective fields to start your search.");
-        req.setJobTitle(input.acceptString("Job title: "));
+        req.setJobTitle(input.acceptString("\nJob title: "));
 
+        System.out.println("\n-----------------");
         jlu.displayJobCategories();
-        String jobCat = jlu.returnJobCategory(input.acceptInt("Please select the job category *", 1, list.length));
+        System.out.println("-----------------");
+        String jobCat = jlu.returnJobCategory(input.acceptInt("\nPlease select the job category *", 1, list.length));
         req.setJobCategory(jobCat);
 
-        req.setJobLocation(input.acceptString("Location of the job:"));
-        req.setJobHours(input.acceptString("Job type (Full time, Contract, Part time):"));
-        req.setJobPay(input.acceptString("Job compensation per annum"));
+        req.setJobLocation(input.acceptString("\nLocation of the job:"));
+        req.setJobHours(input.acceptString("\nJob type (Full time, Contract, Part time):"));
+        req.setJobPay(input.acceptString("\nJob compensation per annum"));
         //req.setJobSkills(/*JOB SEEKER SKILL SET IN PROFILE*/);
 
         return req;

@@ -5,8 +5,10 @@ import Control.FileIO;
 import Control.LogInCtrl;
 import Control.JobSeekerCtrl;
 import Control.JobListingCtrl;
+import Model.JobSeeker;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,7 +84,7 @@ public class JobListingUI {
                 + "Press 8 to edit application deadline\n"
                 + "Press 9 to edit job advertisement status\n"
                 + "Press 0 to go back\n"
-                + "-----------------------------------------";
+                + "--------------------------------------------";
         return input.acceptInt(msg, 0, 9);
     }
 
@@ -95,8 +97,7 @@ public class JobListingUI {
 
     //Accepts input from recruiters about job details, then directs them to job listing control to add the job
     public void inputJobDetails()
-            throws IOException
-    {
+            throws IOException, ParseException {
         Model.JobListing jl = new Model.JobListing();
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
         Input input = new Input();
@@ -104,15 +105,19 @@ public class JobListingUI {
         FileIO file = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
+        System.out.println("\n        CREATE A NEW JOB\n"
+            + "--------------------------------------------");
         System.out.println("\nPlease provide the following details.\n(Every field is mandatory.)");
         String msg = "\nPlease ";
 
         //Enter job title
-        jl.setJobTitle(input.acceptMandatoryString(msg + "enter the job title *"));
+        jl.setJobTitle(input.acceptMandatoryString(msg + "enter the job title:"));
 
         //Display list of job categories and allow recruiter to choose from or add new ones to the system.
+        System.out.println("\n---------------------------");
         displayJobCategories();
-        String jobCat = returnJobCategory(input.acceptInt(msg + "select the job category *", 1, list.length));
+        System.out.println("---------------------------");
+        String jobCat = returnJobCategory(input.acceptInt(msg + "select the job category:", 1, list.length));
         if (jobCat.equals("Other"))
         {
             jl.setJobCategory(addJobCategory());
@@ -121,19 +126,19 @@ public class JobListingUI {
         }
 
         //Enter location
-        jl.setJobLocation(input.acceptMandatoryString(msg + "enter the location of the job *"));
+        jl.setJobLocation(input.acceptMandatoryString(msg + "enter the location of the job:"));
 
         //Enter job hours/type
-        jl.setJobHours(input.acceptMandatoryString(msg + "enter the job type (Full time, Contract, Part time) *"));
+        jl.setJobHours(input.acceptMandatoryString(msg + "enter the job type (Full time, Contract, Part time):"));
 
         //Enter job pay
-        jl.setJobPay(input.acceptMandatoryString(msg + "enter the compensation per annum"));
+        jl.setJobPay(input.acceptMandatoryString(msg + "enter the compensation per annum:"));
 
         //Enter job skills
         jl.setJobSkills(inputJobListingSkill());
 
         //Enter job description
-        jl.setJobDescription(input.acceptMandatoryString(msg + "enter the job description *"));
+        jl.setJobDescription(input.acceptMandatoryString(msg + "enter the job description:"));
 
         //Enter job application deadline
         //boolean validIpt = true;
@@ -144,7 +149,7 @@ public class JobListingUI {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         do {
             try {
-               iptDate = input.acceptDate(msg + "enter the application deadline in format dd-mm-yyyy *");
+               iptDate = input.acceptDate(msg + "enter the application deadline in format dd-mm-yyyy:");
                validIpt = false;
 
             } catch (Exception e) {
@@ -167,6 +172,16 @@ public class JobListingUI {
         // Send to Job Listing Controller to create new job
         jlc.addNewJob(jl.getJobRC(), jl.getJobId(), jl.getJobTitle(), jl.getJobCategory(), jl.getJobLocation(), jl.getJobHours(), jl.getJobPay(), jl.getJobSkills(), jl.getJobDescription(), jl.getAppDeadline(), jl.getJobAd());
 
+        System.out.println("\n---------------------------\n"
+                + " Job successfully created!\n"
+                + "---------------------------");
+
+        int proceedNo = input.acceptInt("Please press 1 to proceed.", 1, 1);
+
+        if (proceedNo == 1)
+        {
+            jlc.viewJLFromRC();
+        }
     }
 
     //Accepts input from users to add skills
@@ -178,7 +193,7 @@ public class JobListingUI {
         ArrayList <String> iptSkills = new ArrayList<String>();
         Input input = new Input();
         do {
-            String iptSkill = input.acceptString("Please enter a skill:");
+            String iptSkill = input.acceptString("\nPlease enter a skill the job requires:");
             iptSkills.add(iptSkill);
             // add another skill?
             char userRepsonse = input.acceptChar("To add another skill please enter y. \nTo complete the list please enter n");
@@ -203,13 +218,13 @@ public class JobListingUI {
     public static int manageJobOptions()
     {
         Input input = new Input();
-        String msg = "-----------------------------------------\n"
+        String msg = "--------------------------------------------\n"
                 + "Press 1 to edit job listing\n"
                 + "Press 2 to view applications\n"
                 + "Press 3 to invite candidates\n"
                 + "Press 4 to delete job listing\n"
                 + "Press 0 to go back\n"
-                + "-----------------------------------------\n";
+                + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 4);
     }
 
@@ -217,22 +232,22 @@ public class JobListingUI {
     public static int modifySkillOptions()
     {
         Input input = new Input();
-        String msg = "-----------------------------------------\n"
+        String msg = "\n--------------------------------------------\n"
                 + "      EDIT SKILL\n"
                 + "Press 1 to modify skill\n"
                 + "Please 2 to delete skill\n"
                 + "Press 0 to go back\n"
-                + "-----------------------------------------\n";
+                + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 2);
     }
 
     public static int openJobOptions()
     {
         Input input = new Input();
-        String msg = "-----------------------------------------\n"
+        String msg = "--------------------------------------------\n"
                 + "Press 1 to apply for this job\n"
-                + "Press 0 to go back\n"
-                + "-----------------------------------------\n";
+                + "Press 0 to go back to homepage\n"
+                + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 1);
     }
 
@@ -250,13 +265,37 @@ public class JobListingUI {
     public static int openSkillMenu()
     {
         Input input = new Input();
-        String msg = "-----------------------------------------\n"
+        String msg = "\n--------------------------------------------\n"
                 + "      EDIT JOB LISTING\n"
                 + "Press 1 to add new skill\n"
                 + "Press 2 to modify/delete a skill\n"
                 + "Press 0 to go back\n"
-                + "-----------------------------------------\n";
+                + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 2);
+    }
+
+    //Prints the job seekers who match with a job and allow user to select one to invite for interview
+    public int selectJobSeeker(ArrayList<JobSeeker> js)
+    {
+        Input input = new Input();
+        String msg = "-----------------------------------------\n";
+        for(int i = 0; i < js.size(); i++)
+        {
+            msg += "Job Seeker " + (i + 1) + ":\n";
+            msg += "Matching Score: " + js.get(i).getMatchingScore() + "\n";
+            msg += "Job skills are:\n";
+
+            for(int j = 0; j < js.get(i).getSkillListSize(); j++)
+            {
+                msg += (j + 1) + ": " + js.get(i).getSkillFromList(j) + "\n";
+            }
+
+            msg += "-----------------------------------------\n";
+        }
+        msg += "Please enter the job seeker number to view the job seeker.\n";
+        msg += "Alternatively, press 0 to go back.";
+
+        return input.acceptInt(msg, 0, js.size());
     }
 
 }

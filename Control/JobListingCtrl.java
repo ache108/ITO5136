@@ -5,7 +5,7 @@ import Model.JobListing;
 import View.Input;
 import View.JobListingUI;
 import View.JobSeekerUI;
-
+import Control.MatchingCtrl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -51,10 +51,10 @@ public class JobListingCtrl {
         FileIO file2 = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file2.readFile("\n").split("\n");
 
-        System.out.println("-----------------------------------\n"
-                + "      EDIT JOB LISTING\n");
+        System.out.println("            EDIT JOB LISTING\n"
+            + "--------------------------------------------\n");
         jl.displayJobDetails();
-        System.out.println("-----------------------------------\n");
+        System.out.println("--------------------------------------------\n");
         String newString = "";
         Date newDate;
         int detailNo = JobListingUI.editJobOptions();
@@ -260,12 +260,9 @@ public class JobListingCtrl {
         return jobID;
     }
 
-    public void generateJobSearch(Model.JobListing req) throws IOException, ParseException {
-        parseFromCSV();
+    public void generateSearchResults(ArrayList<Model.JobListing> jobList) throws IOException, ParseException {
 
-        printJobListJS(matchJobs(jobList, req));
-
-        if (matchJobs(jobList, req).size() > 0) {
+        if (jobList.size() > 0) {
             int num = viewJobListingJS(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
             openJobListing(jobList.get(num - 1));
         } else {
@@ -282,7 +279,8 @@ public class JobListingCtrl {
     //Direct to each functionality related to job listing management
     public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
         JobListingUI jlu = new JobListingUI();
-        System.out.println("       MANAGE JOB LISTING");
+        System.out.println("\n             MANAGE JOB LISTING\n"
+            + "--------------------------------------------");
         jl.displayJobDetails();
         int choice = JobListingUI.manageJobOptions();
         switch (choice)
@@ -290,22 +288,38 @@ public class JobListingCtrl {
             case 1:
                 //edit listing
                 editJobListing(jl);
+                break;
             case 2:
                 //view applications
                 Control.JobApplicationCtrl.viewRCApplication();
+                break;
             case 3:
                 //invite candidates
+                MatchingCtrl mc = new MatchingCtrl();
+                ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
+                int usrIn = jlu.selectJobSeeker(js);
+                if(usrIn == 0)
+                    manageJobListing(jl);
+                else
+                    System.out.println(usrIn);
+                break;
+            case 4:
+                //delete job listing
+                removeOldJob(jl);
+                viewJLFromRC();
+                break;
             case 0:
                 //go back
                 viewJLFromRC();
+                break;
         }
     }
 
     //Generate matching scores for all job listings, filters out private jobs and
     //jobs that do not match job title search criteria, and call method to sort them
-    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, JobListing req)
-    {
+    public ArrayList<Model.JobListing> matchJobs(ArrayList<Model.JobListing> jobList, JobListing req) throws IOException, ParseException {
         MatchingCtrl mc = new MatchingCtrl();
+        Model.JobSeeker js = Control.JobSeekerCtrl.getCurrentJobSeeker();
 
         //Remove all private jobs from joblist first.
         ArrayList<Model.JobListing> publicJobList = removePrivateJobs(jobList);
@@ -316,19 +330,43 @@ public class JobListingCtrl {
             updatedJobList.get(i).incrementMatchingScore(1);
         }
 
-        for (int i = 0; i < jobList.size(); i++) {
+        //Matching job category, location, hours, and pay with user search criteria
+        for (int i = 0; i < updatedJobList.size(); i++) {
             if(updatedJobList.get(i).getJobCategory().equals(req.getJobCategory())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobLocation(), req.getJobLocation())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobLocation(), req.getJobLocation()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobHours(), req.getJobHours())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobHours(), req.getJobHours()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
-            if(mc.isMatch(updatedJobList.get(i).getJobPay(), req.getJobPay())) {
+            if(mc.isMatch(updatedJobList.get(i).getJobPay(), req.getJobPay()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
+
+            //Matching user skills and job listing
+            ArrayList<String> list1 = updatedJobList.get(i).getJobSkills();
+            ArrayList<String> list2 = js.getSkillList();
+
+            for (int j = 0; j < list2.size(); j++)
+                {
+                    for (int k = 0; k < list1.size(); k++)
+                    {
+                        String skill1 = list2.get(j).replace('[', ' ').replace(']', ' ').trim();
+                        String skill2 = list1.get(k).replace('[', ' ').replace(']', ' ').trim();
+
+                        //System.out.println("Comparing " + skill1 + " and " + skill2);
+
+                        if(mc.isMatch(skill1, skill2)) {
+                            //System.out.println("Updating score!");
+                            updatedJobList.get(i).incrementMatchingScore(1);
+                        }
+                    }
+                }
+
+
+
         }
 
         filterJobSearch(updatedJobList);
@@ -339,7 +377,7 @@ public class JobListingCtrl {
         return updatedJobList;
     }
 
-    //BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
+    /*BAILEY'S MATCHING CODES. MAGGIE: I have made quite a few changes to yours so leaving yours here just in case we change our minds!
     public void matchJobs(JobListing reqs)
     {
         for(int i = 0; i < jobList.size(); i++)
@@ -372,7 +410,7 @@ public class JobListingCtrl {
         }
 
         sortJobs();
-    }
+    }*/
 
     //Method for JS to interact with job listing
     public void openJobListing(Model.JobListing jl) throws IOException, ParseException {
@@ -385,7 +423,7 @@ public class JobListingCtrl {
                 Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
-                generateJobSearch(req);
+                JobSeekerCtrl.runJSHome();
         }
     }
 
@@ -396,7 +434,7 @@ public class JobListingCtrl {
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
         jobList = new ArrayList<Model.JobListing>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
 
         String[] numJob = file.readFile("\n").split("\n");
 
@@ -432,16 +470,18 @@ public class JobListingCtrl {
             throws IOException, FileNotFoundException, ParseException
     {
 
-        System.out.println("          JOB LIST\n--------------------------------");
+        System.out.println("                 JOB LIST\n"
+                + "--------------------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ":          ");
-            System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
-            System.out.println(jobList.get(i).getJobTitle().toUpperCase());
+            System.out.println("Job ID:                  " + jobList.get(i).getJobId());
+            //System.out.println("Matching Score:          " + jobList.get(i).getMatchingScore());
+            System.out.println("Job Title:               " + jobList.get(i).getJobTitle().toUpperCase());
             System.out.println("Application deadline:    " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
 
-            System.out.println("--------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
     }
@@ -451,17 +491,18 @@ public class JobListingCtrl {
             throws IOException, FileNotFoundException, ParseException
     {
 
-        System.out.println("--------------------------------");
+        System.out.println("\n               SEARCH RESULTS\n"
+                + "--------------------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
-            System.out.println("Job " + (i+1) + ": ");
-            System.out.println("Matching Score: " + jobList.get(i).getMatchingScore());
-            System.out.println(jobList.get(i).getJobTitle());
-            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
-            System.out.println("Job skills are: ");
+            System.out.println("Job " + (i+1) + ": " + jobList.get(i).getJobTitle().toUpperCase());
+            System.out.println("\nMatching Score: " + jobList.get(i).getMatchingScore());
+            System.out.println("(Matching score indicates how relevant the job \nis to your search criteria and skill sets.)\n");
+            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()) + "\n");
+            System.out.println("Required skills are:       ");
             jobList.get(i).displayJobSkills();
 
-            System.out.println("--------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
     }
@@ -551,12 +592,17 @@ public class JobListingCtrl {
     }
 
     //JS-centered method to call all the relevant methods for JS to search and view job listings.
-    public void viewJLFromJS()
+    public ArrayList<Model.JobListing> viewJLFromJS()
             throws IOException, ParseException
     {
         View.JobSeekerUI jsu = new JobSeekerUI();
         req = jsu.inputSearchKeywords();
-        generateJobSearch(req);
+        ArrayList<Model.JobListing> searchResults = matchJobs(jobList, req);
+
+        printJobListJS(searchResults);
+        generateSearchResults(searchResults);
+
+        return searchResults;
     }
 
     //RC-centered method to call all the relevant methods for RC to work on Job Listings.
@@ -577,10 +623,11 @@ public class JobListingCtrl {
                 e.printStackTrace();
             }
         } else {
-            System.out.print("-----------------------------------------");
+            System.out.print("--------------------------------------------\n"
+                + "             VIEW JOB DETAILS            ");
             jobList.get(jobNo - 1).displayJobDetails();
             System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd(jobList.get(jobNo - 1).getJobAd()));
-            System.out.println("-----------------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
         return (jobNo);
@@ -595,9 +642,10 @@ public class JobListingCtrl {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("-----------------------------------------");
+            System.out.println("\n             VIEW JOB DETAILS            \n"
+                    + "--------------------------------------------");
             jobList.get(jobNo - 1).displayJobDetails();
-            System.out.println("-----------------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
         return (jobNo);
