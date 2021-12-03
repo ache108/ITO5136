@@ -122,11 +122,13 @@ public class JobApplicationCtrl {
         String[] list = file.readFile("\n").split("\n");
 
         String id = ja.getJobApplicationJobId();
+        String userName = ja.getRecruiterUserName();
 
         for (int i = 0; i < list.length; i++)
         {
             String[] jobApp = list[i].split(";");
-            if (id.equals(jobApp[0]))
+            // job id and user id to make sure delete right line
+            if ((id.equals(jobApp[0])) && (userName.equals(jobApp[1])))
             {
                 file.removeLine(list[i]);
                 break;
@@ -141,7 +143,7 @@ public class JobApplicationCtrl {
         int jobNum = 0;
         String jobId = "";
 
-        jobNum = View.JobApplicationUI.chooseJobApplication(jobAppSize);
+        jobNum = View.JobApplicationUI.chooseJobApplication(99);
         jobId = String.valueOf(jobNum);
         for (int i = 0; i < jobAppSize; i++)
         {
@@ -288,6 +290,7 @@ public class JobApplicationCtrl {
                            setJobApplicationStatus( ja,"accepted");
                            fileInfo = writeInfoAsString(ja);
                            writeJobApplicationToFile(fileInfo);
+                           Control.InterviewCtrl.createNewInterview(ja);
                            continue;
                        case 2:
                            removeOldJobAppFromFile(ja);

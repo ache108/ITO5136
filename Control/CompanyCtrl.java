@@ -2,6 +2,9 @@ package Control;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CompanyCtrl {
 
@@ -15,6 +18,27 @@ public class CompanyCtrl {
         String rcDetails = rcID + "," + usrCompany + "," + usrCompAddress+ "," + usrCompEmail + "," + usrCompPhone+ "," + usrCompDescr;
         writeNewRCToFile(rcDetails, Control.JSS.RCCOMPDETAILS);
 
+    }
+
+    public static String getCompanyLocation(String rcID)
+            throws IOException, ParseException
+    {
+        // return only office location as string
+        String compLocation = "";
+
+        Control.FileIO file = new Control.FileIO(Control.JSS.RCCOMPDETAILS);
+        String[] numCompanies = file.readFile("\n").split("\n");
+
+        for (int i = 0; i< numCompanies.length; i--)
+        {
+            String[] details = numCompanies[i].split(",");
+            if (details[0].equals(rcID)) //(get company location for the recruiter only)
+            {
+                compLocation = details[2];
+                break;
+            }
+        }
+        return compLocation;
     }
 
     public static void writeNewRCToFile(String infoToWrite, String fileName)

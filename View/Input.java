@@ -67,6 +67,27 @@ public class Input
         return date;
     }
 
+    public Date acceptDateTime(String prompt)
+        throws IllegalArgumentException
+    {
+        boolean validIpt = true;
+        Date date = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+
+        do {
+            try {
+                printPrompt(prompt);
+                String iptDate = keyboardInput();
+                date = dateFormat.parse(iptDate);
+                validIpt = false;
+
+            } catch (Exception e) {
+                printPrompt("Error! Please enter date in format dd-mm-yyyy with 12 hour time and am/pm");
+            }
+        } while (validIpt);
+        return date;
+    }
+
     public double acceptDouble(String prompt)
         throws IllegalArgumentException
     {
