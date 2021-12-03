@@ -434,8 +434,7 @@ public class JobListingCtrl {
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
         Model.JobListing jl = new Model.JobListing();
         jobList = new ArrayList<Model.JobListing>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
         String[] numJob = file.readFile("\n").split("\n");
 
         for (int i = 0; i < numJob.length; i++) {
@@ -595,6 +594,7 @@ public class JobListingCtrl {
     public ArrayList<Model.JobListing> viewJLFromJS()
             throws IOException, ParseException
     {
+        parseFromCSV();
         View.JobSeekerUI jsu = new JobSeekerUI();
         req = jsu.inputSearchKeywords();
         ArrayList<Model.JobListing> searchResults = matchJobs(jobList, req);

@@ -1,13 +1,12 @@
 package Control;
 
-import Model.User;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class JobApplicationCtrl {
 
@@ -85,7 +84,7 @@ public class JobApplicationCtrl {
     {
         Control.FileIO file = new Control.FileIO(Control.JSS.JOBAPPLICATIONS);
         String[] allJobApplications = file.readFile("\n").split("\n");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
         ArrayList<Model.JobApplication> ja = new ArrayList<Model.JobApplication>();
         String userName = Control.LogInCtrl.getRcUsername();
 
