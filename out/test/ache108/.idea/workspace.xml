@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="js wage changes">
-      <change beforePath="$PROJECT_DIR$/.idea/ache108.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ache108.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Control/JobApplicationCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobApplicationCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Control/JobListingCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobListingCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/JobSeekerCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Control/RecruiterCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Control/RecruiterCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/JobSeekerUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/JobSeekerUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ache108/Control/JobSeekerCtrl.class" afterDir="false" />
-    </list>
+    <list default="true" id="b02f73d2-2272-46f9-8363-199c91db8eab" name="Changes" comment="fixed dob" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -325,7 +316,35 @@
       <option name="project" value="LOCAL" />
       <updated>1638347029457</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="fixed dob">
+      <created>1638449353638</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1638449353638</updated>
+    </task>
+    <task id="LOCAL-00036" summary="fixed dob">
+      <created>1638449388780</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1638449388780</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fixed dob">
+      <created>1638450173557</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1638450173557</updated>
+    </task>
+    <task id="LOCAL-00038" summary="fixed dob">
+      <created>1638450712802</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1638450712802</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -355,6 +374,7 @@
     <MESSAGE value="Added more functionality to edit js skills" />
     <MESSAGE value="set JS details method added" />
     <MESSAGE value="js wage changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="js wage changes" />
+    <MESSAGE value="fixed dob" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed dob" />
   </component>
 </project>
