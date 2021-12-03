@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class JobListingCtrl {
 
@@ -50,10 +51,10 @@ public class JobListingCtrl {
         FileIO file2 = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file2.readFile("\n").split("\n");
 
-        System.out.println("-----------------------------------\n"
-                + "      EDIT JOB LISTING\n");
+        System.out.println("            EDIT JOB LISTING\n"
+            + "--------------------------------------------\n");
         jl.displayJobDetails();
-        System.out.println("-----------------------------------\n");
+        System.out.println("--------------------------------------------\n");
         String newString = "";
         Date newDate;
         int detailNo = JobListingUI.editJobOptions();
@@ -278,7 +279,8 @@ public class JobListingCtrl {
     //Direct to each functionality related to job listing management
     public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
         JobListingUI jlu = new JobListingUI();
-        System.out.println("       MANAGE JOB LISTING");
+        System.out.println("\n             MANAGE JOB LISTING\n"
+            + "--------------------------------------------");
         jl.displayJobDetails();
         int choice = JobListingUI.manageJobOptions();
         switch (choice)
@@ -413,8 +415,7 @@ public class JobListingCtrl {
                 Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
-                printJobListJS(jobList);
-                generateSearchResults(jobList);
+                JobSeekerCtrl.runJSHome();
         }
     }
 
@@ -461,7 +462,8 @@ public class JobListingCtrl {
             throws IOException, FileNotFoundException, ParseException
     {
 
-        System.out.println("          JOB LIST\n--------------------------------");
+        System.out.println("                 JOB LIST\n"
+                + "--------------------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
             System.out.println("Job " + (i+1) + ":          ");
@@ -471,7 +473,7 @@ public class JobListingCtrl {
             System.out.println("Application deadline:    " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
             System.out.println("Advertise:               " + jobList.get(i).labelJobAd(jobList.get(i).getJobAd()));
 
-            System.out.println("--------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
     }
@@ -481,17 +483,18 @@ public class JobListingCtrl {
             throws IOException, FileNotFoundException, ParseException
     {
 
-        System.out.println("--------------------------------");
+        System.out.println("\n               SEARCH RESULTS\n"
+                + "--------------------------------------------");
         for (int i = 0; i < jobList.size(); i++)
         {
-            System.out.println("Job " + (i+1) + ": ");
-            System.out.println("Matching Score: " + jobList.get(i).getMatchingScore());
-            System.out.println(jobList.get(i).getJobTitle());
-            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()));
-            System.out.println("Job skills are: ");
+            System.out.println("Job " + (i+1) + ": " + jobList.get(i).getJobTitle().toUpperCase());
+            System.out.println("\nMatching Score: " + jobList.get(i).getMatchingScore());
+            System.out.println("(Matching score indicates how relevant the job \nis to your search criteria and skill sets.)\n");
+            System.out.println("Application deadline: " + dateShortFormat.format(jobList.get(i).getAppDeadline()) + "\n");
+            System.out.println("Required skills are:       ");
             jobList.get(i).displayJobSkills();
 
-            System.out.println("--------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
     }
@@ -612,10 +615,11 @@ public class JobListingCtrl {
                 e.printStackTrace();
             }
         } else {
-            System.out.print("-----------------------------------------");
+            System.out.print("--------------------------------------------\n"
+                + "             VIEW JOB DETAILS            ");
             jobList.get(jobNo - 1).displayJobDetails();
             System.out.println("This listing is currently set to: " + jobList.get(jobNo - 1).labelJobAd(jobList.get(jobNo - 1).getJobAd()));
-            System.out.println("-----------------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
         return (jobNo);
@@ -630,9 +634,10 @@ public class JobListingCtrl {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("-----------------------------------------");
+            System.out.println("\n             VIEW JOB DETAILS            \n"
+                    + "--------------------------------------------");
             jobList.get(jobNo - 1).displayJobDetails();
-            System.out.println("-----------------------------------------");
+            System.out.println("--------------------------------------------");
         }
 
         return (jobNo);

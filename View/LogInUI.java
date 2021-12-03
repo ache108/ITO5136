@@ -7,14 +7,14 @@ public class LogInUI
     public String inputUsrName()
     {
         Input input = new Input();
-        return input.acceptString("Please enter your username:");
+        return input.acceptString("\nPlease enter your username:");
     }
 
     //get username
     public String inputUsrPwd()
     {
         Input input = new Input();
-        return input.acceptString("Please enter your password:");
+        return input.acceptString("\nPlease enter your password:");
     }
 
     public int displayChoice(String msg, int min, int max)
@@ -32,7 +32,10 @@ public class LogInUI
     public int displayWelcomeScreen()
     {
         Input input = new Input();
-        String msg = "      WELCOME\n"
+        String msg = "----------------------------\n"
+                +    "|      WELCOME TO JSS      |\n"
+                + "----------------------------\n"
+                + "To navigate, please enter a number and press enter to proceed through each page.\n\n"
                 + "Press 1 to log in as a Job Seeker\n"
                 + "Press 2 to log in as a Recruiter\n"
                 + "Press 3 to register as a Job Seeker\n"

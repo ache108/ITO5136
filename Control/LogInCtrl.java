@@ -95,7 +95,7 @@ public class LogInCtrl
 
         if(verifiedUsr)
         {
-            ui.displayMsg("Logging in as " + username);
+            ui.displayMsg("\nLogging in as " + username + "\n");
 
             if(usrType == 1)
             {

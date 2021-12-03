@@ -72,17 +72,18 @@ public class RecruiterUI extends View.UserUI
         Control.FileIO file = new Control.FileIO(Control.JSS.RCCOMPDETAILS);
 
         String[] numJob = file.readFile("\n").split("\n");
-
+        System.out.print("\n            VIEW COMPANY PROFILE\n"
+            + "--------------------------------------------");
         for (int i = 0; i < numJob.length; i++)
         {
             String[] details = numJob[i].split(",");
             if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
             {
-                System.out.println("\nCompany name: " + details[1]);
-                System.out.println("Company Address: " + details[2]);
-                System.out.println("Company Email: " + details[3]);
-                System.out.println("Company Phone Number: " + details[4]);
-                System.out.println("Company Description: " + details[5]);
+                System.out.println("\nCompany name:           " + details[1]);
+                System.out.println("Company Address:        " + details[2]);
+                System.out.println("Company Email:          " + details[3]);
+                System.out.println("Company Phone Number:   " + details[4]);
+                System.out.println("Company Description:    " + details[5]);
             }
         }
         editCompanyListing();
@@ -198,7 +199,8 @@ public class RecruiterUI extends View.UserUI
     public static int editCompanyOptions()
     {
         Input input = new Input();
-        String msg = "      \nEDIT COMPANY LISTING\n"
+        String msg = "\n           EDIT COMPANY LISTING\n"
+                + "--------------------------------------------\n"
                 + "Press 1 to edit company profile name\n"
                 + "Press 2 to edit company profile address\n"
                 + "Press 3 to edit company profile email\n"
@@ -212,7 +214,9 @@ public class RecruiterUI extends View.UserUI
     public static int displayRCHome()
     {
         Input input = new Input();
-        String msg = "      \nRECRUITER HOME PAGE\n"
+        String msg = "----------------------------------\n"
+                +    "|       RECRUITER HOME PAGE      |\n"
+                + "----------------------------------\n"
                 + "Press 1 to create job listing\n"
                 + "Press 2 to view job listing\n"
                 + "Press 3 to view and edit company profile\n"

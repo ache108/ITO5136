@@ -5,6 +5,7 @@ import java.io.*;
 import Control.FileIO;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Locale;
 
 
 public class UserCntrl
@@ -32,7 +33,7 @@ public class UserCntrl
         String lName = "";
         String city = "";
         String state = "";
-        String dob = "";
+        Date userDob = null;
         String profilePublic = "";
 
         Control.FileIO file = new Control.FileIO(Control.JSS.JSDETAILS);
@@ -49,15 +50,16 @@ public class UserCntrl
                 lName = details[3];
                 city = details[4];
                 state = details[5];
-                dob = details[6];
+                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
+                userDob = format.parse(details[6]);
                 profilePublic = details[7];
                 break;
             }
         }
 
         boolean pubProfile = Boolean.parseBoolean(profilePublic);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
-        Date userDob = dateFormat.parse(dob);
+        /*SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        Date userDob = dateFormat.parse(dob);*/
 
         Model.User curUser = new Model.User (username, email, fName, lName, city, state, userDob, pubProfile);
         return curUser;

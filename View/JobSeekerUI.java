@@ -9,6 +9,7 @@ import java.util.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Locale;
 
 public class JobSeekerUI extends View.UserUI
 {
@@ -104,21 +105,24 @@ public class JobSeekerUI extends View.UserUI
 
             String[] numJob = file.readFile("\n").split("\n");
 
+            System.out.print("\n              VIEW PROFILE\n"
+                + "--------------------------------------------");
+
             for (int i = 0; i < numJob.length; i++)
             {
                 String[] details = numJob[i].split(";");
                 if (details[0].equals(Control.LogInCtrl.getRcUsername())) //(display only profile for this user only)
                 {
-                    System.out.println("\nEmail: " + details[1]);
-                    System.out.println("First Name: " + details[2]);
-                    System.out.println("Last Name: " + details[3]);
-                    System.out.println("City: " + details[4]);
-                    System.out.println("State: " + details[5]);
-                    System.out.println("Date of Birth: " + details[6]);
-                    System.out.println("Public Profile: " + details[7]);
-                    System.out.println("Desired Yearly Wage: " + details[8]);
-                    System.out.println("Work Type: " + details[9]);
-                    System.out.println("Work Residency: " + details[10]);
+                    System.out.println("\nEmail:                " + details[1]);
+                    System.out.println("First Name:           " + details[2]);
+                    System.out.println("Last Name:            " + details[3]);
+                    System.out.println("City:                 " + details[4]);
+                    System.out.println("State:                " + details[5]);
+                    System.out.println("Date of Birth:        " + details[6]);
+                    System.out.println("Public Profile:       " + details[7]);
+                    System.out.println("Desired Yearly Wage:  " + details[8]);
+                    System.out.println("Work Type:            " + details[9]);
+                    System.out.println("Work Residency:       " + details[10]);
                     displaySkills2();
                 }
             }
@@ -128,7 +132,8 @@ public class JobSeekerUI extends View.UserUI
     public static int editJSOptionsDisplay()
     {
         Input input = new Input();
-        String msg = "      \nEDIT JOB SEEKER PROFILE\n"
+        String msg = "\n\n         EDIT JOB SEEKER PROFILE\n"
+                + "--------------------------------------------\n"
                 + "Press 1 to edit your email\n"
                 + "Press 2 to edit your first name\n"
                 + "Press 3 to edit your last name\n"
@@ -174,8 +179,8 @@ public class JobSeekerUI extends View.UserUI
                 lName = details[3];
                 city = details[4];
                 state = details[5];
-                SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
-                dob = format.parse(details[6]);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
+                dob = dateFormat.parse(details[6]);
                 profilePublic = Boolean.valueOf(details[7]);
                 wage = Double.valueOf(details[8]);
                 workType = details[9];
@@ -318,7 +323,7 @@ public class JobSeekerUI extends View.UserUI
         {
             newList.clear();
         }
-        System.out.print("Skills: ");
+        System.out.print("Skills:               ");
         if (newList.size() == 1)
         {
             StringBuilder sb = new StringBuilder(newList.get(0));
@@ -483,7 +488,9 @@ public class JobSeekerUI extends View.UserUI
     public static int displayJSHome()
     {
         Input input = new Input();
-        String msg = "      JOB SEEKER HOME PAGE\n"
+        String msg = "----------------------------------\n"
+                +    "|      JOB SEEKER HOME PAGE      |\n"
+                +    "----------------------------------\n"
                 + "Press 1 to search for jobs\n"
                 + "Press 2 to view and edit your profile\n"
                 + "Press 3 to view your interview offers\n"
@@ -496,7 +503,8 @@ public class JobSeekerUI extends View.UserUI
     public Model.JobListing inputSearchKeywords()
             throws IOException
     {
-        System.out.println("      SEARCH FOR JOBS");
+        System.out.println("\n            SEARCH FOR JOBS\n"
+                         + "--------------------------------------------");
         Input input = new Input();
         Control.JobSeekerCtrl jsc = new JobSeekerCtrl();
         JobListingUI jlu = new JobListingUI();
@@ -507,15 +515,17 @@ public class JobSeekerUI extends View.UserUI
         String[] list = file.readFile("\n").split("\n");
 
         System.out.println("\nPlease enter keywords for each respective fields to start your search.");
-        req.setJobTitle(input.acceptString("Job title: "));
+        req.setJobTitle(input.acceptString("\nJob title: "));
 
+        System.out.println("\n-----------------");
         jlu.displayJobCategories();
-        String jobCat = jlu.returnJobCategory(input.acceptInt("Please select the job category *", 1, list.length));
+        System.out.println("-----------------");
+        String jobCat = jlu.returnJobCategory(input.acceptInt("\nPlease select the job category *", 1, list.length));
         req.setJobCategory(jobCat);
 
-        req.setJobLocation(input.acceptString("Location of the job:"));
-        req.setJobHours(input.acceptString("Job type (Full time, Contract, Part time):"));
-        req.setJobPay(input.acceptString("Job compensation per annum"));
+        req.setJobLocation(input.acceptString("\nLocation of the job:"));
+        req.setJobHours(input.acceptString("\nJob type (Full time, Contract, Part time):"));
+        req.setJobPay(input.acceptString("\nJob compensation per annum"));
         //req.setJobSkills(/*JOB SEEKER SKILL SET IN PROFILE*/);
 
         return req;
