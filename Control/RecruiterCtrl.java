@@ -24,7 +24,7 @@ public class RecruiterCtrl {
         LogInCtrl lic = new LogInCtrl();
         RecruiterUI rc = new View.RecruiterUI();
         JobListingUI jlu = new View.JobListingUI();
-        JobListingCtrl jlc = new Control.JobListingCtrl();
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
 
         int choiceRC= rc.displayRCHome();
         switch (choiceRC)

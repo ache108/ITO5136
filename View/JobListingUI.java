@@ -1,10 +1,11 @@
 package View;
 
 import Control.FileIO;
-import Control.JSS;
+//import Control.JSS;
 import Control.LogInCtrl;
 import Control.JobSeekerCtrl;
 import Control.JobListingCtrl;
+import Model.JobSeeker;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -59,7 +60,7 @@ public class JobListingUI {
 
     //Display list of Job Caftegories we have on system
     public void displayJobCategories() throws IOException {
-        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        FileIO file = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
         for (int i = 0; i < list.length; i++)
@@ -101,7 +102,7 @@ public class JobListingUI {
         Control.JobListingCtrl jlc = new Control.JobListingCtrl();
         Input input = new Input();
 
-        FileIO file = new FileIO(JSS.JSSJOBCATEGORY);
+        FileIO file = new FileIO(Control.JSS.JSSJOBCATEGORY);
         String[] list = file.readFile("\n").split("\n");
 
         System.out.println("\n        CREATE A NEW JOB\n"
@@ -163,7 +164,7 @@ public class JobListingUI {
         jl.setJobAd(advertiseJob());
 
         //Generate job Id
-        jl.setJobId(JobListingCtrl.generateJobID(JSS.JSSJOBLIST));
+        jl.setJobId(JobListingCtrl.generateJobID(Control.JSS.JSSJOBLIST));
 
         //Link job to RC
         jl.setJobRC(LogInCtrl.getRcUsername());
@@ -271,6 +272,30 @@ public class JobListingUI {
                 + "Press 0 to go back\n"
                 + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 2);
+    }
+
+    //Prints the job seekers who match with a job and allow user to select one to invite for interview
+    public int selectJobSeeker(ArrayList<JobSeeker> js)
+    {
+        Input input = new Input();
+        String msg = "-----------------------------------------\n";
+        for(int i = 0; i < js.size(); i++)
+        {
+            msg += "Job Seeker " + (i + 1) + ":\n";
+            msg += "Matching Score: " + js.get(i).getMatchingScore() + "\n";
+            msg += "Job skills are:\n";
+
+            for(int j = 0; j < js.get(i).getSkillListSize(); j++)
+            {
+                msg += (j + 1) + ": " + js.get(i).getSkillFromList(j) + "\n";
+            }
+
+            msg += "-----------------------------------------\n";
+        }
+        msg += "Please enter the job seeker number to view the job seeker.\n";
+        msg += "Alternatively, press 0 to go back.";
+
+        return input.acceptInt(msg, 0, js.size());
     }
 
 }

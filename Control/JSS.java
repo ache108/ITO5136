@@ -1,11 +1,7 @@
 package Control;
-import Control.LogInCtrl;
-import Model.JobListing;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class JSS
 {

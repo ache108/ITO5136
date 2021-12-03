@@ -14,10 +14,10 @@ public class JobSeekerCtrl {
             throws IOException
     {
         // send to model to create
-        Model.JobSeeker js = new JobSeeker(newUser, hrlyRate, wrkType, wrkResidency, iptSkills);
+        Model.JobSeeker js = new Model.JobSeeker(newUser, hrlyRate, wrkType, wrkResidency, iptSkills);
         // write Output to File
         String wrJS = writeJSString(js);
-        UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
+        Control.UserCntrl.writeNewUserToFile(wrJS, Control.JSS.JSDETAILS);
     }
 
     public static Model.JobSeeker getCurrentJobSeeker()
@@ -53,7 +53,7 @@ public class JobSeekerCtrl {
             usrSkills.add(skillsSplit[i]);
         }
 
-        Model.JobSeeker js = new JobSeeker(curUser, hrlyWage, workType, workRes, usrSkills);
+        Model.JobSeeker js = new Model.JobSeeker(curUser, hrlyWage, workType, workRes, usrSkills);
         return js;
     }
 
@@ -90,7 +90,7 @@ public class JobSeekerCtrl {
             usrSkills.add(skillsSplit[i]);
         }
 
-        Model.JobSeeker js = new JobSeeker(userData, hrlyWage, workType, workRes, usrSkills);
+        Model.JobSeeker js = new Model.JobSeeker(userData, hrlyWage, workType, workRes, usrSkills);
         return js;
     }
 
@@ -127,12 +127,12 @@ public class JobSeekerCtrl {
 
     //Method to link with Job Listing Control.
     public static void searchJob() throws IOException, ParseException {
-        JobListingCtrl jlc = new JobListingCtrl();
+        Control.JobListingCtrl jlc = new Control.JobListingCtrl();
 
         jlc.viewJLFromJS();
     }
 
-    public static String writeJSString(JobSeeker js)
+    public static String writeJSString(Model.JobSeeker js)
     {
         String msg = "";
         msg += js.userName;
@@ -146,7 +146,7 @@ public class JobSeekerCtrl {
         msg += ";" + js.hourlyWageRate;
         msg += ";" + js.wrkType;
         msg += ";" + js.residencyType;
-        msg += ";" + js.skillsList + ";";
+        msg += ";" + js.skillsList;
 
         return msg;
     }

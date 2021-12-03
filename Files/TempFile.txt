@@ -5,5 +5,3 @@ doug,00000004,Head Chef,Food and Beverages,Brisbane,Full Time,100000,Work well u
 cody,00000005,Software engineer,Information and Communication Technology,Sydney,full time,80000,[Communication, Programming, Detail-oriented, Team spirit, Motivated],We are looking to hire someone!,Thu Nov 25 00:00:00 AEDT 2021,true
 bill,00000008,Doctor,Healthcare and Medical,Adelaide,Full Time,120000,[Medical knowledge],Hiring!,Sat Dec 25 00:00:00 AEDT 2021,true
 amy,00000007,Software Engineer,Information and Communication Technology,Brisbane,Full Time,100000,[[[[     Independent,         Team player]],      Proficiency in Java]],    Attention to detail]]]],We are looking to hire a software engineer to join our team in Melbourne. We are a fast-growing startup company. ,Wed Dec 01 00:00:00 AEDT 2021,true
-amy,00000009,Engineer,Engineering,Melbourne,Full Time,100000,[Attention to detail, Math],Hiring!,Sat Jan 23 00:12:00 AEDT 2021,true
-amy,00000010,Tutor,Education and Training,Melbourne,Contract,100000,[Math, Physics, English],We are looking for experienced tutors to join our team in delivering quality teaching to our students. ,Sat Jan 23 00:12:00 AEDT 2021,true
