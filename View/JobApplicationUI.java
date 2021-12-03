@@ -139,7 +139,7 @@ public class JobApplicationUI {
         String msg = "-------------------------------------\n"
                 + "       JOB APPLICATIONS SUBMITTED        \n"
                 + "------------------------------------\n"
-                + "Press 1 to view the applications for a specific Job"
+                + "Press 1 to view the applications for a specific Job\n"
                 + "Press 0 to go back\n"
                 + "--------------------------------\n";
         return input.acceptInt(msg, 0, 2);
