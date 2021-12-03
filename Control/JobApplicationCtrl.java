@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import static View.JobApplicationUI.viewJobApplicationRecruiterSpecificScreen;
+
 public class JobApplicationCtrl {
 
     public static void applyForJob(Model.JobListing jl)
@@ -99,12 +101,16 @@ public class JobApplicationCtrl {
                 boolean jobActive = Boolean.parseBoolean(jobAppDetails[4]);
                 String jobAppStatus = jobAppDetails[5];
 
-                if (userType.equals("JS"))
-                    if ((jobAppUserName.equals(userName)) && (jobActive) && jobAppStatus.equals("submitted"))
+                if (userType.equals("JS")) {
+                    if ((jobAppUserName.equals(userName)) && (jobActive) && jobAppStatus.equals("submitted")) {
                         ja.add(new Model.JobApplication(jobId, jobAppUserName, jobRecruiter, jobAppSubDate));
-                else
-                    if ((jobRecruiter.equals(userName)) && (jobActive))
+                    }
+                }
+                else {
+                    if ((jobRecruiter.equals(userName)) && (jobActive)) {
                         ja.add(new Model.JobApplication(jobId, jobAppUserName, jobRecruiter, jobAppSubDate));
+                    }
+                }
             }
         return ja;
     }
@@ -181,7 +187,7 @@ public class JobApplicationCtrl {
         }
     }
 
-    public static void viewRCApplication()
+    /*public static void viewRCApplication()
             throws IOException, FileNotFoundException, ParseException
     {
         // filters job to only those for the recruiter
@@ -197,15 +203,64 @@ public class JobApplicationCtrl {
                 // back to recruiter home menu
                 Control.RecruiterCtrl.runRCHome();
         }
-    }
+    }*/
 
-    public static void viewRCSpecificApplication(ArrayList<Model.JobApplication> rcJobApps)
+    public static void viewRCSpecificApplication(ArrayList<Model.JobListing> jobList, ArrayList<Model.JobApplication> rcJobApps)
             throws IOException, FileNotFoundException, ParseException
     {
-        int rcJobID = View.JobApplicationUI.viewJobApplicationRecruiterSpecificScreen();
-        String jobID = String.valueOf(rcJobID);
+        JobListingCtrl jlc = new JobListingCtrl();
+        int jobChose = viewJobApplicationRecruiterSpecificScreen(jobList.size());
         int recruiterAction = 0;
-        if (rcJobID == 0)
+        if (jobChose == 0)
+        {
+            // return user home
+            Control.RecruiterCtrl.runRCHome();
+        }
+        else {
+            String jobID = jobList.get(jobChose - 1).getJobId();
+            Model.JobListing jl = getJobApplicationJobListingInfo(jobID);
+            for (int i = 0; i < rcJobApps.size(); i++) {
+                String appJobID = rcJobApps.get(i).getJobApplicationJobId();
+                if (jobID.equals(appJobID)) {
+                    Model.JobApplication ja = rcJobApps.get(i);
+                    String appUserName = ja.getJobApplicationJSUserName();
+                    // for each applicant for their job, get their user info and show recruiter
+                    Model.JobSeeker js = getJobApplicationJobSeekerInfo(appUserName);
+                    recruiterAction = View.JobApplicationUI.viewJobApplicationRecruiter(js, jl);
+                    String fileInfo = "";
+
+                    switch (recruiterAction) {
+                        case 1:
+                            // invite for interview
+                            removeOldJobAppFromFile(ja);
+                            setJobApplicationStatus(ja, "accepted");
+                            fileInfo = writeInfoAsString(ja);
+                            writeJobApplicationToFile(fileInfo);
+                            continue;
+                        case 2:
+                            removeOldJobAppFromFile(ja);
+                            setJobApplicationStatus(ja, "reviewed and not proceeded with");
+                            fileInfo = writeInfoAsString(ja);
+                            writeJobApplicationToFile(fileInfo);
+                            continue;
+                        case 0:
+                            continue;
+
+                    }
+                    System.out.println("All Applicants processed!");
+                    viewRCSpecificApplication(jobList, rcJobApps);
+                }
+            }
+
+        }
+    }
+
+    /*public static void viewRCSpecificApplication(ArrayList<Model.JobApplication> rcJobApps)
+            throws IOException, FileNotFoundException, ParseException
+    {
+        String jobID = View.JobApplicationUI.viewJobApplicationRecruiterSpecificScreen();
+        int recruiterAction = 0;
+        if (jobID.equals("0"))
         {
             // return user home
             Control.RecruiterCtrl.runRCHome();
@@ -255,7 +310,7 @@ public class JobApplicationCtrl {
                 viewRCSpecificApplication(rcJobApps);
             }
         }
-    }
+    }*/
 
     public static void writeJobApplicationToFile(String infoToWrite)
             throws IOException
