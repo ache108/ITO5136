@@ -42,6 +42,9 @@ public class RecruiterCtrl {
                 rc.displayCompany();
                 break;
             case 4:
+                //link to view applications
+                jlc.linkJobApp(jlc.filterRCJob(jlc.parseFromCSV(), LogInCtrl.getRcUsername()));
+            case 5:
                 //link to view interview offers
                 break;
             case 0:

@@ -145,15 +145,15 @@ public class JobApplicationUI {
         return input.acceptInt(msg, 0, 2);
     }
 
-    public static int viewJobApplicationRecruiterSpecificScreen()
+    public static int viewJobApplicationRecruiterSpecificScreen(int max)
     {
         Input input = new Input();
         String msg = "-------------------------------------\n"
                 + "       JOB APPLICATIONS SUBMITTED        \n"
                 + "------------------------------------\n"
-                + "Please enter the Job Id you want to view applicants for \n"
+                + "Please select the job you want to view applicants for \n"
                 + "Press 0 to go back\n"
                 + "--------------------------------\n";
-        return input.acceptInt(msg, 0, 2);
+        return input.acceptInt(msg, 0, max);
     }
 }

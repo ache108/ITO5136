@@ -220,9 +220,8 @@ public class JobListingUI {
         Input input = new Input();
         String msg = "--------------------------------------------\n"
                 + "Press 1 to edit job listing\n"
-                + "Press 2 to view applications\n"
-                + "Press 3 to invite candidates\n"
-                + "Press 4 to delete job listing\n"
+                + "Press 2 to invite candidates\n"
+                + "Press 3 to delete job listing\n"
                 + "Press 0 to go back\n"
                 + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 4);

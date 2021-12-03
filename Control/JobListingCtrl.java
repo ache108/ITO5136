@@ -276,6 +276,13 @@ public class JobListingCtrl {
         }
     }
 
+    //Method to link jl to job app
+    public void linkJobApp(ArrayList<Model.JobListing> jobList) throws IOException, ParseException {
+        JobApplicationCtrl jac = new JobApplicationCtrl();
+        printListJobRC(jobList);
+        JobApplicationCtrl.viewRCSpecificApplication(jobList, JobApplicationCtrl.parseJobApplicationTextFile("RC"));
+    }
+
     //Direct to each functionality related to job listing management
     public void manageJobListing(Model.JobListing jl) throws IOException, ParseException {
         JobListingUI jlu = new JobListingUI();
@@ -290,10 +297,6 @@ public class JobListingCtrl {
                 editJobListing(jl);
                 break;
             case 2:
-                //view applications
-                Control.JobApplicationCtrl.viewRCApplication();
-                break;
-            case 3:
                 //invite candidates
                 MatchingCtrl mc = new MatchingCtrl();
                 ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
@@ -303,7 +306,7 @@ public class JobListingCtrl {
                 else
                     System.out.println(usrIn);
                 break;
-            case 4:
+            case 3:
                 //delete job listing
                 removeOldJob(jl);
                 viewJLFromRC();
@@ -552,6 +555,25 @@ public class JobListingCtrl {
             }
         }
         return jobList;
+    }
+
+    public void printListJobRC(ArrayList<Model.JobListing> currentList) throws IOException, ParseException {
+        JobApplicationCtrl jac = new JobApplicationCtrl();
+        ArrayList<Model.JobApplication> listApp = JobApplicationCtrl.parseJobApplicationTextFile("RC");
+
+        for (int i = 0; i < currentList.size(); i++)
+        {
+            int counter = 0;
+            for (int j = 0; j < listApp.size(); j++)
+            {
+                if (listApp.get(j).getJobApplicationJobId().equals(currentList.get(i).getJobId()))
+                {
+                    counter++;
+                }
+            }
+            System.out.println("Job " + (i+1) + ": " + currentList.get(i).getJobTitle());
+            System.out.println("Number of applications: " + counter);
+        }
     }
 
     //sort jobs based on matching score (descending order)
