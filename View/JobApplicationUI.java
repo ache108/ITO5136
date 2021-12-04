@@ -61,8 +61,7 @@ public class JobApplicationUI {
                 + "First Name:            " + firstName + " \n"
                 + "Last Name:             " + lastName + " \n"
                 + "Email:                 " + email + " \n"
-                + "Skills:                " + Arrays.toString(userSkills.toArray()).replace('[', ' ').replace(']', ' ').trim() + " \n"
-                + "Experience:            " + " \n"
+                + "Skills, Experience & Qualifications:                " + Arrays.toString(userSkills.toArray()).replace('[', ' ').replace(']', ' ').trim() + " \n"
                 + "Username:              " + userName  + " \n"
                 + "--------------------------------------------\n"
                 + "Press 1 to Submit Application\n"
@@ -107,15 +106,13 @@ public class JobApplicationUI {
                 + "--------------------------------------------\n"
                 + "Applicant First Name: " + js.firstName + "\n"
                 + "Applicant Last Name: " + js.lastName + "\n";
-                msg += "Applicant Skills are: \n";
+                msg += "Applicant Skills, Experience and qualifications are: \n";
 
                 for(int j = 0; j < js.getSkillListSize(); j++)
                 {
                     msg += (j + 1) + ": " + js.getSkillFromList(j) + "\n";
                 }
-                msg += "Applicant Qualifications: " + "\n"
-                + "Applicant Experience: " + "\n"
-                + "Applicant Salary Expectations : " + js.hourlyWageRate + "\n"
+                msg += "Applicant Salary Expectations : " + js.hourlyWageRate + "\n"
                 + "Applicant Matching Score: " + jl.getMatchingScore() + "\n"
                 + "--------------------------------------------\n"
                 + "Press 1 to invite job seeker for an interview\n"

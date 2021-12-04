@@ -1,7 +1,6 @@
 package Control;
 
 import Model.JobListing;
-import Model.JobSeeker;
 import Model.User;
 import View.Input;
 import View.JobListingUI;
@@ -302,18 +301,12 @@ public class JobListingCtrl {
                 //invite candidates
                 Control.MatchingCtrl mc = new Control.MatchingCtrl();
                 ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
-                Model.JobSeeker jobSeeker = new JobSeeker();
-                JobSeekerUI jsu = new View.JobSeekerUI();
-                System.out.println("         VIEW CANDIDATES PROFILE\n"
-                        + "--------------------------------------------");
                 int usrIn = jlu.selectJobSeeker(js);
                 if(usrIn == 0)
                     manageJobListing(jl);
                 else
-                    //Control.InterviewCtrl.viewRecruiterInterviews();
-                    jobSeeker = Control.JobSeekerCtrl.getJobSeeker(js.get(usrIn - 1).getUserName());
-                    jobSeeker.displayJobSeeker();
-                    jobSeeker.displayAllSkills();
+                    Control.InterviewCtrl.createNewInterviewWithoutApplication(js.get(usrIn), jl);
+                    viewJLFromRC();
                 break;
             case 3:
                 //delete job listing

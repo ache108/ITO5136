@@ -193,11 +193,11 @@ public class JobListingUI {
         ArrayList <String> iptSkills = new ArrayList<String>();
         Input input = new Input();
         do {
-            String iptSkill = input.acceptString("\nPlease enter a skill the job requires:");
-            iptSkills.add(iptSkill);
-            // add another skill?
-            char userRepsonse = input.acceptChar("To add another skill please enter y. \nTo complete the list please enter n");
             do {
+                String iptSkill = input.acceptString("\nPlease enter a skill the job requires:");
+                iptSkills.add(iptSkill);
+                // add another skill?
+                char userRepsonse = input.acceptChar("To add another skill please enter y. \nTo complete the list please enter n");
                 if (userRepsonse == 'y') {
                     addAnotherSkill = true;
                     charInputCheck = false;
