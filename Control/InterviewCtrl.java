@@ -50,6 +50,20 @@ public class InterviewCtrl
         writeInterviewToFile(infoToWrite);
     }
 
+    public static void createNewInterviewWithoutApplication(Model.JobSeeker js, Model.JobListing jl)
+            throws IOException, ParseException
+    {
+        String jobId = jl.getJobId();
+        String jsUserName = js.userName;
+        String rcUserName = jl.getJobRC();
+        LocalDate responseDate = LocalDate.now().plusDays(10);
+        Date interviewDate = View.InterviewUI.createNewInterview();
+        String officeLocation = Control.CompanyCtrl.getCompanyLocation(rcUserName);
+        Model.Interview intvw = new Interview(interviewDate, officeLocation , responseDate ,jobId, jsUserName, rcUserName, "invited");
+        String infoToWrite = writeInterviewToString(intvw);
+        writeInterviewToFile(infoToWrite);
+    }
+
     public static void rejectInterviewOffer(Model.Interview intvw)
             throws IOException
     {

@@ -304,7 +304,8 @@ public class JobListingCtrl {
                 if(usrIn == 0)
                     manageJobListing(jl);
                 else
-                    Control.InterviewCtrl.viewRecruiterInterviews();
+                    Control.InterviewCtrl.createNewInterviewWithoutApplication(js.get(usrIn), jl);
+                    viewJLFromRC();
                 break;
             case 3:
                 //delete job listing
