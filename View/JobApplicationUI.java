@@ -10,7 +10,7 @@ import java.util.Date;
 public class JobApplicationUI {
     public static int applicationSubmitted()
     {
-        Input input = new Input();
+        View.Input input = new View.Input();
         String msg = "\n            JOB APPLICATION       \n"
                 + "--------------------------------------------\n"
                 + "Thank you for Submitting your Application!\n"
@@ -40,7 +40,7 @@ public class JobApplicationUI {
     )
     {
         // add details received from controller
-        Input input = new Input();
+        View.Input input = new View.Input();
         String msg = "            JOB APPLICATION           \n"
                 + "--------------------------------------------\n"
                 + "               JOB DETAILS \n"
@@ -75,7 +75,7 @@ public class JobApplicationUI {
 
     public static int chooseJobApplication(int max)
     {
-        Input input = new Input();
+        View.Input input = new View.Input();
         int chosenJobApp = input.acceptInt("Please enter the job number you wish to revoke your application.\nAlternatively, press 0 to go back.", 0, max);
         return chosenJobApp;
     }
@@ -92,7 +92,7 @@ public class JobApplicationUI {
 
     public static int viewJobApplicationJobSeeker(ArrayList<Model.JobApplication> ja)
     {
-        Input input = new Input();
+        View.Input input = new View.Input();
         String jobAppMsg = "";
         for (int i = 0; i < ja.size(); i++)
         {
@@ -114,7 +114,7 @@ public class JobApplicationUI {
 
     public static int viewJobApplicationRecruiter(Model.JobSeeker js, Model.JobListing jl)
     {
-        Input input = new Input();
+        View.Input input = new View.Input();
         String msg = "-------------------------------------\n"
                 + "       JOB APPLICATION SUBMITTED FOR JOB ID " +  jl.getJobId() + " TITLE " + jl.getJobTitle()  + "     \n"
                 + "------------------------------------\n"
@@ -135,7 +135,7 @@ public class JobApplicationUI {
 
     public static int viewJobApplicationRecruiterScreen()
     {
-        Input input = new Input();
+        View.Input input = new View.Input();
         String msg = "-------------------------------------\n"
                 + "       JOB APPLICATIONS SUBMITTED        \n"
                 + "------------------------------------\n"
@@ -147,7 +147,7 @@ public class JobApplicationUI {
 
     public static int viewJobApplicationRecruiterSpecificScreen(int max)
     {
-        Input input = new Input();
+        View.Input input = new View.Input();
         String msg = "-------------------------------------\n"
                 + "       JOB APPLICATIONS SUBMITTED        \n"
                 + "------------------------------------\n"

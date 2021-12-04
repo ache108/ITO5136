@@ -14,6 +14,7 @@ public class JSS
     public static final String JSSJOBLIST = "Files/jobListings.txt";
     public static final String JSSJOBCATEGORY = "Files/jobCategories.txt";
     public static final String JOBAPPLICATIONS = "Files/jobApplications.txt";
+    public static final String JOBINTERVIEWS = "Files/jobInterviews.txt";
 
 
     public static void main(String[] args) throws IOException, ParseException {
