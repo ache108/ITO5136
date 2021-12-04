@@ -27,7 +27,7 @@ public class CompanyCtrl {
         Control.FileIO file = new Control.FileIO(Control.JSS.RCCOMPDETAILS);
         String[] numCompanies = file.readFile("\n").split("\n");
 
-        for (int i = 0; i< numCompanies.length; i--)
+        for (int i = 0; i < numCompanies.length; i++)
         {
             String[] details = numCompanies[i].split(",");
             if (details[0].equals(rcID)) //(get company location for the recruiter only)

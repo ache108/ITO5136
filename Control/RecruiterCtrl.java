@@ -46,6 +46,7 @@ public class RecruiterCtrl {
                 jlc.linkJobApp(jlc.filterRCJob(jlc.parseFromCSV(), LogInCtrl.getRcUsername()));
             case 5:
                 //link to view interview offers
+                Control.InterviewCtrl.viewRecruiterInterviews();
                 break;
             case 0:
                 //logging out

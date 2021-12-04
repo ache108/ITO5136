@@ -138,6 +138,7 @@ public class JobSeekerCtrl {
                 break;
             case 3:
                 //link to view interview
+                Control.InterviewCtrl.viewJobSeekerInterviews();
                 break;
             case 4:
                 //link to view applications

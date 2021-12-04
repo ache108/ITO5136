@@ -430,7 +430,7 @@ public class JobListingCtrl {
                 Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
-                JobSeekerCtrl.runJSHome();
+                Control.JobSeekerCtrl.runJSHome();
         }
     }
 

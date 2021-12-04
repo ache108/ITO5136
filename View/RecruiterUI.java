@@ -116,6 +116,6 @@ public class RecruiterUI extends View.UserUI
                 + "Press 4 to view applications\n"
                 + "Press 5 to view interview offers\n"
                 + "Press 0 to log out";
-        return input.acceptInt(msg, 0, 4);
+        return input.acceptInt(msg, 0, 5);
     }
 }
