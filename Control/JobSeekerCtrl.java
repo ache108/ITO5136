@@ -133,8 +133,9 @@ public class JobSeekerCtrl {
                 searchJob();
                 break;
             case 2:
-                //link to view profile
+                //link to view and edit profile
                 js.displayJSDetails();
+                Control.JobSeekerCtrl.editJSOptions();
                 break;
             case 3:
                 //link to view interview

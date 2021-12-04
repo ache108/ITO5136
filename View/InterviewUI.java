@@ -27,7 +27,7 @@ public class InterviewUI {
     public static Date createNewInterview()
     {
         View.Input userInput = new View.Input();
-        return userInput.acceptDateTime("Please enter the date in the format dd/mm/yyyy hh:mm you want to schedule the interview for.");
+        return userInput.acceptDateTime("Please enter the date in the format dd-mm-yyyy hh:mm am/pm you want to schedule the interview for.");
     }
 
     public static int rejectInterviewScreen()

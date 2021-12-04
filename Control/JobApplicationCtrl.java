@@ -58,6 +58,7 @@ public class JobApplicationCtrl {
             case 2:
                 // return user to profile page so the user can edit their information
                 View.JobSeekerUI.displayJSDetails();
+                Control.JobSeekerCtrl.editJSOptions();
                 break;
         }
     }
