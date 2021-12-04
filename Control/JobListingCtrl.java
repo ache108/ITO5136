@@ -1,11 +1,11 @@
 package Control;
 
-import Model.JobSeeker;
 import Model.JobListing;
+import Model.User;
 import View.Input;
 import View.JobListingUI;
 import View.JobSeekerUI;
-import Control.MatchingCtrl;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -299,18 +299,22 @@ public class JobListingCtrl {
                 break;
             case 2:
                 //invite candidates
-                MatchingCtrl mc = new MatchingCtrl();
+                Control.MatchingCtrl mc = new Control.MatchingCtrl();
                 ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
                 int usrIn = jlu.selectJobSeeker(js);
                 if(usrIn == 0)
                     manageJobListing(jl);
                 else
-                    //DIRECT TO JOB SEEKER PROFILE
+                    Control.InterviewCtrl.viewRecruiterInterviews();
                 break;
             case 3:
                 //delete job listing
                 removeOldJob(jl);
                 viewJLFromRC();
+                break;
+            default:
+                System.out.println("Please enter a valid input");
+                manageJobListing(jl);
                 break;
             case 0:
                 //go back
@@ -387,7 +391,7 @@ public class JobListingCtrl {
                 Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
-                JobSeekerCtrl.runJSHome();
+                Control.JobSeekerCtrl.runJSHome();
         }
     }
 

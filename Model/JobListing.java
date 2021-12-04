@@ -110,7 +110,7 @@ public class JobListing {
     //Displays the details of the job
     public void displayJobDetails()
     {
-        SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat dateShortFormat = new SimpleDateFormat("dd-MM-yyyy");
         System.out.println("\nJOB TITLE:            " + jobTitle);
         System.out.println("JOB CATEGORY:         " + jobCategory);
         System.out.println("LOCATION:             " + jobLocation);

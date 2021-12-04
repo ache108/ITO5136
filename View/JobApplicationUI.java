@@ -73,41 +73,31 @@ public class JobApplicationUI {
         return input.acceptInt(msg, 0, 2);
     }
 
-    public static int chooseJobApplication(int max)
-    {
-        View.Input input = new View.Input();
-        int chosenJobApp = input.acceptInt("Please enter the job number you wish to revoke your application.\nAlternatively, press 0 to go back.", 0, max);
-        return chosenJobApp;
-    }
-
     public static void revokeJobApplication(String jobId)
     {
-        String msg = "        REVOKE JOB APPLICATION        \n"
-                + "--------------------------------------------\n"
-                + "Application for Job Id + " + jobId + " has been revoked. \n"
-                + "--------------------------------------------\n";
+        String msg = "-------------------------------------\n"
+                + "       REVOKE JOB APPLICATION        \n"
+                + "------------------------------------\n"
+                + "Application for Job Id: " + jobId + " has been revoked. \n"
+                + "--------------------------------\n";
         System.out.println(msg);
     }
 
-    public static int viewJobApplicationJobSeeker(ArrayList<Model.JobApplication> ja)
+    public static int viewJobApplicationJobSeeker(Model.JobApplication ja)
     {
         View.Input input = new View.Input();
-        String jobAppMsg = "";
-        for (int i = 0; i < ja.size(); i++)
-        {
-            String appMsg = Control.JobApplicationCtrl.displayArrayListJobApplication(ja.get(i));
-            jobAppMsg += appMsg;
-        }
+        String jobAppMsg = Control.JobApplicationCtrl.displayJobApplication(ja);
 
         String msg = "       JOB APPLICATIONS SUBMITTED        \n"
                 + "--------------------------------------------\n"
                 + jobAppMsg
                 + "--------------------------------------------\n"
                 + "Press 1 to Revoke Application\n"
-                + "Press 0 to go back\n"
-                + "--------------------------------------------\n";
+                + "Press 2 to go to next Job Application\n"
+                + "Press 0 to go back to Home page\n"
+                + "--------------------------------\n";
 
-        return input.acceptInt(msg, 0, 1);
+        return input.acceptInt(msg, 0, 2);
     }
 
     public static int viewJobApplicationRecruiter(Model.JobSeeker js, Model.JobListing jl)
@@ -116,13 +106,21 @@ public class JobApplicationUI {
         String msg = "       JOB ID " +  jl.getJobId() + ": " + jl.getJobTitle()  + "     \n"
                 + "--------------------------------------------\n"
                 + "Applicant First Name: " + js.firstName + "\n"
-                + "Applicant Last Name: " + js.lastName + "\n"
-                + "Applicant Skills: " + js.skillsList + "\n"
-                + "Applicant Qualifications: " + "\n"
+                + "Applicant Last Name: " + js.lastName + "\n";
+                msg += "Applicant Skills are: \n";
+
+                for(int j = 0; j < js.getSkillListSize(); j++)
+                {
+                    msg += (j + 1) + ": " + js.getSkillFromList(j) + "\n";
+                }
+                msg += "Applicant Qualifications: " + "\n"
                 + "Applicant Experience: " + "\n"
                 + "Applicant Salary Expectations : " + js.hourlyWageRate + "\n"
                 + "Applicant Matching Score: " + jl.getMatchingScore() + "\n"
                 + "--------------------------------------------\n"
+                + "Press 1 to invite job seeker for an interview\n"
+                + "Press 2 to reject application\n"
+                + "------------------------------------\n"
                 + "Press 1 to invite job seeker for an interview\n"
                 + "Press 2 to reject application\n"
                 + "Press 0 to go to next application \n"
