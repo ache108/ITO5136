@@ -287,7 +287,7 @@ public class JobListingUI {
 
             for(int j = 0; j < js.get(i).getSkillListSize(); j++)
             {
-                msg += (j + 1) + ": " + js.get(i).getSkillFromList(j) + "\n";
+                msg += (j + 1) + ": " + js.get(i).getSkillFromList(j).replace('[', ' ').replace(']', ' ').trim() + "\n";
             }
 
             msg += "--------------------------------------------\n";

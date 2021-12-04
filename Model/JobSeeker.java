@@ -38,8 +38,19 @@ public class JobSeeker extends User {
         System.out.println("Skills List currently includes: ");
         for (String skill : this.skillsList)
         {
-            System.out.println(skill);
+            System.out.println(skill.replace('[', ' ').replace(']', ' ').trim());
         }
+    }
+
+    public void displayJobSeeker()
+    {
+        System.out.println("Username: " + getUserName());
+        System.out.println("Email: " + getUserEmail());
+        System.out.println("First name: " + getFirstName());
+        System.out.println("Last name: " + getLastName());
+        System.out.println("City: " + getCity());
+        System.out.println("State: " + getState());
+        System.out.println("Residency: " + getResidency());
     }
 
     public double getHourlyWageRate()
