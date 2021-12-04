@@ -1,8 +1,10 @@
 package Control;
 
 import Model.JobListing;
+import Model.JobSeeker;
 import Model.User;
 import View.Input;
+import View.InterviewUI;
 import View.JobListingUI;
 import View.JobSeekerUI;
 
@@ -24,7 +26,7 @@ public class JobListingCtrl {
     {
         try
         {
-            this.jobList = parseFromCSV();
+            this.jobList = parseFromTXT();
         }
         catch(Exception e)
         {
@@ -275,6 +277,24 @@ public class JobListingCtrl {
         }
     }
 
+    //Option to invite candidate for interview after viewing profile
+    public void interviewCandidate(Model.JobListing jl, Model.JobSeeker jobSeeker) throws IOException, ParseException {
+
+        int optInterview = View.InterviewUI.optionInterview();
+        switch (optInterview)
+        {
+            case 1:
+                //Offer interview
+                Control.InterviewCtrl.createNewInterviewWithoutApplication(jobSeeker, jl);
+                viewJLFromRC();
+                break;
+            case 0:
+                //go back
+                presentCandidates(jl);
+                break;
+        }
+    }
+
     //Method to link jl to job app
     public void linkJobApp(ArrayList<Model.JobListing> jobList) throws IOException, ParseException {
         JobApplicationCtrl jac = new JobApplicationCtrl();
@@ -299,14 +319,7 @@ public class JobListingCtrl {
                 break;
             case 2:
                 //invite candidates
-                Control.MatchingCtrl mc = new Control.MatchingCtrl();
-                ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
-                int usrIn = jlu.selectJobSeeker(js);
-                if(usrIn == 0)
-                    manageJobListing(jl);
-                else
-                    Control.InterviewCtrl.createNewInterviewWithoutApplication(js.get(usrIn), jl);
-                    viewJLFromRC();
+                interviewCandidate(jl, presentCandidates(jl));
                 break;
             case 3:
                 //delete job listing
@@ -397,7 +410,7 @@ public class JobListingCtrl {
     }
 
     //Convert CSV to Array List of JL objects and return this Array List.
-    public ArrayList<JobListing> parseFromCSV()
+    public ArrayList<JobListing> parseFromTXT()
             throws IOException, FileNotFoundException, ParseException
     {
         FileIO file = new FileIO(Control.JSS.JSSJOBLIST);
@@ -431,6 +444,25 @@ public class JobListingCtrl {
         }
 
         return jobList;
+    }
+
+    //Presents all the candidates ranked by matching score.
+    public Model.JobSeeker presentCandidates(Model.JobListing jl) throws IOException, ParseException {
+        JobListingUI jlu = new JobListingUI();
+        Control.MatchingCtrl mc = new Control.MatchingCtrl();
+        Model.JobSeeker jobSeeker = new JobSeeker();
+        JobSeekerUI jsu = new View.JobSeekerUI();
+        ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
+        int usrIn = jlu.selectJobSeeker(js);
+        if(usrIn == 0)
+            manageJobListing(jl);
+        else
+            System.out.println("         VIEW CANDIDATE " + usrIn + "\n"
+                    + "--------------------------------------------");
+        jobSeeker = Control.JobSeekerCtrl.getJobSeeker(js.get(usrIn - 1).getUserName());
+        jobSeeker.displayJobSeeker();
+        jobSeeker.displayAllSkills();
+        return jobSeeker;
     }
 
     //Take ArrayList and print out abbreviated job list
@@ -582,7 +614,7 @@ public class JobListingCtrl {
     public ArrayList<Model.JobListing> viewJLFromJS()
             throws IOException, ParseException
     {
-        parseFromCSV();
+        parseFromTXT();
         View.JobSeekerUI jsu = new JobSeekerUI();
         req = jsu.inputSearchKeywords();
         ArrayList<Model.JobListing> searchResults = matchJobs(jobList, req);
@@ -597,7 +629,7 @@ public class JobListingCtrl {
     public void viewJLFromRC()
             throws IOException, ParseException
     {
-        printJobList(filterRCJob(parseFromCSV(), LogInCtrl.getRcUsername()));
+        printJobList(filterRCJob(parseFromTXT(), LogInCtrl.getRcUsername()));
         int num = viewJobListing(jobList, View.JobListingUI.chooseJobListing(jobList.size()));
         manageJobListing(jobList.get(num - 1));
     }

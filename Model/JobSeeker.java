@@ -44,13 +44,13 @@ public class JobSeeker extends User {
 
     public void displayJobSeeker()
     {
-        System.out.println("Username: " + getUserName());
-        System.out.println("Email: " + getUserEmail());
-        System.out.println("First name: " + getFirstName());
-        System.out.println("Last name: " + getLastName());
-        System.out.println("City: " + getCity());
-        System.out.println("State: " + getState());
-        System.out.println("Residency: " + getResidency());
+        System.out.println("Username:      " + getUserName());
+        System.out.println("Email:         " + getUserEmail());
+        System.out.println("First name:    " + getFirstName());
+        System.out.println("Last name:     " + getLastName());
+        System.out.println("City:          " + getCity());
+        System.out.println("State:         " + getState());
+        System.out.println("Residency:     " + getResidency());
     }
 
     public double getHourlyWageRate()
