@@ -238,7 +238,6 @@ public class JobListingCtrl {
     {
         for (int i = 0; i < jobList.size(); i++)
         {
-            //System.out.println("THIS JOB MATCHING SCORE IS " + jobList.get(i).getMatchingScore());
             if (jobList.get(i).getMatchingScore() < 1)
             {
                 jobList.remove(jobList.get(i));
@@ -290,7 +289,7 @@ public class JobListingCtrl {
         JobListingUI jlu = new JobListingUI();
         System.out.println("\n             MANAGE JOB LISTING\n"
             + "--------------------------------------------");
-        jl.displayJobDetails();
+        //jl.displayJobDetails();
         int choice = JobListingUI.manageJobOptions();
         switch (choice)
         {
@@ -306,7 +305,7 @@ public class JobListingCtrl {
                 if(usrIn == 0)
                     manageJobListing(jl);
                 else
-                    System.out.println(usrIn);
+                    //DIRECT TO JOB SEEKER PROFILE
                 break;
             case 3:
                 //delete job listing
@@ -361,16 +360,11 @@ public class JobListingCtrl {
                         String skill1 = list2.get(j).replace('[', ' ').replace(']', ' ').trim();
                         String skill2 = list1.get(k).replace('[', ' ').replace(']', ' ').trim();
 
-                        //System.out.println("Comparing " + skill1 + " and " + skill2);
-
                         if(mc.isMatch(skill1, skill2)) {
-                            //System.out.println("Updating score!");
                             updatedJobList.get(i).incrementMatchingScore(1);
                         }
                     }
                 }
-
-
 
         }
 
@@ -634,6 +628,7 @@ public class JobListingCtrl {
             System.out.println("\n             VIEW JOB DETAILS            \n"
                     + "--------------------------------------------");
             jobList.get(jobNo - 1).displayJobDetails();
+            jobList.get(jobNo - 1).displayMatchingScore();
             System.out.println("--------------------------------------------");
         }
 

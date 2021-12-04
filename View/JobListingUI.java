@@ -224,7 +224,7 @@ public class JobListingUI {
                 + "Press 3 to delete job listing\n"
                 + "Press 0 to go back\n"
                 + "--------------------------------------------\n";
-        return input.acceptInt(msg, 0, 4);
+        return input.acceptInt(msg, 0, 3);
     }
 
     //Prints the options for editing a specific skill from a job listing
@@ -277,7 +277,8 @@ public class JobListingUI {
     public int selectJobSeeker(ArrayList<JobSeeker> js)
     {
         Input input = new Input();
-        String msg = "-----------------------------------------\n";
+        System.out.println("\n           FIND CANDIDATES");
+        String msg = "--------------------------------------------\n";
         for(int i = 0; i < js.size(); i++)
         {
             msg += "Job Seeker " + (i + 1) + ":\n";
@@ -289,7 +290,7 @@ public class JobListingUI {
                 msg += (j + 1) + ": " + js.get(i).getSkillFromList(j) + "\n";
             }
 
-            msg += "-----------------------------------------\n";
+            msg += "--------------------------------------------\n";
         }
         msg += "Please enter the job seeker number to view the job seeker.\n";
         msg += "Alternatively, press 0 to go back.";
