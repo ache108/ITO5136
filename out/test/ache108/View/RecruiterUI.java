@@ -86,10 +86,10 @@ public class RecruiterUI extends View.UserUI
                 System.out.println("Company Description:    " + details[5]);
             }
         }
-        editCompanyListing();
+        Control.CompanyCtrl.editCompanyListing();
     }
 
-    public static void editCompanyListing() throws IOException, ParseException {
+    /*public static void editCompanyListing() throws IOException, ParseException {
 
         View.Input input = new View.Input();
         String rcID = Control.LogInCtrl.getRcUsername();
@@ -194,7 +194,7 @@ public class RecruiterUI extends View.UserUI
             }
         }
 
-    }
+    }*/
 
     public static int editCompanyOptions()
     {
