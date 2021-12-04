@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class JobSeekerUI extends View.UserUI
 {
-    private static ArrayList<String> newList;
+    /*private static ArrayList<String> newList;
     private static int count;
     private static int max;
 
@@ -32,7 +32,7 @@ public class JobSeekerUI extends View.UserUI
     public void setNewList(ArrayList<String> newList)
     {
         newList = this.newList;
-    }
+    }*/
 
     public static void jobSeekerInputs(String userName)
             throws IOException
@@ -123,10 +123,10 @@ public class JobSeekerUI extends View.UserUI
                     System.out.println("Desired Yearly Wage:  " + details[8]);
                     System.out.println("Work Type:            " + details[9]);
                     System.out.println("Work Residency:       " + details[10]);
-                    displaySkills2();
+                    Control.JobSeekerCtrl.displaySkills2();
                 }
             }
-            editJSOptions();
+            Control.JobSeekerCtrl.editJSOptions();
     }
 
     public static int editJSOptionsDisplay()
@@ -149,7 +149,7 @@ public class JobSeekerUI extends View.UserUI
         return input.acceptInt(msg, 0, 11);
     }
 
-    public static void editJSOptions()
+    /*public static void editJSOptions()
             throws IOException, FileNotFoundException, ParseException
     {
         View.Input input = new View.Input();
@@ -483,7 +483,7 @@ public class JobSeekerUI extends View.UserUI
             }
         }
 
-    }
+    }*/
 
     public static int displayJSHome()
     {
