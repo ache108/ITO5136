@@ -1,10 +1,9 @@
 package Control;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.io.*;
-import Control.FileIO;
+
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -98,7 +97,7 @@ public class UserCntrl
         }
 
         boolean pubProfile = Boolean.parseBoolean(profilePublic);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         Date userDob = dateFormat.parse(dob);
 
         Model.User curUser = new Model.User (userName, email, fName, lName, city, state, userDob, pubProfile);

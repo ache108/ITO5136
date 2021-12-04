@@ -1,11 +1,9 @@
 package Control;
 
-import Model.JobSeeker;
 import Model.JobListing;
 import View.Input;
 import View.JobListingUI;
 import View.JobSeekerUI;
-import Control.MatchingCtrl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -298,13 +296,15 @@ public class JobListingCtrl {
                 break;
             case 2:
                 //invite candidates
-                MatchingCtrl mc = new MatchingCtrl();
+                Control.MatchingCtrl mc = new Control.MatchingCtrl();
                 ArrayList<Model.JobSeeker> js = mc.matchJobSeekers(jl);
                 int usrIn = jlu.selectJobSeeker(js);
                 if(usrIn == 0)
                     manageJobListing(jl);
                 else
                     System.out.println(usrIn);
+                //View.JobSeekerUI.displaySkills2();
+                manageJobListing(jl);
                 break;
             case 3:
                 //delete job listing

@@ -2,6 +2,8 @@ package Control;
 
 import Model.JobListing;
 import Model.JobSeeker;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.io.*;
 import Control.JSS;
@@ -19,6 +21,7 @@ public class MatchingCtrl
     }
 
     public ArrayList<JobSeeker> matchJobSeekers(JobListing job)
+            throws IOException, FileNotFoundException, ParseException
     {
         ArrayList<JobSeeker> js = parseJobSeekers();
 
@@ -56,11 +59,23 @@ public class MatchingCtrl
     }
 
     public ArrayList<JobSeeker> parseJobSeekers()
+            throws IOException, FileNotFoundException, ParseException
     {
         FileIO file = new FileIO(JSS.JSDETAILS);
         ArrayList<JobSeeker> users = new ArrayList<>();
 
-        try
+        String[] lines = file.readFile("\n").split("\n");
+
+        for (int i = 0; i < lines.length; i++)
+        {
+            String[] line = lines[i].split(";");
+            if (line[7].equals("true"))
+            {
+                users.add(Control.JobSeekerCtrl.getJobSeeker(line[0]));
+            }
+        }
+
+        /*try
         {
             String[] lines = file.readFile("\n").split("\n");
 
@@ -74,7 +89,7 @@ public class MatchingCtrl
         catch(Exception e)
         {
             System.out.println("There was a problem reading the user details file.");
-        }
+        }*/
 
         return users;
     }
