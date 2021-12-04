@@ -304,7 +304,7 @@ public class JobListingCtrl {
                 if(usrIn == 0)
                     manageJobListing(jl);
                 else
-                    //System.out.println(usrIn);
+                    Control.InterviewCtrl.viewRecruiterInterviews();
                 break;
             case 3:
                 //delete job listing

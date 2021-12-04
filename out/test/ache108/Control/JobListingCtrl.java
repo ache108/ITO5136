@@ -304,7 +304,7 @@ public class JobListingCtrl {
                 if(usrIn == 0)
                     manageJobListing(jl);
                 else
-                    System.out.println(usrIn);
+                    Control.InterviewCtrl.viewRecruiterInterviews();
                 break;
             case 3:
                 //delete job listing
@@ -430,7 +430,7 @@ public class JobListingCtrl {
                 Control.JobApplicationCtrl.applyForJob(jl);
             case 0:
                 //go back
-                JobSeekerCtrl.runJSHome();
+                Control.JobSeekerCtrl.runJSHome();
         }
     }
 

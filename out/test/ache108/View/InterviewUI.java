@@ -9,6 +9,21 @@ import java.util.Date;
 
 
 public class InterviewUI {
+
+    public static int acceptInterviewScreen()
+    {
+        View.Input userInput = new View.Input();
+        String msg = "-------------------------------------\n"
+                + "       JOB INTERVIEW        \n"
+                + "------------------------------------\n"
+                + "Interview has been accepted. \n"
+                + "          GOOD LUCK !!       \n"
+                + "------------------------------------\n"
+                + "Press 0 to continue\n"
+                + "--------------------------------\n";
+        return userInput.acceptInt(msg, 0, 0);
+    }
+
     public static Date createNewInterview()
     {
         View.Input userInput = new View.Input();
@@ -21,40 +36,46 @@ public class InterviewUI {
         String msg = "-------------------------------------\n"
                 + "       JOB INTERVIEW        \n"
                 + "------------------------------------\n"
-                + "Interview for .... has been rejected. "
+                + "Interview has been rejected. "
                 + "------------------------------------\n"
                 + "Press 0 to continue\n"
                 + "--------------------------------\n";
         return userInput.acceptInt(msg, 0, 0);
     }
 
-    public static int viewInterviewDetailsJS()
+    public static int viewInterviewDetailsJS(Model.Interview intvw)
     {
         View.Input userInput = new View.Input();
         String msg = "-------------------------------------\n"
-                + "       JOB INTERVIEW INVITATION FOR JOB ID .....       \n"
+                + "       JOB INTERVIEW INVITATION FOR JOB ID " + intvw.getInterviewJobId() +" \n"
                 + "------------------------------------\n"
-                + "INTERVIEW DETAILS"
+                + "Interview Date :  " + intvw.getInterviewDate() +" \n"
+                + "Interview Location :  " + intvw.getInterviewLocation() +" \n"
+                + "Interview Response Date :  " + intvw.getInterviewInviteResponseDate() +" \n"
+                + "Interview Status: " + intvw.getInterviewStatus() + " \n"
                 + "------------------------------------\n"
                 + "Press 1 to accept the interview \n"
-                + "Press 0 to continue to next interview or return home\n"
-                + "Press 2 to propose a new date or time \n"
-                + "Press 3 to reject decline \n"
+                + "Press 2 to reject the interview \n"
+                + "Press 3 to continue \n"
+                + "Press 0 to return home\n"
                 + "--------------------------------\n";
         return userInput.acceptInt(msg, 0, 3);
     }
 
-    public static int viewInterviewDetailsRC()
+    public static int viewInterviewInvitationsRC(Model.Interview intvw)
     {
         View.Input userInput = new View.Input();
         String msg = "-------------------------------------\n"
-                + "       JOB INTERVIEW INVITATIONS        \n"
+                + "       JOB INTERVIEW INVITATION FOR JOB ID " + intvw.getInterviewJobId() +" \n"
                 + "------------------------------------\n"
-                +"Interview details"
+                + "Interview Date :  " + intvw.getInterviewDate() +" \n"
+                + "Interview Location :  " + intvw.getInterviewLocation() +" \n"
+                + "Interview Response Date :  " + intvw.getInterviewInviteResponseDate() +" \n"
+                + "Interview Status: " + intvw.getInterviewStatus() + " \n"
                 + "------------------------------------\n"
                 + "Press 0 to go back\n"
-                + "Press 1 to propose a new date or time \n"
+                + "Press 1 to continue \n"
                 + "--------------------------------\n";
-        return userInput.acceptInt(msg, 0, 2);
+        return userInput.acceptInt(msg, 0, 1);
     }
 }

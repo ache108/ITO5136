@@ -138,6 +138,7 @@ public class JobSeekerCtrl {
                 break;
             case 3:
                 //link to view interview
+                Control.InterviewCtrl.viewJobSeekerInterviews();
                 break;
             case 4:
                 //link to view applications
@@ -369,27 +370,7 @@ public class JobSeekerCtrl {
             {
                 String[] skill = details[details.length - 1].split(",");
                 StringBuilder sb = new StringBuilder(skill[0]);
-                if (newList.size() > 0)
-                {
-                    boolean char0check = false;
-                    boolean characheck = false;
-                    while (char0check == false) {
-                        if (sb.charAt(0) == '[')  // [ check
-                        {
-                            sb.deleteCharAt(0);
-                        } else {
-                            char0check = true;
-                        }
-                    }
-                    while (characheck == false) {
-                        if (sb.charAt(sb.length() - 1) == ']') // ] check
-                        {
-                            sb.deleteCharAt(sb.length() - 1);
-                        } else {
-                            characheck = true;
-                        }
-                    }
-                }
+                sb.deleteCharAt(0);
                 newList.add(sb.toString().trim());
                 newList.set(0, sb.toString());
                 for (int j = 1; j < skill.length - 1; j++)

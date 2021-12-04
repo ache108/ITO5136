@@ -62,7 +62,7 @@ public class JobApplicationCtrl {
         }
     }
 
-    public static String displayArrayListJobApplication(Model.JobApplication ja)
+    public static String displayJobApplication(Model.JobApplication ja)
     {
         String msg = "Job Id:  " + ja.getJobApplicationJobId() + " was submitted on " + ja.getJobApplicationAppDate() + " and has a status of " + ja.getJobApplicationStatus() + ".\n";
         return msg;
@@ -122,7 +122,7 @@ public class JobApplicationCtrl {
         String[] list = file.readFile("\n").split("\n");
 
         String id = ja.getJobApplicationJobId();
-        String userName = ja.getRecruiterUserName();
+        String userName = ja.getJobApplicationJSUserName();
 
         for (int i = 0; i < list.length; i++)
         {
@@ -136,27 +136,16 @@ public class JobApplicationCtrl {
         }
     }
 
-    public static void revokeApplicationScreen(ArrayList<Model.JobApplication> ja)
+    public static void revokeApplicationScreen(Model.JobApplication ja)
             throws IOException, ParseException
     {
-        int jobAppSize = ja.size();
-        int jobNum = 0;
-        String jobId = "";
+        String jobId = ja.getJobApplicationJobId();
+        removeOldJobAppFromFile(ja);
+        setJobApplicationToInactive(ja);
+        String fileInfo = writeInfoAsString(ja);
+        writeJobApplicationToFile(fileInfo);
+        View.JobApplicationUI.revokeJobApplication(jobId);
 
-        jobNum = View.JobApplicationUI.chooseJobApplication(99);
-        jobId = String.valueOf(jobNum);
-        for (int i = 0; i < jobAppSize; i++)
-        {
-            Model.JobApplication jobApp = ja.get(i);
-            if (jobApp.getJobApplicationJobId().equals(jobId))
-                // remove old entry from file, update Active to False and resave
-                removeOldJobAppFromFile(jobApp);
-                setJobApplicationToInactive(jobApp);
-                View.JobApplicationUI.revokeJobApplication(jobId);
-                String fileInfo = writeInfoAsString(jobApp);
-                writeJobApplicationToFile(fileInfo);
-        }
-        Control.JobSeekerCtrl.runJSHome();
     }
 
     public static void setJobApplicationToInactive(Model.JobApplication ja)
@@ -172,21 +161,30 @@ public class JobApplicationCtrl {
         String userType = "JS";
         int userResponse = 0;
         ArrayList<Model.JobApplication> ja = parseJobApplicationTextFile(userType);
-        if (ja.size() > 0) {
-            userResponse = View.JobApplicationUI.viewJobApplicationJobSeeker(ja);
-            switch (userResponse) {
-                case 1:
-                    // revoke application
-                    revokeApplicationScreen(ja);
-                case 0:
-                    // go back
-                    Control.JobSeekerCtrl.runJSHome();
+        int jaSize = ja.size();
+        if (jaSize > 0) {
+            // loop through each application and offer option to revoke
+            for (int i = 0; i < jaSize; i++) {
+                Model.JobApplication j = ja.get(i);
+                userResponse = View.JobApplicationUI.viewJobApplicationJobSeeker(j);
+                switch (userResponse) {
+                    case 1:
+                        // revoke application
+                        revokeApplicationScreen(j);
+                        continue;
+                    case 2:
+                        // move to next application
+                        continue;
+                    case 0:
+                        // go back
+                        Control.JobSeekerCtrl.runJSHome();
+                }
             }
         }
         else {
             System.out.println("No Job Applications found!");
-            Control.JobSeekerCtrl.runJSHome();
         }
+        Control.JobSeekerCtrl.runJSHome();
     }
 
     /*public static void viewRCApplication()
@@ -238,6 +236,7 @@ public class JobApplicationCtrl {
                             setJobApplicationStatus(ja, "accepted");
                             fileInfo = writeInfoAsString(ja);
                             writeJobApplicationToFile(fileInfo);
+                            Control.InterviewCtrl.createNewInterview(ja);
                             continue;
                         case 2:
                             removeOldJobAppFromFile(ja);
