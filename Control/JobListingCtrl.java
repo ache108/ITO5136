@@ -311,6 +311,10 @@ public class JobListingCtrl {
                 removeOldJob(jl);
                 viewJLFromRC();
                 break;
+            default:
+                System.out.println("Please enter a valid input");
+                manageJobListing(jl);
+                break;
             case 0:
                 //go back
                 viewJLFromRC();

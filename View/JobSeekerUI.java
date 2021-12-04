@@ -366,7 +366,7 @@ public class JobSeekerUI extends View.UserUI
                             boolean char0check = false;
                             boolean characheck = false;
                             while (char0check == false) {
-                                if (sb.charAt(0) == 91)  // [ check
+                                if (sb.charAt(0) == '[')  // [ check
                                 {
                                     sb.deleteCharAt(0);
                                 } else {
@@ -374,7 +374,7 @@ public class JobSeekerUI extends View.UserUI
                                 }
                             }
                             while (characheck == false) {
-                                if (sb.charAt(sb.length() - 1) == 93) // ] check
+                                if (sb.charAt(sb.length() - 1) == ']') // ] check
                                 {
                                     sb.deleteCharAt(sb.length() - 1);
                                 } else {
