@@ -51,10 +51,10 @@ public class JobSeekerUI extends View.UserUI
         ArrayList <String> iptSkills = new ArrayList<String>();
         Input input = new Input();
         do {
-            String iptSkill = input.acceptString("Please enter a skill to add to your profile.");
+            String iptSkill = input.acceptString("Please enter skills, experience or qualifications to add to your profile.");
             iptSkills.add(iptSkill);
             // add another skill?
-            char userRepsonse = input.acceptChar("To add another skill please enter y. \nTo complete the list please enter n");
+            char userRepsonse = input.acceptChar("To add another skill, experience or qualification please enter y. \nTo complete the list please enter n");
             do {
                 if (userRepsonse == 'y') {
                     addAnotherSkill = true;
@@ -106,7 +106,6 @@ public class JobSeekerUI extends View.UserUI
                     Control.JobSeekerCtrl.displaySkills2();
                 }
             }
-            Control.JobSeekerCtrl.editJSOptions();
     }
 
     public static int editJSOptionsDisplay()
