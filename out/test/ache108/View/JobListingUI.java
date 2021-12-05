@@ -193,11 +193,11 @@ public class JobListingUI {
         ArrayList <String> iptSkills = new ArrayList<String>();
         Input input = new Input();
         do {
-            String iptSkill = input.acceptString("\nPlease enter a skill the job requires:");
-            iptSkills.add(iptSkill);
-            // add another skill?
-            char userRepsonse = input.acceptChar("To add another skill please enter y. \nTo complete the list please enter n");
             do {
+                String iptSkill = input.acceptString("\nPlease enter a skill the job requires:");
+                iptSkills.add(iptSkill);
+                // add another skill?
+                char userRepsonse = input.acceptChar("To add another skill please enter y. \nTo complete the list please enter n");
                 if (userRepsonse == 'y') {
                     addAnotherSkill = true;
                     charInputCheck = false;
@@ -277,7 +277,8 @@ public class JobListingUI {
     public int selectJobSeeker(ArrayList<JobSeeker> js)
     {
         Input input = new Input();
-        String msg = "-----------------------------------------\n";
+        System.out.println("\n           FIND CANDIDATES");
+        String msg = "--------------------------------------------\n";
         for(int i = 0; i < js.size(); i++)
         {
             msg += "Job Seeker " + (i + 1) + ":\n";
@@ -286,10 +287,10 @@ public class JobListingUI {
 
             for(int j = 0; j < js.get(i).getSkillListSize(); j++)
             {
-                msg += (j + 1) + ": " + js.get(i).getSkillFromList(j) + "\n";
+                msg += (j + 1) + ": " + js.get(i).getSkillFromList(j).replace('[', ' ').replace(']', ' ').trim() + "\n";
             }
 
-            msg += "-----------------------------------------\n";
+            msg += "--------------------------------------------\n";
         }
         msg += "Please enter the job seeker number to view the job seeker.\n";
         msg += "Alternatively, press 0 to go back.";

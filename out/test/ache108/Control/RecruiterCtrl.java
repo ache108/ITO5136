@@ -43,7 +43,7 @@ public class RecruiterCtrl {
                 break;
             case 4:
                 //link to view applications
-                jlc.linkJobApp(jlc.filterRCJob(jlc.parseFromCSV(), LogInCtrl.getRcUsername()));
+                jlc.linkJobApp(jlc.filterRCJob(jlc.parseFromTXT(), LogInCtrl.getRcUsername()));
             case 5:
                 //link to view interview offers
                 Control.InterviewCtrl.viewRecruiterInterviews();

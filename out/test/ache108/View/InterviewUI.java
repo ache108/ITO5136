@@ -27,7 +27,18 @@ public class InterviewUI {
     public static Date createNewInterview()
     {
         View.Input userInput = new View.Input();
-        return userInput.acceptDateTime("Please enter the date in the format dd/mm/yyyy hh:mm you want to schedule the interview for.");
+        return userInput.acceptDateTime("Please enter the date in the format dd-mm-yyyy hh:mm am/pm you want to schedule the interview for.");
+    }
+
+    public static int optionInterview() {
+        View.Input userInput = new View.Input();
+        String msg = "             INTERVIEW        \n"
+                + "-------------------------------------\n"
+                + "Press 1 to offer interview\n"
+                + "Press 0 to go back\n"
+                + "-------------------------------------\n";
+        return userInput.acceptInt(msg, 0, 1);
+
     }
 
     public static int rejectInterviewScreen()

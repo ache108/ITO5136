@@ -121,6 +121,11 @@ public class JobListing {
         System.out.println();
         System.out.println("DESCRIPTION:\n" + jobDescription + "\n");
         System.out.println("APPLICATION DEADLINE: " + dateShortFormat.format(appDeadline) + "\n");
+        //System.out.println("MATCHING SCORE:       " + matchingScore);
+    }
+
+    public void displayMatchingScore()
+    {
         System.out.println("MATCHING SCORE:       " + matchingScore);
     }
 
