@@ -321,7 +321,7 @@ public class JobSeekerCtrl {
         }
         for (int i = 0; i < newList.size(); i++)
         {
-            System.out.println(i + 1 + ": " + newList.get(i));
+            System.out.println(i + 1 + ": " + newList.get(i).replace('[', ' ').replace(']', ' ').trim());
         }
     }
 
@@ -343,7 +343,7 @@ public class JobSeekerCtrl {
         {
             for (int i = 0; i <= newList.size() - 1; i++)
             {
-                System.out.print(newList.get(i));
+                System.out.print(newList.get(i).replace('[', ' ').replace(']', ' ').trim());
                 if (i != newList.size() - 1)
                 {
                     System.out.print(", ");

@@ -44,7 +44,7 @@ public class JobApplicationUI {
         String msg = "            JOB APPLICATION           \n"
                 + "--------------------------------------------\n"
                 + "               JOB DETAILS \n"
-                + "----------------------------------------\n"
+                + "--------------------------------------------\n"
                 + "Job ID:                      " + jobId + " \n"
                 + "Job Name:                    " + jobTitle + " \n"
                 + "Job Location:                "  + jobLocation  + " \n"
@@ -57,17 +57,17 @@ public class JobApplicationUI {
                 + "Matching Score:              " + jobMatch  + "\n"
                 + "Recruiter:                   " + jobRC + "\n\n"
                 + "              YOUR DETAILS \n"
-                + "----------------------------------------\n"
+                + "--------------------------------------------\n"
                 + "First Name:            " + firstName + " \n"
                 + "Last Name:             " + lastName + " \n"
                 + "Email:                 " + email + " \n"
                 + "Skills, Experience & Qualifications:                " + Arrays.toString(userSkills.toArray()).replace('[', ' ').replace(']', ' ').trim() + " \n"
                 + "Username:              " + userName  + " \n"
-                + "--------------------------------\n"
+                + "--------------------------------------------\n"
                 + "Press 1 to Submit Application\n"
                 + "Press 0 to go back\n"
                 + "Press 2 to Edit your Profile and update your information\n"
-                + "--------------------------------\n";
+                + "--------------------------------------------\n";
 
         return input.acceptInt(msg, 0, 2);
     }
@@ -87,11 +87,10 @@ public class JobApplicationUI {
         View.Input input = new View.Input();
         String jobAppMsg = Control.JobApplicationCtrl.displayJobApplication(ja);
 
-        String msg = "-------------------------------------\n"
-                + "       JOB APPLICATIONS SUBMITTED        \n"
-                + "------------------------------------\n"
+        String msg = "       JOB APPLICATIONS SUBMITTED        \n"
+                + "--------------------------------------------\n"
                 + jobAppMsg
-                + "------------------------------------\n"
+                + "--------------------------------------------\n"
                 + "Press 1 to Revoke Application\n"
                 + "Press 2 to go to next Job Application\n"
                 + "Press 0 to go back to Home page\n"
@@ -103,9 +102,8 @@ public class JobApplicationUI {
     public static int viewJobApplicationRecruiter(Model.JobSeeker js, Model.JobListing jl)
     {
         View.Input input = new View.Input();
-        String msg = "-------------------------------------\n"
-                + "       JOB APPLICATION SUBMITTED FOR JOB ID " +  jl.getJobId() + " TITLE " + jl.getJobTitle()  + "     \n"
-                + "------------------------------------\n"
+        String msg = "       JOB ID " +  jl.getJobId() + ": " + jl.getJobTitle()  + "     \n"
+                + "--------------------------------------------\n"
                 + "Applicant First Name: " + js.firstName + "\n"
                 + "Applicant Last Name: " + js.lastName + "\n";
                 msg += "Applicant Skills, Experience and qualifications are: \n";
@@ -116,35 +114,36 @@ public class JobApplicationUI {
                 }
                 msg += "Applicant Salary Expectations : " + js.hourlyWageRate + "\n"
                 + "Applicant Matching Score: " + jl.getMatchingScore() + "\n"
+                + "--------------------------------------------\n"
+                + "Press 1 to invite job seeker for an interview\n"
+                + "Press 2 to reject application\n"
                 + "------------------------------------\n"
                 + "Press 1 to invite job seeker for an interview\n"
                 + "Press 2 to reject application\n"
                 + "Press 0 to go to next application \n"
-                + "--------------------------------\n";
+                + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 2);
     }
 
     public static int viewJobApplicationRecruiterScreen()
     {
         View.Input input = new View.Input();
-        String msg = "-------------------------------------\n"
-                + "       JOB APPLICATIONS SUBMITTED        \n"
-                + "------------------------------------\n"
+        String msg = "       JOB APPLICATIONS SUBMITTED        \n"
+                + "--------------------------------------------\n"
                 + "Press 1 to view the applications for a specific Job\n"
                 + "Press 0 to go back\n"
-                + "--------------------------------\n";
+                + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, 2);
     }
 
     public static int viewJobApplicationRecruiterSpecificScreen(int max)
     {
         View.Input input = new View.Input();
-        String msg = "-------------------------------------\n"
-                + "       JOB APPLICATIONS SUBMITTED        \n"
-                + "------------------------------------\n"
+        String msg = "         JOB APPLICATIONS SUBMITTED        \n"
+                + "--------------------------------------------\n"
                 + "Please select the job you want to view applicants for \n"
                 + "Press 0 to go back\n"
-                + "--------------------------------\n";
+                + "--------------------------------------------\n";
         return input.acceptInt(msg, 0, max);
     }
 }
