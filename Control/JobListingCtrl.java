@@ -344,8 +344,8 @@ public class JobListingCtrl {
         Model.JobSeeker js = Control.JobSeekerCtrl.getCurrentJobSeeker();
 
         //Remove all private jobs from joblist first.
-        ArrayList<Model.JobListing> publicJobList = removePrivateJobs(jobList);
-        ArrayList<Model.JobListing> updatedJobList = removeDiffJobTitle(publicJobList, req);
+        ArrayList<Model.JobListing> updatedJobList = removePrivateJobs(jobList);
+        //ArrayList<Model.JobListing> updatedJobList = removeDiffJobTitle(publicJobList, req);
 
         //Hard filter: Remove all jobs that do not contain words from job title search input
         for(int i = 0; i < jobList.size(); i++) {
@@ -354,9 +354,12 @@ public class JobListingCtrl {
 
         //Matching job category, location, hours, and pay with user search criteria
         for (int i = 0; i < updatedJobList.size(); i++) {
-            if(updatedJobList.get(i).getJobCategory().equals(req.getJobCategory())) {
+            if(updatedJobList.get(i).getJobTitle().equals(req.getJobTitle())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
+            /*if(updatedJobList.get(i).getJobCategory().equals(req.getJobCategory())) {
+                updatedJobList.get(i).incrementMatchingScore(1);
+            }*/
             if(mc.isMatch(updatedJobList.get(i).getJobLocation(), req.getJobLocation()) && (!req.getJobLocation().isBlank())) {
                 updatedJobList.get(i).incrementMatchingScore(1);
             }
@@ -526,7 +529,7 @@ public class JobListingCtrl {
         }
 
     }
-
+/*
     //For filtering out job search results in matchJob()
     public ArrayList<Model.JobListing> removeDiffJobTitle(ArrayList<Model.JobListing> jobList, JobListing req)
     {
@@ -540,7 +543,7 @@ public class JobListingCtrl {
             }
         }
         return jobList;
-    }
+    }*/
 
     //For filtering out private jobs in matchJob()
     public ArrayList<Model.JobListing> removePrivateJobs(ArrayList<Model.JobListing> jobList)
